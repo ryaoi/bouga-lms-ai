@@ -44,27 +44,23 @@ const WelcomeView = () => {
 					padding: "0 20px",
 					overflow: "auto",
 				}}>
-				<h2>Hi, I'm Cline</h2>
+				<h2>忘我LMS AI</h2>
 				<div style={{ display: "flex", justifyContent: "center", margin: "20px 0" }}>
 					<ClineLogo />
 				</div>
 				<p>
-					I can do all kinds of tasks thanks to breakthroughs in{" "}
 					<VSCodeLink href="https://www.anthropic.com/claude/sonnet" style={{ display: "inline" }}>
-						Claude 3.7 Sonnet's
+						Claude 3.7 Sonnet
 					</VSCodeLink>
-					agentic coding capabilities and access to tools that let me create & edit files, explore complex projects, use
-					a browser, and execute terminal commands <i>(with your permission, of course)</i>. I can even use MCP to
-					create new tools and extend my own capabilities.
+					のエージェント機能の革新と、ファイルの作成・編集、複雑なプロジェクトの探索、ブラウザの使用、ターミナルコマンドの実行（<i>もちろん、あなたの許可を得た上で</i>）を可能にするツールへのアクセスにより、あなたの学習をサポートする忘我LMSAIです。MCPを使用して新しいツールを作成し、自身の機能を拡張することも可能です。
 				</p>
 
 				<p style={{ color: "var(--vscode-descriptionForeground)" }}>
-					Sign up for an account to get started for free, or use an API key that provides access to models like Claude
-					3.7 Sonnet.
+					始めるにはアカウントにサインアップするか、ログインしてください。
 				</p>
 
 				<VSCodeButton appearance="primary" onClick={handleLogin} style={{ width: "100%", marginTop: 4 }}>
-					Get Started for Free
+					無料で始める
 				</VSCodeButton>
 
 				{!showApiOptions && (
@@ -72,7 +68,7 @@ const WelcomeView = () => {
 						appearance="secondary"
 						onClick={() => setShowApiOptions(!showApiOptions)}
 						style={{ marginTop: 10, width: "100%" }}>
-						Use your own API key
+						自分のAPIキーを使用する
 					</VSCodeButton>
 				)}
 
@@ -81,7 +77,7 @@ const WelcomeView = () => {
 						<div>
 							<ApiOptions showModelOptions={false} />
 							<VSCodeButton onClick={handleSubmit} disabled={disableLetsGoButton} style={{ marginTop: "3px" }}>
-								Let's go!
+								始めましょう！
 							</VSCodeButton>
 						</div>
 					)}
@@ -94,7 +90,7 @@ const WelcomeView = () => {
 const ClineLogo: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
 	// (can't use svgs in vsc extensions)
 	const logoBase64 =
-		"data:image/png;base64,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"
+		"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNTAwIiB6b29tQW5kUGFuPSJtYWduaWZ5IiB2aWV3Qm94PSIwIDAgMzc1IDM3NC45OTk5OTEiIGhlaWdodD0iNTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0IiB2ZXJzaW9uPSIxLjAiPjxyZWN0IHg9Ii0zNy41IiB3aWR0aD0iNDUwIiBmaWxsPSIjZmZmZmZmIiB5PSItMzcuNDk5OTk5IiBoZWlnaHQ9IjQ0OS45OTk5ODkiIGZpbGwtb3BhY2l0eT0iMSIvPjxyZWN0IHg9Ii0zNy41IiB3aWR0aD0iNDUwIiBmaWxsPSIjMDAwMDAwIiB5PSItMzcuNDk5OTk5IiBoZWlnaHQ9IjQ0OS45OTk5ODkiIGZpbGwtb3BhY2l0eT0iMSIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik0gMTc1LjQ4ODI4MSAzMzAuMzUxNTYyIEMgMTg1LjE0ODQzOCAzMjAuNjg3NSAxODUuMTQ4NDM4IDMwNS4wMjM0MzggMTc1LjQ4ODI4MSAyOTUuMzU5Mzc1IEMgMTY1LjgyNDIxOSAyODUuNjk1MzEyIDE1MC4xNTYyNSAyODUuNjk1MzEyIDE0MC40OTYwOTQgMjk1LjM1OTM3NSBDIDEzMC44MzIwMzEgMzA1LjAyMzQzOCAxMzAuODMyMDMxIDMyMC42ODc1IDE0MC40OTYwOTQgMzMwLjM1MTU2MiBDIDE1MC4xNTYyNSAzNDAuMDE1NjI1IDE2NS44MjQyMTkgMzQwLjAxNTYyNSAxNzUuNDg4MjgxIDMzMC4zNTE1NjIgIiBmaWxsLW9wYWNpdHk9IjEiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik0gMTg3LjUgLTAuMDE1NjI1IEMgODMuOTM3NSAtMC4wMTU2MjUgLTAuMDE1NjI1IDgzLjkzNzUgLTAuMDE1NjI1IDE4Ny41IEMgLTAuMDE1NjI1IDE5Mi4wNTQ2ODggMC4xNjAxNTYgMTk2LjU3MDMxMiAwLjQ3NjU2MiAyMDEuMDM5MDYyIEMgNDYuMjMwNDY5IDE1Ny4wOTc2NTYgMTE3LjMyNDIxOSAxNTQuOTk2MDk0IDE2NS40ODA0NjkgMTk0Ljc4MTI1IEwgMjIyLjAxMTcxOSAxMzguMjQ2MDk0IEMgMjEzLjgyNDIxOSAxMjQuMzc4OTA2IDIxNS42ODc1IDEwNi4yMjI2NTYgMjI3LjU5NzY1NiA5NC4zMDQ2ODggQyAyNDEuNzIyNjU2IDgwLjE4NzUgMjY0LjYxMzI4MSA4MC4xODc1IDI3OC43MzQzNzUgOTQuMzA0Njg4IEMgMjkyLjg1OTM3NSAxMDguNDI5Njg4IDI5Mi44NTkzNzUgMTMxLjMyNDIxOSAyNzguNzM0Mzc1IDE0NS40NDUzMTIgQyAyNjYuODI0MjE5IDE1Ny4zNTkzNzUgMjQ4LjY2MDE1NiAxNTkuMjIyNjU2IDIzNC43OTY4NzUgMTUxLjAzMTI1IEwgMTc4LjU1ODU5NCAyMDcuMjY5NTMxIEMgMjIxLjYzMjgxMiAyNTQuNzY5NTMxIDIyMS4zODI4MTIgMzI3LjU0Mjk2OSAxNzcuODQ3NjU2IDM3NC43Njk1MzEgQyAxODEuMDQyOTY5IDM3NC45MzM1OTQgMTg0LjI2MTcxOSAzNzUuMDE1NjI1IDE4Ny41IDM3NS4wMTU2MjUgQyAyOTEuMDYyNSAzNzUuMDE1NjI1IDM3NS4wMTU2MjUgMjkxLjA2MjUgMzc1LjAxNTYyNSAxODcuNSBDIDM3NS4wMTU2MjUgODMuOTM3NSAyOTEuMDYyNSAtMC4wMTU2MjUgMTg3LjUgLTAuMDE1NjI1ICIgZmlsbC1vcGFjaXR5PSIxIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNIDQ2Ljc1NzgxMiAyMDEuNjI1IEMgMzcuMDkzNzUgMjExLjI4OTA2MiAzNy4wOTM3NSAyMjYuOTU3MDMxIDQ2Ljc1NzgxMiAyMzYuNjE3MTg4IEMgNTYuNDIxODc1IDI0Ni4yODEyNSA3Mi4wODU5MzggMjQ2LjI4MTI1IDgxLjc1IDIzNi42MTcxODggQyA5MS40MTQwNjIgMjI2Ljk1NzAzMSA5MS40MTQwNjIgMjExLjI4OTA2MiA4MS43NSAyMDEuNjI1IEMgNzIuMDg1OTM4IDE5MS45NjQ4NDQgNTYuNDIxODc1IDE5MS45NjQ4NDQgNDYuNzU3ODEyIDIwMS42MjUgIiBmaWxsLW9wYWNpdHk9IjEiIGZpbGwtcnVsZT0ibm9uemVybyIvPjwvc3ZnPg=="
 
 	return (
 		<img
@@ -104,7 +100,7 @@ const ClineLogo: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
 				height: "60px",
 				...style,
 			}}
-			alt="Cline Logo"
+			alt="忘我LMS AI Logo"
 		/>
 	)
 }

@@ -714,7 +714,7 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 	useEvent("wheel", handleWheel, window, { passive: true }) // passive improves scrolling performance
 
 	const placeholderText = useMemo(() => {
-		const text = task ? "Type a message..." : "Type your task here..."
+		const text = task ? "メッセージを入力..." : "タスクを入力してください..."
 		return text
 	}, [task])
 
@@ -795,16 +795,12 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 					{showAnnouncement && <Announcement version={version} hideAnnouncement={hideAnnouncement} />}
 
 					<div style={{ padding: "0 20px", flexShrink: 0 }}>
-						<h2>What can I do for you?</h2>
+						<h2>何を学習しますか？</h2>
 						<p>
-							Thanks to{" "}
 							<VSCodeLink href="https://www.anthropic.com/claude/sonnet" style={{ display: "inline" }}>
-								Claude 3.7 Sonnet's
+								Claude 3.7 Sonnet
 							</VSCodeLink>
-							agentic coding capabilities, I can handle complex software development tasks step-by-step. With tools
-							that let me create & edit files, explore complex projects, use a browser, and execute terminal
-							commands (after you grant permission), I can assist you in ways that go beyond code completion or tech
-							support. I can even use MCP to create new tools and extend my own capabilities.
+							のエージェント機能により、複雑なソフトウェア開発タスクをステップバイステップで学習できます。ファイルの作成・編集、複雑なプロジェクトの探索、ブラウザの使用、ターミナルコマンドの実行（許可を得た上で）を可能にするツールを使用して、コード補完や技術サポートを超えた方法であなたをサポートできます。MCPを使用して新しいツールを作成し、自身の機能を拡張することも可能です。
 						</p>
 					</div>
 					{taskHistory.length > 0 && <HistoryPreview showHistoryView={showHistoryView} />}
@@ -904,7 +900,25 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 										marginRight: secondaryButtonText ? "6px" : "0",
 									}}
 									onClick={() => handlePrimaryButtonClick(inputValue, selectedImages)}>
-									{primaryButtonText}
+									{primaryButtonText === "Approve"
+										? "承認"
+										: primaryButtonText === "Save"
+											? "保存"
+											: primaryButtonText === "Run Command"
+												? "コマンドを実行"
+												: primaryButtonText === "Proceed While Running"
+													? "実行中に続行"
+													: primaryButtonText === "Start New Task"
+														? "新しいタスクを開始"
+														: primaryButtonText === "Resume Task"
+															? "タスクを再開"
+															: primaryButtonText === "Retry"
+																? "再試行"
+																: primaryButtonText === "Proceed"
+																	? "続行"
+																	: primaryButtonText === "Proceed Anyways"
+																		? "それでも続行"
+																		: primaryButtonText}
 								</VSCodeButton>
 							)}
 							{(secondaryButtonText || isStreaming) && (
@@ -916,7 +930,13 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 										marginLeft: isStreaming ? 0 : "6px",
 									}}
 									onClick={() => handleSecondaryButtonClick(inputValue, selectedImages)}>
-									{isStreaming ? "Cancel" : secondaryButtonText}
+									{isStreaming
+										? "キャンセル"
+										: secondaryButtonText === "Reject"
+											? "拒否"
+											: secondaryButtonText === "Start New Task"
+												? "新しいタスクを開始"
+												: secondaryButtonText}
 								</VSCodeButton>
 							)}
 						</div>

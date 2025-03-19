@@ -1,6 +1,6 @@
 {
 	"name": "bouga-lms-ai",
-	"displayName": "BOUGA LMS AI",
+	"displayName": "Bouga LMS AI",
 	"description": "Autonomous education agent right in your IDE, capable of creating/editing files, running commands, using the browser, and more with your permission every step of the way.",
 	"version": "0.0.1",
 	"icon": "assets/icons/icon.png",
@@ -49,86 +49,86 @@
 		"viewsContainers": {
 			"activitybar": [
 				{
-					"id": "claude-dev-ActivityBar",
-					"title": "Cline",
+					"id": "boug-lms-ai-ActivityBar",
+					"title": "Bouga LMS AI",
 					"icon": "assets/icons/icon.svg"
 				}
 			]
 		},
 		"views": {
-			"claude-dev-ActivityBar": [
+			"boug-lms-ai-ActivityBar": [
 				{
 					"type": "webview",
 					"id": "claude-dev.SidebarProvider",
-					"name": ""
+					"name": "Bouga LMS AI"
 				}
 			]
 		},
 		"commands": [
 			{
-				"command": "cline.plusButtonClicked",
+				"command": "bougaLmsAi.plusButtonClicked",
 				"title": "New Task",
 				"icon": "$(add)"
 			},
 			{
-				"command": "cline.mcpButtonClicked",
+				"command": "bougaLmsAi.mcpButtonClicked",
 				"title": "MCP Servers",
 				"icon": "$(extensions)"
 			},
 			{
-				"command": "cline.historyButtonClicked",
+				"command": "bougaLmsAi.historyButtonClicked",
 				"title": "History",
 				"icon": "$(history)"
 			},
 			{
-				"command": "cline.popoutButtonClicked",
+				"command": "bougaLmsAi.popoutButtonClicked",
 				"title": "Open in Editor",
 				"icon": "$(link-external)"
 			},
 			{
-				"command": "cline.settingsButtonClicked",
+				"command": "bougaLmsAi.settingsButtonClicked",
 				"title": "Settings",
 				"icon": "$(settings-gear)"
 			},
 			{
-				"command": "cline.openInNewTab",
+				"command": "bougaLmsAi.openInNewTab",
 				"title": "Open In New Tab",
-				"category": "Cline"
+				"category": "Bouga LMS AI"
 			}
 		],
 		"menus": {
 			"view/title": [
 				{
-					"command": "cline.plusButtonClicked",
+					"command": "bougaLmsAi.plusButtonClicked",
 					"group": "navigation@1",
-					"when": "view == claude-dev.SidebarProvider"
+					"when": "view == bougaLmsAi.SidebarProvider"
 				},
 				{
-					"command": "cline.mcpButtonClicked",
+					"command": "bougaLmsAi.mcpButtonClicked",
 					"group": "navigation@2",
-					"when": "view == claude-dev.SidebarProvider"
+					"when": "view == bougaLmsAi.SidebarProvider"
 				},
 				{
-					"command": "cline.historyButtonClicked",
+					"command": "bougaLmsAi.historyButtonClicked",
 					"group": "navigation@3",
-					"when": "view == claude-dev.SidebarProvider"
+					"when": "view == bougaLmsAi.SidebarProvider"
 				},
 				{
-					"command": "cline.popoutButtonClicked",
+					"command": "bougaLmsAi.popoutButtonClicked",
 					"group": "navigation@4",
-					"when": "view == claude-dev.SidebarProvider"
+					"when": "view == bougaLmsAi.SidebarProvider"
 				},
 				{
-					"command": "cline.settingsButtonClicked",
+					"command": "bougaLmsAi.settingsButtonClicked",
 					"group": "navigation@5",
-					"when": "view == claude-dev.SidebarProvider"
+					"when": "view == bougaLmsAi.SidebarProvider"
 				}
 			]
 		},
 		"configuration": {
-			"title": "Cline",
+			"title": "BOUGA LMS AI",
 			"properties": {
-				"cline.vsCodeLmModelSelector": {
+				"bougaLmsAi.vsCodeLmModelSelector": {
 					"type": "object",
 					"properties": {
 						"vendor": {
@@ -142,7 +142,7 @@
 					},
 					"description": "Settings for VSCode Language Model API"
 				},
-				"cline.mcp.mode": {
+				"bougaLmsAi.mcp.mode": {
 					"type": "string",
 					"enum": [
 						"full",
@@ -157,17 +157,17 @@
 					"default": "full",
 					"description": "Controls MCP inclusion in prompts, reduces token usage if you only need access to certain functionality."
 				},
-				"cline.enableCheckpoints": {
+				"bougaLmsAi.enableCheckpoints": {
 					"type": "boolean",
 					"default": true,
 					"description": "Enables extension to save checkpoints of workspace throughout the task. Uses git under the hood which may not work well with large workspaces."
 				},
-				"cline.disableBrowserTool": {
+				"bougaLmsAi.disableBrowserTool": {
 					"type": "boolean",
 					"default": false,
 					"description": "Disables extension from spawning browser session."
 				},
-				"cline.modelSettings.o3Mini.reasoningEffort": {
+				"bougaLmsAi.modelSettings.o3Mini.reasoningEffort": {
 					"type": "string",
 					"enum": [
 						"low",
@@ -177,12 +177,12 @@
 					"default": "medium",
 					"description": "Controls the reasoning effort when using the o3-mini model. Higher values may result in more thorough but slower responses."
 				},
-				"cline.chromeExecutablePath": {
+				"bougaLmsAi.chromeExecutablePath": {
 					"type": "string",
 					"default": null,
 					"description": "Path to Chrome executable for browser use functionality. If not set, the extension will attempt to find or download it automatically."
 				},
-				"cline.preferredLanguage": {
+				"bougaLmsAi.preferredLanguage": {
 					"type": "string",
 					"enum": [
 						"English",
@@ -204,8 +204,8 @@
 						"Traditional Chinese - 繁體中文",
 						"Turkish - Türkçe"
 					],
-					"default": "English",
-					"description": "The language that Cline should use for communication."
+					"default": "Japanese - 日本語",
+					"description": "The language that Bouga LMS AI should use for communication."
 				},
 				"cline.mcpMarketplace.enabled": {
 					"type": "boolean",

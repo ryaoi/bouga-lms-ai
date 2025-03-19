@@ -15,7 +15,7 @@
 		"name": "Bouga Co., Ltd."
 	},
 	"license": "Apache-2.0",
-	"publisher": "bouga-co-ltd",
+	"publisher": "bouga",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ryaoi/bouga-lms-ai"
@@ -59,7 +59,7 @@
 			"boug-lms-ai-ActivityBar": [
 				{
 					"type": "webview",
-					"id": "claude-dev.SidebarProvider",
+					"id": "bouga-lms-ai.SidebarProvider",
 					"name": "Bouga LMS AI"
 				}
 			]

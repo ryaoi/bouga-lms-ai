@@ -25,7 +25,7 @@ describe("Extension Tests", function () {
 
 	it("should activate extension successfully", async () => {
 		// Get the extension
-		const extension = vscode.extensions.getExtension("saoudrizwan.claude-dev")
+		const extension = vscode.extensions.getExtension("bouga.bouga-lms-ai")
 		expect(extension).to.not.be.undefined
 
 		// Activate the extension if not already activated

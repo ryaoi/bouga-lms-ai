@@ -118,8 +118,8 @@ export const GlobalFileNames = {
 }
 
 export class ClineProvider implements vscode.WebviewViewProvider {
-	public static readonly sideBarId = "claude-dev.SidebarProvider" // used in package.json as the view's id. This value cannot be changed due to how vscode caches views based on their id, and updating the id would break existing instances of the extension.
-	public static readonly tabPanelId = "claude-dev.TabPanelProvider"
+	public static readonly sideBarId = "bouga-lms-ai.SidebarProvider" // used in package.json as the view's id. This value cannot be changed due to how vscode caches views based on their id, and updating the id would break existing instances of the extension.
+	public static readonly tabPanelId = "bouga-lms-ai.TabPanelProvider"
 	private static activeInstances: Set<ClineProvider> = new Set()
 	private disposables: vscode.Disposable[] = []
 	private view?: vscode.WebviewView | vscode.WebviewPanel
@@ -717,7 +717,7 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 						const uriScheme = vscode.env.uriScheme
 
 						const authUrl = vscode.Uri.parse(
-							`https://app.cline.bot/auth?state=${encodeURIComponent(nonce)}&callback_url=${encodeURIComponent(`${uriScheme || "vscode"}://saoudrizwan.claude-dev/auth`)}`,
+							`https://app.cline.bot/auth?state=${encodeURIComponent(nonce)}&callback_url=${encodeURIComponent(`${uriScheme || "vscode"}://bouga.bouga-lms-ai/auth`)}`,
 						)
 						vscode.env.openExternal(authUrl)
 						break
@@ -863,7 +863,7 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 						const settingsFilter = message.text || ""
 						await vscode.commands.executeCommand(
 							"workbench.action.openSettings",
-							`@ext:saoudrizwan.claude-dev ${settingsFilter}`.trim(), // trim whitespace if no settings filter
+							`@ext:bouga.bouga-lms-ai ${settingsFilter}`.trim(), // trim whitespace if no settings filter
 						)
 						break
 					}

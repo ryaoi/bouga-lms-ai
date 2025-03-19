@@ -52,7 +52,9 @@ const WelcomeView = () => {
 					<VSCodeLink href="https://www.anthropic.com/claude/sonnet" style={{ display: "inline" }}>
 						Claude 3.7 Sonnet
 					</VSCodeLink>
-					のエージェント機能の革新と、ファイルの作成・編集、複雑なプロジェクトの探索、ブラウザの使用、ターミナルコマンドの実行（<i>もちろん、あなたの許可を得た上で</i>）を可能にするツールへのアクセスにより、あなたの学習をサポートする忘我LMSAIです。MCPを使用して新しいツールを作成し、自身の機能を拡張することも可能です。
+					のエージェント機能の革新と、ファイルの作成・編集、複雑なプロジェクトの探索、ブラウザの使用、ターミナルコマンドの実行（
+					<i>もちろん、あなたの許可を得た上で</i>
+					）を可能にするツールへのアクセスにより、あなたの学習をサポートする忘我LMSAIです。MCPを使用して新しいツールを作成し、自身の機能を拡張することも可能です。
 				</p>
 
 				<p style={{ color: "var(--vscode-descriptionForeground)" }}>

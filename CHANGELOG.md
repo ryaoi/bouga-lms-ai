@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0
+
+### Minor Changes
+
+-   Change app name to Bouga LMS AI
+
 ## [3.7.1]
 
 -   Fix issue with 'See more' button in task header not showing when starting new tasks

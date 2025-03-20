@@ -1323,15 +1323,21 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 		return true
 	}
 
-	async handleAuthCallback(token: string, apiKey: string) {
+	async handleAuthCallback(token: string, apiKey: string, userInfo?: UserInfo) {
 		try {
 			// Store API key for API calls
 			await this.storeSecret("clineApiKey", apiKey)
 
-			// Send token to webview for Supabase auth
+			// If userInfo is provided in the callback, set it immediately
+			if (userInfo) {
+				await this.setUserInfo(userInfo)
+			}
+
+			// Send token to webview for auth state management
 			await this.postMessageToWebview({
 				type: "authCallback",
-				token, // Supabase session token
+				token,
+				user: userInfo // Include user info in the auth callback
 			})
 
 			const clineProvider: ApiProvider = "cline"

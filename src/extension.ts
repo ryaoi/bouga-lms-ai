@@ -163,11 +163,17 @@ export function activate(context: vscode.ExtensionContext) {
 				const token = query.get("token")
 				const state = query.get("state")
 				const apiKey = query.get("apiKey")
+				const displayName = query.get("displayName")
+				const email = query.get("email")
+				const photoURL = query.get("photoURL")
 
 				console.log("Auth callback received:", {
 					token: token,
 					state: state,
 					apiKey: apiKey,
+					displayName: displayName,
+					email: email,
+					photoURL: photoURL
 				})
 
 				// Validate state parameter
@@ -177,7 +183,12 @@ export function activate(context: vscode.ExtensionContext) {
 				}
 
 				if (token && apiKey) {
-					await visibleProvider.handleAuthCallback(token, apiKey)
+					const userInfo = {
+						displayName: displayName,
+						email: email,
+						photoURL: photoURL
+					}
+					await visibleProvider.handleAuthCallback(token, apiKey, userInfo)
 				}
 				break
 			}

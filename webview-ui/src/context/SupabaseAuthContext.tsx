@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react"
+import React, { createContext, useContext, useState, useEffect } from "react"
 import { vscode } from "../utils/vscode"
 import { UserInfo } from "../../../src/shared/UserInfo"
 
@@ -15,10 +15,19 @@ export const SupabaseAuthProvider: React.FC<{ children: React.ReactNode }> = ({ 
 	const [isInitialized, setIsInitialized] = useState(false)
 
 	// Listen for auth callback from extension
-	React.useEffect(() => {
+	useEffect(() => {
 		const handleMessage = (event: MessageEvent) => {
 			const message = event.data
-			if (message.type === "authStateChanged" && "user" in message) {
+			if (message.type === "authCallback" && message.token) {
+				// Handle Supabase session token
+				try {
+					// Extract user info from token if needed
+					// For now, we'll wait for the authStateChanged message with user info
+					setIsInitialized(true)
+				} catch (error) {
+					console.error("Error handling auth callback:", error)
+				}
+			} else if (message.type === "authStateChanged" && "user" in message) {
 				setUser(message.user)
 				setIsInitialized(true)
 			}

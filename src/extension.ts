@@ -173,7 +173,7 @@ export function activate(context: vscode.ExtensionContext) {
 					apiKey: apiKey,
 					displayName: displayName,
 					email: email,
-					photoURL: photoURL
+					photoURL: photoURL,
 				})
 
 				// Validate state parameter
@@ -186,7 +186,7 @@ export function activate(context: vscode.ExtensionContext) {
 					const userInfo = {
 						displayName: displayName,
 						email: email,
-						photoURL: photoURL
+						photoURL: photoURL,
 					}
 					await visibleProvider.handleAuthCallback(token, apiKey, userInfo)
 				}

@@ -1337,7 +1337,7 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 			await this.postMessageToWebview({
 				type: "authCallback",
 				token,
-				user: userInfo // Include user info in the auth callback
+				user: userInfo, // Include user info in the auth callback
 			})
 
 			const clineProvider: ApiProvider = "cline"

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+### Minor Changes
+
+-   6f22938: Update URL params for oauth
+
 ## 0.3.1
 
 ### Patch Changes

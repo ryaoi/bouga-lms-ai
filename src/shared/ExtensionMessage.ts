@@ -55,6 +55,7 @@ export interface ExtensionMessage {
 	openAiModels?: string[]
 	mcpServers?: McpServer[]
 	customToken?: string
+	token?: string
 	mcpMarketplaceCatalog?: McpMarketplaceCatalog
 	error?: string
 	mcpDownloadDetails?: McpDownloadResponse

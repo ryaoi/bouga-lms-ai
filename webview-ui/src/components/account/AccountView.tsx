@@ -1,6 +1,6 @@
 import { VSCodeButton, VSCodeDivider } from "@vscode/webview-ui-toolkit/react"
 import { memo } from "react"
-import { useFirebaseAuth } from "../../context/FirebaseAuthContext"
+import { useSupabaseAuth } from "../../context/SupabaseAuthContext"
 import { vscode } from "../../utils/vscode"
 import VSCodeButtonLink from "../common/VSCodeButtonLink"
 
@@ -50,7 +50,7 @@ const AccountView = ({ onDone }: AccountViewProps) => {
 }
 
 export const ClineAccountView = () => {
-	const { user, handleSignOut } = useFirebaseAuth()
+	const { user, handleSignOut } = useSupabaseAuth()
 
 	const handleLogin = () => {
 		vscode.postMessage({ type: "accountLoginClicked" })
@@ -59,9 +59,10 @@ export const ClineAccountView = () => {
 	const handleLogout = () => {
 		// First notify extension to clear API keys and state
 		vscode.postMessage({ type: "accountLogoutClicked" })
-		// Then sign out of Firebase
+		// Then sign out of Supabase
 		handleSignOut()
 	}
+
 	return (
 		<div style={{ maxWidth: "600px" }}>
 			{user ? (
@@ -131,7 +132,7 @@ export const ClineAccountView = () => {
 							)}
 							<div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
 								<VSCodeButtonLink
-									href="https://app.cline.bot/credits"
+									href="https://lms.bouga.jp/account"
 									appearance="primary"
 									style={{
 										transform: "scale(0.85)",
@@ -163,7 +164,7 @@ export const ClineAccountView = () => {
 			) : (
 				<div style={{}}>
 					<VSCodeButton onClick={handleLogin} style={{ marginTop: 0 }}>
-						Sign Up with Cline
+						Sign Up with Bouga LMS
 					</VSCodeButton>
 				</div>
 			)}

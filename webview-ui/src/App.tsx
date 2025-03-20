@@ -7,7 +7,7 @@ import SettingsView from "./components/settings/SettingsView"
 import WelcomeView from "./components/welcome/WelcomeView"
 import AccountView from "./components/account/AccountView"
 import { ExtensionStateContextProvider, useExtensionState } from "./context/ExtensionStateContext"
-import { FirebaseAuthProvider } from "./context/FirebaseAuthContext"
+import { SupabaseAuthProvider } from "./context/SupabaseAuthContext"
 import { vscode } from "./utils/vscode"
 import McpView from "./components/mcp/McpView"
 
@@ -113,9 +113,9 @@ const AppContent = () => {
 const App = () => {
 	return (
 		<ExtensionStateContextProvider>
-			<FirebaseAuthProvider>
+			<SupabaseAuthProvider>
 				<AppContent />
-			</FirebaseAuthProvider>
+			</SupabaseAuthProvider>
 		</ExtensionStateContextProvider>
 	)
 }

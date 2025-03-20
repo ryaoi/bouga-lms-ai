@@ -184,6 +184,10 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 
 	async setUserInfo(info?: { displayName: string | null; email: string | null; photoURL: string | null }) {
 		await this.updateGlobalState("userInfo", info)
+		if (info?.displayName) {
+			console.log(`Current user: ${info.displayName}`)
+			vscode.window.showInformationMessage(`Welcome, ${info.displayName}!`)
+		}
 	}
 
 	public static getVisibleInstance(): ClineProvider | undefined {
@@ -717,7 +721,7 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 						const uriScheme = vscode.env.uriScheme
 
 						const authUrl = vscode.Uri.parse(
-							`https://app.cline.bot/auth?state=${encodeURIComponent(nonce)}&callback_url=${encodeURIComponent(`${uriScheme || "vscode"}://bouga.bouga-lms-ai/auth`)}`,
+							`https://lms.bouga.jp/oauth?state=${encodeURIComponent(nonce)}&callback_url=${encodeURIComponent(`${uriScheme || "vscode"}://bouga.bouga-lms-ai/auth`)}`,
 						)
 						vscode.env.openExternal(authUrl)
 						break
@@ -1319,15 +1323,15 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 		return true
 	}
 
-	async handleAuthCallback(customToken: string, apiKey: string) {
+	async handleAuthCallback(token: string, apiKey: string) {
 		try {
 			// Store API key for API calls
 			await this.storeSecret("clineApiKey", apiKey)
 
-			// Send custom token to webview for Firebase auth
+			// Send token to webview for Supabase auth
 			await this.postMessageToWebview({
 				type: "authCallback",
-				customToken,
+				token, // Supabase session token
 			})
 
 			const clineProvider: ApiProvider = "cline"
@@ -1346,10 +1350,10 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 			}
 
 			await this.postStateToWebview()
-			vscode.window.showInformationMessage("Successfully logged in to Cline")
+			vscode.window.showInformationMessage("Successfully logged in to Bouga LMS")
 		} catch (error) {
 			console.error("Failed to handle auth callback:", error)
-			vscode.window.showErrorMessage("Failed to log in to Cline")
+			vscode.window.showErrorMessage("Failed to log in to Bouga LMS")
 			// Even on login failure, we preserve any existing tokens
 			// Only clear tokens on explicit logout
 		}

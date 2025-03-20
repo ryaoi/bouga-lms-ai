@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+
+### Minor Changes
+
+-   4618c66: docs: update README files
+
 ## 0.1.0
 
 ### Minor Changes

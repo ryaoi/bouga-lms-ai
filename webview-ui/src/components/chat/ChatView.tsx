@@ -37,10 +37,7 @@ interface ChatViewProps {
 export const MAX_IMAGES_PER_MESSAGE = 20 // Anthropic limits to 20 images
 
 const LogoutButton = styled(VSCodeButton)`
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	z-index: 1000;
+	margin-left: 8px;
 `
 
 const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryView }: ChatViewProps) => {
@@ -778,9 +775,6 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 				flexDirection: "column",
 				overflow: "hidden",
 			}}>
-			<LogoutButton appearance="secondary" onClick={handleLogout}>
-				ログアウト
-			</LogoutButton>
 			{task ? (
 				<TaskHeader
 					task={task}
@@ -806,7 +800,18 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 					{showAnnouncement && <Announcement version={version} hideAnnouncement={hideAnnouncement} />}
 
 					<div style={{ padding: "0 20px", flexShrink: 0 }}>
-						<h2>何を学習しますか？</h2>
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "space-between",
+								alignItems: "center",
+								marginBottom: "10px",
+							}}>
+							<h2 style={{ margin: 0 }}>何を学習しますか？</h2>
+							<VSCodeButton appearance="secondary" onClick={handleLogout}>
+								ログアウト
+							</VSCodeButton>
+						</div>
 						<p>
 							<VSCodeLink href="https://www.anthropic.com/claude/sonnet" style={{ display: "inline" }}>
 								Claude 3.7 Sonnet

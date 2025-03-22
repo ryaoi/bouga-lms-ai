@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.4
+
+### Patch Changes
+
+-   Improved UI layout by moving logout button to main view and fixing task deletion accessibility
+
 ## 0.5.3
 
 ### Patch Changes

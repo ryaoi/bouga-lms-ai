@@ -778,9 +778,7 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 				flexDirection: "column",
 				overflow: "hidden",
 			}}>
-			<LogoutButton
-				appearance="secondary"
-				onClick={handleLogout}>
+			<LogoutButton appearance="secondary" onClick={handleLogout}>
 				ログアウト
 			</LogoutButton>
 			{task ? (

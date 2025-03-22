@@ -26,7 +26,6 @@ import BrowserSessionRow from "./BrowserSessionRow"
 import ChatRow from "./ChatRow"
 import ChatTextArea from "./ChatTextArea"
 import TaskHeader from "./TaskHeader"
-import TelemetryBanner from "../common/TelemetryBanner"
 
 interface ChatViewProps {
 	isHidden: boolean
@@ -790,8 +789,6 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 						flexDirection: "column",
 						paddingBottom: "10px",
 					}}>
-					{telemetrySetting === "unset" && <TelemetryBanner />}
-
 					{showAnnouncement && <Announcement version={version} hideAnnouncement={hideAnnouncement} />}
 
 					<div style={{ padding: "0 20px", flexShrink: 0 }}>

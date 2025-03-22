@@ -145,36 +145,70 @@ export function activate(context: vscode.ExtensionContext) {
 			scheme: uri.scheme,
 		})
 
-		const path = uri.path
-		const query = new URLSearchParams(uri.query.replace(/\+/g, "%2B"))
-		const visibleProvider = ClineProvider.getVisibleInstance()
-		if (!visibleProvider) {
+		// Ensure extension is activated
+		const extension = vscode.extensions.getExtension("bouga.bouga-lms-ai")
+		if (!extension) {
+			console.error("Extension not found")
+			vscode.window.showErrorMessage("Bouga LMS AI extension not found")
 			return
 		}
+
+		if (!extension.isActive) {
+			console.log("Activating extension...")
+			await extension.activate()
+		}
+
+		const path = uri.path
+		const query = new URLSearchParams(uri.query.replace(/\+/g, "%2B"))
+		let provider = ClineProvider.getVisibleInstance()
+		console.log("Visible provider:", provider ? "found" : "not found")
+
+		// If provider is not available, try to show the view first
+		if (!provider) {
+			console.log("Provider not found, trying to show view first...")
+			await vscode.commands.executeCommand("workbench.view.extension.bouga-lms-ai-sidebar-view")
+			// Wait a bit for the view to initialize
+			await new Promise((resolve) => setTimeout(resolve, 1000))
+			provider = ClineProvider.getVisibleInstance()
+			if (!provider) {
+				vscode.window.showErrorMessage("Bouga LMS AI is not ready. Please try again in a moment.")
+				return
+			}
+		}
+
 		switch (path) {
 			case "/openrouter": {
 				const code = query.get("code")
 				if (code) {
-					await visibleProvider.handleOpenRouterCallback(code)
+					await provider.handleOpenRouterCallback(code)
 				}
 				break
 			}
 			case "/task": {
 				const taskText = query.get("task")
+				console.log("Task text:", taskText)
 				if (taskText) {
 					// Clear any existing task first
-					await visibleProvider.clearTask()
+					console.log("Clearing existing task...")
+					await provider.clearTask()
 					// Post state to ensure UI is updated
-					await visibleProvider.postStateToWebview()
+					console.log("Posting state...")
+					await provider.postStateToWebview()
 					// Show the chat view first
-					await visibleProvider.postMessageToWebview({
+					console.log("Showing chat view...")
+					await provider.postMessageToWebview({
 						type: "action",
 						action: "chatButtonClicked",
 					})
 					// Focus the Cline view
+					console.log("Focusing Cline view...")
 					await vscode.commands.executeCommand("workbench.view.extension.bouga-lms-ai-sidebar-view")
 					// Initialize the task
-					await visibleProvider.initClineWithTask(taskText)
+					console.log("Initializing task...")
+					await provider.initClineWithTask(taskText)
+					console.log("Task initialization complete")
+				} else {
+					vscode.window.showErrorMessage("No task text provided in the URL")
 				}
 				break
 			}
@@ -196,7 +230,7 @@ export function activate(context: vscode.ExtensionContext) {
 				})
 
 				// Validate state parameter
-				if (!(await visibleProvider.validateAuthState(state))) {
+				if (!(await provider.validateAuthState(state))) {
 					vscode.window.showErrorMessage("Invalid auth state")
 					return
 				}
@@ -207,7 +241,7 @@ export function activate(context: vscode.ExtensionContext) {
 						email: email,
 						photoURL: photoURL,
 					}
-					await visibleProvider.handleAuthCallback(token, apiKey, userInfo)
+					await provider.handleAuthCallback(token, apiKey, userInfo)
 				}
 				break
 			}

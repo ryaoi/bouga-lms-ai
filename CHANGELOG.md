@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0
+
+### Minor Changes
+
+-   Add extention to execute task from web
+
 ## 0.4.2
 
 ### Minor Changes

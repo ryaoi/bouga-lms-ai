@@ -159,6 +159,25 @@ export function activate(context: vscode.ExtensionContext) {
 				}
 				break
 			}
+			case "/task": {
+				const taskText = query.get("task")
+				if (taskText) {
+					// Clear any existing task first
+					await visibleProvider.clearTask()
+					// Post state to ensure UI is updated
+					await visibleProvider.postStateToWebview()
+					// Show the chat view first
+					await visibleProvider.postMessageToWebview({
+						type: "action",
+						action: "chatButtonClicked",
+					})
+					// Focus the Cline view
+					await vscode.commands.executeCommand("workbench.view.extension.bouga-lms-ai-sidebar-view")
+					// Initialize the task
+					await visibleProvider.initClineWithTask(taskText)
+				}
+				break
+			}
 			case "/auth": {
 				const token = query.get("token")
 				const state = query.get("state")

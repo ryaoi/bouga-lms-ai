@@ -2324,4 +2324,28 @@ Here is the project's README to help you get started:\n\n${mcpDetails.readmeCont
 			action: "chatButtonClicked",
 		})
 	}
+
+	async handleTaskCallback(taskText: string) {
+		try {
+			// Clear any existing task first
+			await this.clearTask()
+
+			// Post state to ensure UI is updated
+			await this.postStateToWebview()
+
+			// Initialize the task first
+			await this.initClineWithTask(taskText)
+
+			// Then show the chat view
+			await this.postMessageToWebview({
+				type: "action",
+				action: "chatButtonClicked",
+			})
+
+			vscode.window.showInformationMessage("Successfully initialized new task")
+		} catch (error) {
+			console.error("Failed to handle task callback:", error)
+			vscode.window.showErrorMessage("Failed to initialize task")
+		}
+	}
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.2
+
+### Minor Changes
+
+-   Add logout button to chat view UI
+
 ## 0.4.0
 
 ### Minor Changes

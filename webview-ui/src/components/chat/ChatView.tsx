@@ -36,6 +36,13 @@ interface ChatViewProps {
 
 export const MAX_IMAGES_PER_MESSAGE = 20 // Anthropic limits to 20 images
 
+const LogoutButton = styled(VSCodeButton)`
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 1000;
+`
+
 const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryView }: ChatViewProps) => {
 	const { version, clineMessages: messages, taskHistory, apiConfiguration, telemetrySetting } = useExtensionState()
 
@@ -755,6 +762,10 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 		[expandedRows, modifiedMessages, groupedMessages.length, toggleRowExpansion, handleRowHeightChange],
 	)
 
+	const handleLogout = useCallback(() => {
+		vscode.postMessage({ type: "accountLogoutClicked" })
+	}, [])
+
 	return (
 		<div
 			style={{
@@ -767,6 +778,11 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 				flexDirection: "column",
 				overflow: "hidden",
 			}}>
+			<LogoutButton
+				appearance="secondary"
+				onClick={handleLogout}>
+				ログアウト
+			</LogoutButton>
 			{task ? (
 				<TaskHeader
 					task={task}

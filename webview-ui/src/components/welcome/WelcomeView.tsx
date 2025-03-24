@@ -18,6 +18,10 @@ const WelcomeView = () => {
 		vscode.postMessage({ type: "accountLoginClicked" })
 	}
 
+	const handleSignUp = () => {
+		vscode.postMessage({ type: "accountSignUpClicked" })
+	}
+
 	const handleSubmit = () => {
 		vscode.postMessage({ type: "apiConfiguration", apiConfiguration })
 	}
@@ -58,13 +62,19 @@ const WelcomeView = () => {
 				</p>
 
 				<p style={{ color: "var(--vscode-descriptionForeground)" }}>
-					始めるにはアカウントにサインアップするか、ログインしてください。
+					始めるにはアカウントにログインするか、サインアップしてください。
 				</p>
 
 				<VSCodeButton appearance="primary" onClick={handleLogin} style={{ width: "100%", marginTop: 4 }}>
-					無料で始める
+					ログイン
 				</VSCodeButton>
-
+				<VSCodeButton
+						appearance="secondary"
+						onClick={handleSignUp}
+						style={{ marginTop: 10, width: "100%" }}>
+						サインアップ
+				</VSCodeButton>
+				
 				{!showApiOptions && (
 					<VSCodeButton
 						appearance="secondary"

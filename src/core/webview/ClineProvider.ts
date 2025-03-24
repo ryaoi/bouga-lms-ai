@@ -713,7 +713,7 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 						// Generate nonce for state validation
 						const nonce = crypto.randomBytes(32).toString("hex")
 						await this.storeSecret("authNonce", nonce)
-
+						
 						// Open browser for authentication with state param
 						console.log("Login button clicked in account page")
 						console.log("Opening auth page with state param")
@@ -724,6 +724,10 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 							`https://lms.bouga.jp/oauth?state=${encodeURIComponent(nonce)}&callback_url=${encodeURIComponent(`${uriScheme || "vscode"}://bouga.bouga-lms-ai/auth`)}`,
 						)
 						vscode.env.openExternal(authUrl)
+						break
+					}
+					case "accountSignUpClicked": {
+						vscode.env.openExternal(vscode.Uri.parse("https://lms.bouga.jp/signup"))
 						break
 					}
 					case "accountLogoutClicked": {

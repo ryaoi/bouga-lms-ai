@@ -43,6 +43,7 @@ export interface ExtensionMessage {
 		| "historyButtonClicked"
 		| "didBecomeVisible"
 		| "accountLoginClicked"
+		| "accountSignUpClicked"
 		| "accountLogoutClicked"
 	invoke?: Invoke
 	state?: ExtensionState

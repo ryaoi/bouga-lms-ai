@@ -3,7 +3,7 @@ import { vscode } from "../../utils/vscode"
 
 const AccountOptions = () => {
 	const handleAccountClick = () => {
-		vscode.postMessage({ type: "accountLoginClicked" })
+		vscode.postMessage({ type: "accountSignUpClicked" })
 	}
 
 	// Call handleAccountClick immediately when component mounts

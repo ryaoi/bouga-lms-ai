@@ -56,6 +56,10 @@ export const ClineAccountView = () => {
 		vscode.postMessage({ type: "accountLoginClicked" })
 	}
 
+	const handleSignUp = () => {
+		vscode.postMessage({ type: "accountSignUpClicked" })
+	}
+
 	const handleLogout = () => {
 		// First notify extension to clear API keys and state
 		vscode.postMessage({ type: "accountLogoutClicked" })
@@ -163,8 +167,11 @@ export const ClineAccountView = () => {
 				</div>
 			) : (
 				<div style={{}}>
-					<VSCodeButton onClick={handleLogin} style={{ marginTop: 0 }}>
-						Sign Up with Bouga LMS
+					<VSCodeButton onClick={handleLogin} style={{ marginTop: 0, marginRight: 8 }}>
+						ログイン
+					</VSCodeButton>
+					<VSCodeButton onClick={handleSignUp} style={{ marginTop: 0 }}>
+						サインアップ
 					</VSCodeButton>
 				</div>
 			)}

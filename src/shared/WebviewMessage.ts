@@ -44,6 +44,7 @@ export interface WebviewMessage {
 		| "toggleMcpServer"
 		| "getLatestState"
 		| "accountLoginClicked"
+		| "accountSignUpClicked"
 		| "accountLogoutClicked"
 		| "authStateChanged"
 		| "authCallback"

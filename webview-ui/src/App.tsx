@@ -48,6 +48,12 @@ const AppContent = () => {
 						setShowMcp(false)
 						setShowAccount(true)
 						break
+					case "accountSignUpClicked":
+						setShowSettings(false)
+						setShowHistory(false)
+						setShowMcp(false)
+						setShowAccount(false)
+						break
 					case "chatButtonClicked":
 						setShowSettings(false)
 						setShowHistory(false)

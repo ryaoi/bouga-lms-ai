@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.0
+
+### Minor Changes
+
+-   Added signup functionality to enable new users to create accounts directly from the extension
+
 ## 0.5.4
 
 ### Patch Changes

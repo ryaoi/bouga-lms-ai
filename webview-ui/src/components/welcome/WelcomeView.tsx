@@ -68,13 +68,10 @@ const WelcomeView = () => {
 				<VSCodeButton appearance="primary" onClick={handleLogin} style={{ width: "100%", marginTop: 4 }}>
 					ログイン
 				</VSCodeButton>
-				<VSCodeButton
-						appearance="secondary"
-						onClick={handleSignUp}
-						style={{ marginTop: 10, width: "100%" }}>
-						サインアップ
+				<VSCodeButton appearance="secondary" onClick={handleSignUp} style={{ marginTop: 10, width: "100%" }}>
+					サインアップ
 				</VSCodeButton>
-				
+
 				{!showApiOptions && (
 					<VSCodeButton
 						appearance="secondary"

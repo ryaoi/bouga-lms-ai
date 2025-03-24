@@ -713,7 +713,7 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 						// Generate nonce for state validation
 						const nonce = crypto.randomBytes(32).toString("hex")
 						await this.storeSecret("authNonce", nonce)
-						
+
 						// Open browser for authentication with state param
 						console.log("Login button clicked in account page")
 						console.log("Opening auth page with state param")

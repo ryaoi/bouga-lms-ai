@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.1
+
+### Patch Changes
+
+-   Improved system prompt to better support Japanese middle school students learning programming. Added clear learning objectives, step-by-step assessment, and Japanese language support.
+
 ## 0.6.0
 
 ### Minor Changes

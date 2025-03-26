@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.0
+
+### Minor Changes
+
+-   refactor: change API provider from Cline to OpenRouter"
+
 ## 0.6.1
 
 ### Patch Changes

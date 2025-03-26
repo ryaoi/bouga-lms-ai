@@ -173,8 +173,9 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 	// Auth methods
 	async handleSignOut() {
 		try {
-			await this.storeSecret("clineApiKey", undefined)
-			await this.updateGlobalState("apiProvider", "openrouter")
+			// await this.storeSecret("clineApiKey", undefined)
+			await this.storeSecret("openRouterApiKey", undefined)
+			await this.updateGlobalState("apiProvider", undefined)
 			await this.postStateToWebview()
 			vscode.window.showInformationMessage("Successfully logged out of Cline")
 		} catch (error) {
@@ -1330,7 +1331,8 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 	async handleAuthCallback(token: string, apiKey: string, userInfo?: UserInfo) {
 		try {
 			// Store API key for API calls
-			await this.storeSecret("clineApiKey", apiKey)
+			// await this.storeSecret("clineApiKey", apiKey)
+			await this.storeSecret("openRouterApiKey", apiKey)
 
 			// If userInfo is provided in the callback, set it immediately
 			if (userInfo) {
@@ -1344,15 +1346,15 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 				user: userInfo, // Include user info in the auth callback
 			})
 
-			const clineProvider: ApiProvider = "cline"
-			await this.updateGlobalState("apiProvider", clineProvider)
+			const openRouterProvider: ApiProvider = "openrouter"
+			await this.updateGlobalState("apiProvider", openRouterProvider)
 
 			// Update API configuration with the new provider and API key
 			const { apiConfiguration } = await this.getState()
 			const updatedConfig = {
 				...apiConfiguration,
-				apiProvider: clineProvider,
-				clineApiKey: apiKey,
+				apiProvider: openRouterProvider,
+				openRouterApiKey: apiKey,
 			}
 
 			if (this.cline) {

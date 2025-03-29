@@ -117,14 +117,14 @@ const ThinkingBudgetSlider = ({ apiConfiguration, setApiConfiguration }: Thinkin
 	return (
 		<Container>
 			<VSCodeCheckbox checked={isEnabled} onChange={handleToggleChange}>
-				Enable extended thinking
+				拡張思考(Extended Thinking)を有効にする
 			</VSCodeCheckbox>
 
 			{isEnabled && (
 				<>
 					<LabelContainer>
 						<Label>
-							<strong>Budget:</strong> {localValue.toLocaleString()} tokens
+							<strong>予算：</strong> {localValue.toLocaleString()} tokens
 						</Label>
 					</LabelContainer>
 					<RangeInput
@@ -141,7 +141,7 @@ const ThinkingBudgetSlider = ({ apiConfiguration, setApiConfiguration }: Thinkin
 						$max={maxSliderValue}
 					/>
 
-					<Description>Higher budgets may allow you to achieve more comprehensive and nuanced reasoning</Description>
+					<Description>予算を増やすことで、より包括的で細やかな推論が可能になります</Description>
 				</>
 			)}
 		</Container>

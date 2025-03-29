@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.3
+
+### Patch Changes
+
+-   UI要素の日本語化: モデル選択画面、拡張思考設定、説明文の翻訳を実施。OpenRouterModelPicker、ThinkingBudgetSlider、モデル情報の表示テキストを日本語に変更。
+
 ## 0.7.2
 
 ### Patch Changes

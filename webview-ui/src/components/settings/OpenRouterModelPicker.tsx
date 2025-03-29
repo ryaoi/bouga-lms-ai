@@ -165,12 +165,12 @@ const OpenRouterModelPicker: React.FC<OpenRouterModelPickerProps> = ({ isPopup, 
 			</style>
 			<div style={{ display: "flex", flexDirection: "column" }}>
 				<label htmlFor="model-search">
-					<span style={{ fontWeight: 500 }}>Model</span>
+					<span style={{ fontWeight: 500 }}>モデル</span>
 				</label>
 				<DropdownWrapper ref={dropdownRef}>
 					<VSCodeTextField
 						id="model-search"
-						placeholder="Search and select a model..."
+						placeholder="モデルを検索して選択..."
 						value={searchTerm}
 						onInput={(e) => {
 							handleModelChange((e.target as HTMLInputElement)?.value?.toLowerCase())
@@ -186,7 +186,7 @@ const OpenRouterModelPicker: React.FC<OpenRouterModelPickerProps> = ({ isPopup, 
 						{searchTerm && (
 							<div
 								className="input-icon-button codicon codicon-close"
-								aria-label="Clear search"
+								aria-label="検索をクリア"
 								onClick={() => {
 									handleModelChange("")
 									setIsDropdownVisible(true)
@@ -244,17 +244,17 @@ const OpenRouterModelPicker: React.FC<OpenRouterModelPickerProps> = ({ isPopup, 
 						color: "var(--vscode-descriptionForeground)",
 					}}>
 					<>
-						The extension automatically fetches the latest list of models available on{" "}
+						拡張機能は{" "}
 						<VSCodeLink style={{ display: "inline", fontSize: "inherit" }} href="https://openrouter.ai/models">
-							OpenRouter.
+							OpenRouter
 						</VSCodeLink>
-						If you're unsure which model to choose, Cline works best with{" "}
+						で利用可能な最新のモデル一覧を自動的に取得します。 モデルの選択に迷った場合は、{" "}
 						<VSCodeLink
 							style={{ display: "inline", fontSize: "inherit" }}
 							onClick={() => handleModelChange("anthropic/claude-3.7-sonnet")}>
-							anthropic/claude-3.7-sonnet.
+							anthropic/claude-3.7-sonnet
 						</VSCodeLink>
-						You can also try searching "free" for no-cost options currently available.
+						を選択してください。 また、"free"で検索すると、現在利用可能な無料オプションを見つけることができます。
 					</>
 				</p>
 			)}
@@ -424,15 +424,13 @@ export const ModelDescriptionMarkdown = memo(
 							/>
 							<VSCodeLink
 								style={{
-									// cursor: "pointer",
-									// color: "var(--vscode-textLink-foreground)",
 									fontSize: "inherit",
 									paddingRight: 0,
 									paddingLeft: 3,
 									backgroundColor: isPopup ? CODE_BLOCK_BG_COLOR : "var(--vscode-sideBar-background)",
 								}}
 								onClick={() => setIsExpanded(true)}>
-								See more
+								もっと見る
 							</VSCodeLink>
 						</div>
 					)}

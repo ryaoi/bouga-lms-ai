@@ -759,6 +759,7 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 				case "requesty":
 				case "anthropic":
 				case "openrouter":
+				case "bouga-lms":
 				default:
 					return `${selectedProvider}:${selectedModelId}`
 			}

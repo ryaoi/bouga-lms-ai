@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.2
+
+### Patch Changes
+
+-   fix: Store both bougaLmsApiKey and openRouterApiKey in handleAuthCallback to ensure proper model validation while using Bouga LMS provider
+
 ## 0.7.0
 
 ### Minor Changes

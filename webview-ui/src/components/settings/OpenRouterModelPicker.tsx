@@ -14,9 +14,10 @@ import ThinkingBudgetSlider from "./ThinkingBudgetSlider"
 
 export interface OpenRouterModelPickerProps {
 	isPopup?: boolean
+	onModelSelect?: (modelId: string, modelInfo: any) => void
 }
 
-const OpenRouterModelPicker: React.FC<OpenRouterModelPickerProps> = ({ isPopup }) => {
+const OpenRouterModelPicker: React.FC<OpenRouterModelPickerProps> = ({ isPopup, onModelSelect }) => {
 	const { apiConfiguration, setApiConfiguration, openRouterModels } = useExtensionState()
 	const [searchTerm, setSearchTerm] = useState(apiConfiguration?.openRouterModelId || openRouterDefaultModelId)
 	const [isDropdownVisible, setIsDropdownVisible] = useState(false)
@@ -27,14 +28,19 @@ const OpenRouterModelPicker: React.FC<OpenRouterModelPickerProps> = ({ isPopup }
 	const dropdownListRef = useRef<HTMLDivElement>(null)
 
 	const handleModelChange = (newModelId: string) => {
-		// could be setting invalid model id/undefined info but validation will catch it
-		setApiConfiguration({
-			...apiConfiguration,
-			...{
-				openRouterModelId: newModelId,
-				openRouterModelInfo: openRouterModels[newModelId],
-			},
-		})
+		const modelInfo = openRouterModels[newModelId]
+		if (onModelSelect) {
+			onModelSelect(newModelId, modelInfo)
+		} else {
+			// Default OpenRouter behavior
+			setApiConfiguration({
+				...apiConfiguration,
+				...{
+					openRouterModelId: newModelId,
+					openRouterModelInfo: modelInfo,
+				},
+			})
+		}
 		setSearchTerm(newModelId)
 	}
 

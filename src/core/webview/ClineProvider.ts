@@ -63,6 +63,7 @@ type SecretKey =
 	| "asksageApiKey"
 	| "xaiApiKey"
 	| "sambanovaApiKey"
+	| "bougaLmsApiKey"
 type GlobalStateKey =
 	| "apiProvider"
 	| "apiModelId"
@@ -175,6 +176,7 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 		try {
 			// await this.storeSecret("clineApiKey", undefined)
 			await this.storeSecret("openRouterApiKey", undefined)
+			await this.storeSecret("bougaLmsApiKey", undefined)
 			await this.updateGlobalState("apiProvider", undefined)
 			await this.postStateToWebview()
 			vscode.window.showInformationMessage("Successfully logged out of Cline")
@@ -979,6 +981,7 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 					break
 				case "openrouter":
 				case "cline":
+				case "bouga-lms":
 					await this.updateGlobalState("previousModeModelId", apiConfiguration.openRouterModelId)
 					await this.updateGlobalState("previousModeModelInfo", apiConfiguration.openRouterModelInfo)
 					break
@@ -1020,6 +1023,7 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 						break
 					case "openrouter":
 					case "cline":
+					case "bouga-lms":
 						await this.updateGlobalState("openRouterModelId", newModelId)
 						await this.updateGlobalState("openRouterModelInfo", newModelInfo)
 						break
@@ -1331,7 +1335,7 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 	async handleAuthCallback(token: string, apiKey: string, userInfo?: UserInfo) {
 		try {
 			// Store API key for API calls
-			// await this.storeSecret("clineApiKey", apiKey)
+			await this.storeSecret("bougaLmsApiKey", apiKey)
 			await this.storeSecret("openRouterApiKey", apiKey)
 
 			// If userInfo is provided in the callback, set it immediately
@@ -1346,15 +1350,15 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 				user: userInfo, // Include user info in the auth callback
 			})
 
-			const openRouterProvider: ApiProvider = "openrouter"
-			await this.updateGlobalState("apiProvider", openRouterProvider)
+			const bougaLmsProvider: ApiProvider = "bouga-lms"
+			await this.updateGlobalState("apiProvider", bougaLmsProvider)
 
 			// Update API configuration with the new provider and API key
 			const { apiConfiguration } = await this.getState()
 			const updatedConfig = {
 				...apiConfiguration,
-				apiProvider: openRouterProvider,
-				openRouterApiKey: apiKey,
+				apiProvider: bougaLmsProvider,
+				bougaLmsApiKey: apiKey,
 			}
 
 			if (this.cline) {
@@ -2014,6 +2018,7 @@ Here is the project's README to help you get started:\n\n${mcpDetails.readmeCont
 			xaiApiKey,
 			thinkingBudgetTokens,
 			sambanovaApiKey,
+			bougaLmsApiKey,
 			planActSeparateModelsSettingRaw,
 		] = await Promise.all([
 			this.getGlobalState("apiProvider") as Promise<ApiProvider | undefined>,
@@ -2076,6 +2081,7 @@ Here is the project's README to help you get started:\n\n${mcpDetails.readmeCont
 			this.getSecret("xaiApiKey") as Promise<string | undefined>,
 			this.getGlobalState("thinkingBudgetTokens") as Promise<number | undefined>,
 			this.getSecret("sambanovaApiKey") as Promise<string | undefined>,
+			this.getSecret("bougaLmsApiKey") as Promise<string | undefined>,
 			this.getGlobalState("planActSeparateModelsSetting") as Promise<boolean | undefined>,
 		])
 
@@ -2168,6 +2174,7 @@ Here is the project's README to help you get started:\n\n${mcpDetails.readmeCont
 				asksageApiUrl,
 				xaiApiKey,
 				sambanovaApiKey,
+				bougaLmsApiKey,
 			},
 			lastShownAnnouncementId,
 			customInstructions,

@@ -179,7 +179,7 @@ const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, is
 
 	return (
 		<div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: isPopup ? -10 : 0 }}>
-			<DropdownContainer className="dropdown-container">
+			{/* <DropdownContainer className="dropdown-container">
 				<label htmlFor="api-provider">
 					<span style={{ fontWeight: 500 }}>API Provider</span>
 				</label>
@@ -211,8 +211,9 @@ const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, is
 					<VSCodeOption value="asksage">AskSage</VSCodeOption>
 					<VSCodeOption value="xai">X AI</VSCodeOption>
 					<VSCodeOption value="sambanova">SambaNova</VSCodeOption>
+					<VSCodeOption value="bouga-lms">Bouga LMS</VSCodeOption>
 				</VSCodeDropdown>
-			</DropdownContainer>
+			</DropdownContainer> */}
 
 			{selectedProvider === "cline" && (
 				<div style={{ marginBottom: 8, marginTop: 4 }}>
@@ -1342,6 +1343,8 @@ const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, is
 				</div>
 			)}
 
+			{selectedProvider === "bouga-lms" && <div></div>}
+
 			{apiErrorMessage && (
 				<p
 					style={{
@@ -1361,6 +1364,7 @@ const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, is
 				selectedProvider !== "vscode-lm" &&
 				selectedProvider !== "litellm" &&
 				selectedProvider !== "requesty" &&
+				selectedProvider !== "bouga-lms" &&
 				showModelOptions && (
 					<>
 						<DropdownContainer zIndex={DROPDOWN_Z_INDEX - 2} className="dropdown-container">
@@ -1399,9 +1403,27 @@ const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, is
 					</>
 				)}
 
-			{(selectedProvider === "openrouter" || selectedProvider === "cline") && showModelOptions && (
-				<OpenRouterModelPicker isPopup={isPopup} />
-			)}
+			{(selectedProvider === "openrouter" || selectedProvider === "cline" || selectedProvider === "bouga-lms") &&
+				showModelOptions && (
+					<OpenRouterModelPicker
+						isPopup={isPopup}
+						onModelSelect={(modelId, modelInfo) => {
+							if (selectedProvider === "bouga-lms") {
+								setApiConfiguration({
+									...apiConfiguration,
+									bougaLmsModelId: modelId,
+									bougaLmsModelInfo: modelInfo,
+								})
+							} else {
+								setApiConfiguration({
+									...apiConfiguration,
+									openRouterModelId: modelId,
+									openRouterModelInfo: modelInfo,
+								})
+							}
+						}}
+					/>
+				)}
 
 			{modelIdErrorMessage && (
 				<p
@@ -1655,6 +1677,12 @@ export function normalizeApiConfiguration(apiConfiguration?: ApiConfiguration): 
 			return getProviderData(xaiModels, xaiDefaultModelId)
 		case "sambanova":
 			return getProviderData(sambanovaModels, sambanovaDefaultModelId)
+		case "bouga-lms":
+			return {
+				selectedProvider: provider,
+				selectedModelId: apiConfiguration?.bougaLmsModelId || openRouterDefaultModelId,
+				selectedModelInfo: apiConfiguration?.bougaLmsModelInfo || openRouterDefaultModelInfo,
+			}
 		default:
 			return getProviderData(anthropicModels, anthropicDefaultModelId)
 	}

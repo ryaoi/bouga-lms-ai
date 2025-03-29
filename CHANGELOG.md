@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.6
+
+### Patch Changes
+
+-   Changed the webview panel title from "Cline" to "Bouga LMS AI"
+
 ## 0.7.5
 
 ### Patch Changes

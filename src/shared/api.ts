@@ -250,7 +250,7 @@ export const openRouterDefaultModelInfo: ModelInfo = {
 	cacheWritesPrice: 3.75,
 	cacheReadsPrice: 0.3,
 	description:
-		"Claude 3.7 Sonnet is an advanced large language model with improved reasoning, coding, and problem-solving capabilities. It introduces a hybrid reasoning approach, allowing users to choose between rapid responses and extended, step-by-step processing for complex tasks. The model demonstrates notable improvements in coding, particularly in front-end development and full-stack updates, and excels in agentic workflows, where it can autonomously navigate multi-step processes. \n\nClaude 3.7 Sonnet maintains performance parity with its predecessor in standard mode while offering an extended reasoning mode for enhanced accuracy in math, coding, and instruction-following tasks.\n\nRead more at the [blog post here](https://www.anthropic.com/news/claude-3-7-sonnet)",
+		"Claude 3.7 Sonnetは、推論、コーディング、問題解決能力が向上した高度な大規模言語モデルです。ハイブリッド推論アプローチを導入し、ユーザーが迅速な応答と、複雑なタスクのためのステップバイステップの詳細な処理を選択できるようになりました。このモデルは、特にフロントエンド開発やフルスタックの更新などのコーディングにおいて顕著な改善を示し、複数のステップを自律的にナビゲートできるエージェント型ワークフローにおいて優れています。\n\nClaude 3.7 Sonnetは標準モードでは前モデルと同等のパフォーマンスを維持しながら、数学、コーディング、指示に従うタスクにおいて精度を高めるための拡張推論モードを提供します。\n\n詳細は[ブログ記事](https://www.anthropic.com/news/claude-3-7-sonnet)をご覧ください。",
 }
 // Vertex AI
 // https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/use-claude
@@ -1215,7 +1215,7 @@ export const xaiModels = {
 		supportsPromptCache: false,
 		inputPrice: 2.0,
 		outputPrice: 10.0,
-		description: "X AI's Grok-2 model - latest version with 131K context window",
+		description: "X AIのGrok-2モデル - 131Kコンテキストウィンドウを持つ最新バージョン",
 	},
 	"grok-2": {
 		maxTokens: 8192,
@@ -1224,7 +1224,7 @@ export const xaiModels = {
 		supportsPromptCache: false,
 		inputPrice: 2.0,
 		outputPrice: 10.0,
-		description: "X AI's Grok-2 model with 131K context window",
+		description: "X AIのGrok-2モデル - 131Kコンテキストウィンドウを搭載",
 	},
 	"grok-2-1212": {
 		maxTokens: 8192,
@@ -1233,7 +1233,7 @@ export const xaiModels = {
 		supportsPromptCache: false,
 		inputPrice: 2.0,
 		outputPrice: 10.0,
-		description: "X AI's Grok-2 model (version 1212) with 131K context window",
+		description: "X AIのGrok-2モデル（バージョン1212）- 131Kコンテキストウィンドウを搭載",
 	},
 	"grok-2-vision-latest": {
 		maxTokens: 8192,
@@ -1242,7 +1242,7 @@ export const xaiModels = {
 		supportsPromptCache: false,
 		inputPrice: 2.0,
 		outputPrice: 10.0,
-		description: "X AI's Grok-2 Vision model - latest version with image support and 32K context window",
+		description: "X AIのGrok-2 Visionモデル - 画像サポートと32Kコンテキストウィンドウを持つ最新バージョン",
 	},
 	"grok-2-vision": {
 		maxTokens: 8192,
@@ -1251,7 +1251,7 @@ export const xaiModels = {
 		supportsPromptCache: false,
 		inputPrice: 2.0,
 		outputPrice: 10.0,
-		description: "X AI's Grok-2 Vision model with image support and 32K context window",
+		description: "X AIのGrok-2 Visionモデル - 画像サポートと32Kコンテキストウィンドウを搭載",
 	},
 	"grok-2-vision-1212": {
 		maxTokens: 8192,
@@ -1260,7 +1260,7 @@ export const xaiModels = {
 		supportsPromptCache: false,
 		inputPrice: 2.0,
 		outputPrice: 10.0,
-		description: "X AI's Grok-2 Vision model (version 1212) with image support and 32K context window",
+		description: "X AIのGrok-2 Visionモデル（バージョン1212）- 画像サポートと32Kコンテキストウィンドウを搭載",
 	},
 	"grok-vision-beta": {
 		maxTokens: 8192,
@@ -1269,7 +1269,7 @@ export const xaiModels = {
 		supportsPromptCache: false,
 		inputPrice: 5.0,
 		outputPrice: 15.0,
-		description: "X AI's Grok Vision Beta model with image support and 8K context window",
+		description: "X AIのGrok Vision Betaモデル - 画像サポートと8Kコンテキストウィンドウを搭載",
 	},
 	"grok-beta": {
 		maxTokens: 8192,
@@ -1278,7 +1278,7 @@ export const xaiModels = {
 		supportsPromptCache: false,
 		inputPrice: 5.0,
 		outputPrice: 15.0,
-		description: "X AI's Grok Beta model (legacy) with 131K context window",
+		description: "X AIのGrok Betaモデル（レガシー）- 131Kコンテキストウィンドウを搭載",
 	},
 } as const satisfies Record<string, ModelInfo>
 
@@ -1382,7 +1382,7 @@ export const bougaLmsDefaultModelInfo: ModelInfo = {
 	cacheWritesPrice: 3.75,
 	cacheReadsPrice: 0.3,
 	description:
-		"Claude 3.7 Sonnet is an advanced large language model with improved reasoning, coding, and problem-solving capabilities. It introduces a hybrid reasoning approach, allowing users to choose between rapid responses and extended, step-by-step processing for complex tasks. The model demonstrates notable improvements in coding, particularly in front-end development and full-stack updates, and excels in agentic workflows, where it can autonomously navigate multi-step processes. \n\nClaude 3.7 Sonnet maintains performance parity with its predecessor in standard mode while offering an extended reasoning mode for enhanced accuracy in math, coding, and instruction-following tasks.\n\nRead more at the [blog post here](https://www.anthropic.com/news/claude-3-7-sonnet)",
+		"Claude 3.7 Sonnetは、推論、コーディング、問題解決能力が向上した高度な大規模言語モデルです。ハイブリッド推論アプローチを導入し、ユーザーが迅速な応答と、複雑なタスクのためのステップバイステップの詳細な処理を選択できるようになりました。このモデルは、特にフロントエンド開発やフルスタックの更新などのコーディングにおいて顕著な改善を示し、複数のステップを自律的にナビゲートできるエージェント型ワークフローにおいて優れています。\n\nClaude 3.7 Sonnetは標準モードでは前モデルと同等のパフォーマンスを維持しながら、数学、コーディング、指示に従うタスクにおいて精度を高めるための拡張推論モードを提供します。\n\n詳細は[ブログ記事](https://www.anthropic.com/news/claude-3-7-sonnet)をご覧ください。",
 }
 
 export const bougaLmsModels = {

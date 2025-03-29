@@ -1,0 +1,10 @@
+# Pushing
+
+Follow these guidelines when pushing to the main branch:
+1. create changeset with `npm run changeset` and give the summary of the changes in line.
+2. apply the changeset with `npm run changeset version`
+3. Run `npm run format:fix` to format the code
+4. git add .
+5. git commit with the message used at the 1st step
+6. git push
+7. Deploy to the marketplace with `npm run publish:marketplace`

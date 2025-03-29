@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.4
+
+### Patch Changes
+
+-   Japanese translation of AI model descriptions (Claude 3.7, Grok, VSCode LM)
+
 ## 0.7.3
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 # Pushing
 
 Follow these guidelines when pushing to the main branch:
-1. give the summary of the changes in line.
+1. give the summary of the changes in line to user.
 2. create changeset with `npm run changeset`.
 3. apply the changeset with `npm run changeset version`
 4. Run `npm run format:fix` to format the code

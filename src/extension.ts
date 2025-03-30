@@ -39,7 +39,7 @@ export function activate(context: vscode.ExtensionContext) {
 	)
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand("bougaLmsAi.plusButtonClicked", async () => {
+		vscode.commands.registerCommand("bouga-lms-ai.plusButtonClicked", async () => {
 			Logger.log("Plus button Clicked")
 			await sidebarProvider.clearTask()
 			await sidebarProvider.postStateToWebview()
@@ -51,7 +51,7 @@ export function activate(context: vscode.ExtensionContext) {
 	)
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand("bougaLmsAi.mcpButtonClicked", () => {
+		vscode.commands.registerCommand("bouga-lms-ai.mcpButtonClicked", () => {
 			sidebarProvider.postMessageToWebview({
 				type: "action",
 				action: "mcpButtonClicked",
@@ -92,11 +92,11 @@ export function activate(context: vscode.ExtensionContext) {
 		await vscode.commands.executeCommand("workbench.action.lockEditorGroup")
 	}
 
-	context.subscriptions.push(vscode.commands.registerCommand("bougaLmsAi.popoutButtonClicked", openClineInNewTab))
-	context.subscriptions.push(vscode.commands.registerCommand("bougaLmsAi.openInNewTab", openClineInNewTab))
+	context.subscriptions.push(vscode.commands.registerCommand("bouga-lms-ai.popoutButtonClicked", openClineInNewTab))
+	context.subscriptions.push(vscode.commands.registerCommand("bouga-lms-ai.openInNewTab", openClineInNewTab))
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand("bougaLmsAi.settingsButtonClicked", () => {
+		vscode.commands.registerCommand("bouga-lms-ai.settingsButtonClicked", () => {
 			//vscode.window.showInformationMessage(message)
 			sidebarProvider.postMessageToWebview({
 				type: "action",
@@ -106,7 +106,7 @@ export function activate(context: vscode.ExtensionContext) {
 	)
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand("bougaLmsAi.historyButtonClicked", () => {
+		vscode.commands.registerCommand("bouga-lms-ai.historyButtonClicked", () => {
 			sidebarProvider.postMessageToWebview({
 				type: "action",
 				action: "historyButtonClicked",
@@ -115,7 +115,7 @@ export function activate(context: vscode.ExtensionContext) {
 	)
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand("bougaLmsAi.accountLoginClicked", () => {
+		vscode.commands.registerCommand("bouga-lms-ai.accountLoginClicked", () => {
 			sidebarProvider.postMessageToWebview({
 				type: "action",
 				action: "accountLoginClicked",
@@ -124,7 +124,7 @@ export function activate(context: vscode.ExtensionContext) {
 	)
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand("bougaLmsAi.accountSignUpClicked", () => {
+		vscode.commands.registerCommand("bouga-lms-ai.accountSignUpClicked", () => {
 			sidebarProvider.postMessageToWebview({
 				type: "action",
 				action: "accountSignUpClicked",

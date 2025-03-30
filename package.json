@@ -2,7 +2,7 @@
 	"name": "bouga-lms-ai",
 	"displayName": "Bouga LMS AI",
 	"description": "Autonomous education agent right in your IDE, capable of creating/editing files, running commands, using the browser, and more with your permission every step of the way.",
-	"version": "0.7.6",
+	"version": "0.7.7",
 	"icon": "assets/icons/icon.png",
 	"galleryBanner": {
 		"color": "#617A91",
@@ -66,32 +66,32 @@
 		},
 		"commands": [
 			{
-				"command": "bougaLmsAi.plusButtonClicked",
+				"command": "bouga-lms-ai.plusButtonClicked",
 				"title": "New Task",
 				"icon": "$(add)"
 			},
 			{
-				"command": "bougaLmsAi.mcpButtonClicked",
+				"command": "bouga-lms-ai.mcpButtonClicked",
 				"title": "MCP Servers",
 				"icon": "$(extensions)"
 			},
 			{
-				"command": "bougaLmsAi.historyButtonClicked",
+				"command": "bouga-lms-ai.historyButtonClicked",
 				"title": "History",
 				"icon": "$(history)"
 			},
 			{
-				"command": "bougaLmsAi.popoutButtonClicked",
+				"command": "bouga-lms-ai.popoutButtonClicked",
 				"title": "Open in Editor",
 				"icon": "$(link-external)"
 			},
 			{
-				"command": "bougaLmsAi.settingsButtonClicked",
+				"command": "bouga-lms-ai.settingsButtonClicked",
 				"title": "Settings",
 				"icon": "$(settings-gear)"
 			},
 			{
-				"command": "bougaLmsAi.openInNewTab",
+				"command": "bouga-lms-ai.openInNewTab",
 				"title": "Open In New Tab",
 				"category": "Bouga LMS AI"
 			}
@@ -99,36 +99,36 @@
 		"menus": {
 			"view/title": [
 				{
-					"command": "bougaLmsAi.plusButtonClicked",
+					"command": "bouga-lms-ai.plusButtonClicked",
 					"group": "navigation@1",
-					"when": "view == bougaLmsAi.SidebarProvider"
+					"when": "view == bouga-lms-ai.SidebarProvider"
 				},
 				{
-					"command": "bougaLmsAi.mcpButtonClicked",
+					"command": "bouga-lms-ai.mcpButtonClicked",
 					"group": "navigation@2",
-					"when": "view == bougaLmsAi.SidebarProvider"
+					"when": "view == bouga-lms-ai.SidebarProvider"
 				},
 				{
-					"command": "bougaLmsAi.historyButtonClicked",
+					"command": "bouga-lms-ai.historyButtonClicked",
 					"group": "navigation@3",
-					"when": "view == bougaLmsAi.SidebarProvider"
+					"when": "view == bouga-lms-ai.SidebarProvider"
 				},
 				{
-					"command": "bougaLmsAi.popoutButtonClicked",
+					"command": "bouga-lms-ai.popoutButtonClicked",
 					"group": "navigation@4",
-					"when": "view == bougaLmsAi.SidebarProvider"
+					"when": "view == bouga-lms-ai.SidebarProvider"
 				},
 				{
-					"command": "bougaLmsAi.settingsButtonClicked",
+					"command": "bouga-lms-ai.settingsButtonClicked",
 					"group": "navigation@5",
-					"when": "view == bougaLmsAi.SidebarProvider"
+					"when": "view == bouga-lms-ai.SidebarProvider"
 				}
 			]
 		},
 		"configuration": {
 			"title": "BOUGA LMS AI",
 			"properties": {
-				"bougaLmsAi.vsCodeLmModelSelector": {
+				"bouga-lms-ai.vsCodeLmModelSelector": {
 					"type": "object",
 					"properties": {
 						"vendor": {
@@ -142,7 +142,7 @@
 					},
 					"description": "Settings for VSCode Language Model API"
 				},
-				"bougaLmsAi.mcp.mode": {
+				"bouga-lms-ai.mcp.mode": {
 					"type": "string",
 					"enum": [
 						"full",
@@ -157,17 +157,17 @@
 					"default": "full",
 					"description": "Controls MCP inclusion in prompts, reduces token usage if you only need access to certain functionality."
 				},
-				"bougaLmsAi.enableCheckpoints": {
+				"bouga-lms-ai.enableCheckpoints": {
 					"type": "boolean",
 					"default": true,
 					"description": "Enables extension to save checkpoints of workspace throughout the task. Uses git under the hood which may not work well with large workspaces."
 				},
-				"bougaLmsAi.disableBrowserTool": {
+				"bouga-lms-ai.disableBrowserTool": {
 					"type": "boolean",
 					"default": false,
 					"description": "Disables extension from spawning browser session."
 				},
-				"bougaLmsAi.modelSettings.o3Mini.reasoningEffort": {
+				"bouga-lms-ai.modelSettings.o3Mini.reasoningEffort": {
 					"type": "string",
 					"enum": [
 						"low",
@@ -177,12 +177,12 @@
 					"default": "medium",
 					"description": "Controls the reasoning effort when using the o3-mini model. Higher values may result in more thorough but slower responses."
 				},
-				"bougaLmsAi.chromeExecutablePath": {
+				"bouga-lms-ai.chromeExecutablePath": {
 					"type": "string",
 					"default": null,
 					"description": "Path to Chrome executable for browser use functionality. If not set, the extension will attempt to find or download it automatically."
 				},
-				"bougaLmsAi.preferredLanguage": {
+				"bouga-lms-ai.preferredLanguage": {
 					"type": "string",
 					"enum": [
 						"English",

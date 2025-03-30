@@ -37,7 +37,7 @@ describe("Extension Tests", function () {
 
 	it("should open sidebar view", async () => {
 		// Execute the command to open sidebar
-		await vscode.commands.executeCommand("bougaLmsAi.plusButtonClicked")
+		await vscode.commands.executeCommand("bouga-lms-ai.plusButtonClicked")
 
 		// Wait for sidebar to be visible
 		await new Promise((resolve) => setTimeout(resolve, 1000))
@@ -50,17 +50,17 @@ describe("Extension Tests", function () {
 
 	it("should handle basic commands", async () => {
 		// Test basic command execution
-		await vscode.commands.executeCommand("bougaLmsAi.historyButtonClicked")
+		await vscode.commands.executeCommand("bouga-lms-ai.historyButtonClicked")
 		// Success if no error thrown
 	})
 
 	it("should handle advanced settings configuration", async () => {
 		// Test browser session setting
-		await vscode.workspace.getConfiguration().update("bougaLmsAi.disableBrowserTool", true, true)
+		await vscode.workspace.getConfiguration().update("bouga-lms-ai.disableBrowserTool", true, true)
 		const updatedConfig = vscode.workspace.getConfiguration("cline")
 		expect(updatedConfig.get("disableBrowserTool")).to.be.true
 
 		// Reset settings
-		await vscode.workspace.getConfiguration().update("bougaLmsAi.disableBrowserTool", undefined, true)
+		await vscode.workspace.getConfiguration().update("bouga-lms-ai.disableBrowserTool", undefined, true)
 	})
 })

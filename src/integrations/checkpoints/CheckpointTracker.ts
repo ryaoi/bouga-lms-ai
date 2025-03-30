@@ -80,7 +80,7 @@ class CheckpointTracker {
 	 * - Creates/initializes shadow git repository
 	 *
 	 * Configuration:
-	 * - Respects 'bougaLmsAi.enableCheckpoints' VS Code setting
+	 * - Respects 'bouga-lms-ai.enableCheckpoints' VS Code setting
 	 */
 	public static async create(taskId: string, globalStoragePath: string | undefined): Promise<CheckpointTracker | undefined> {
 		if (!globalStoragePath) {

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.7
+
+### Patch Changes
+
+-   Fix vscode extention id from bougaLmsAi to bouga-lms-ai
+
 ## 0.7.6
 
 ### Patch Changes

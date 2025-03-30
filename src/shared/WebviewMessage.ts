@@ -46,6 +46,7 @@ export interface WebviewMessage {
 		| "accountLoginClicked"
 		| "accountSignUpClicked"
 		| "accountLogoutClicked"
+		| "showAccountViewClicked"
 		| "authStateChanged"
 		| "authCallback"
 		| "fetchMcpMarketplace"
@@ -62,6 +63,7 @@ export interface WebviewMessage {
 		| "invoke"
 		| "updateSettings"
 		| "clearAllTaskHistory"
+		| "fetchUserCreditsData"
 		| "optionsResponse"
 	// | "relaunchChromeDebugMode"
 	text?: string

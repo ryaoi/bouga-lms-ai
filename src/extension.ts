@@ -113,7 +113,20 @@ export function activate(context: vscode.ExtensionContext) {
 			})
 		}),
 	)
+	context.subscriptions.push(
+		vscode.commands.registerCommand("bouga-lms-ai.accountButtonClicked", () => {
+			const visibleProvider = ClineProvider.getVisibleInstance()
+			if (!visibleProvider) {
+				Logger.log("Cannot find any visible Cline instances.")
+				return
+			}
 
+			visibleProvider.postMessageToWebview({
+				type: "action",
+				action: "accountButtonClicked",
+			})
+		}),
+	)
 	context.subscriptions.push(
 		vscode.commands.registerCommand("bouga-lms-ai.accountLoginClicked", () => {
 			sidebarProvider.postMessageToWebview({

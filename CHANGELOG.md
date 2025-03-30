@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.0
+
+### Minor Changes
+
+-   Implemented account management system with Supabase authentication, credit tracking, billing history, and usage analytics for OpenRouter.ai integration.
+
 ## 0.7.7
 
 ### Patch Changes

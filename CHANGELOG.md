@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.0
+
+### Minor Changes
+
+-   Update API models: Add Amazon models to Bedrock, new Gemini model, update OpenAI models, and add SambaNova models
+
 ## 0.8.0
 
 ### Minor Changes

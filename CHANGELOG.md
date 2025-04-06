@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.1
+
+### Patch Changes
+
+-   Remove 'use your own API key' button from welcome screen for simplified UX
+
 ## 0.9.0
 
 ### Minor Changes

@@ -1,19 +1,9 @@
-import { VSCodeButton, VSCodeDivider, VSCodeLink, VSCodeTextField } from "@vscode/webview-ui-toolkit/react"
-import { useCallback, useEffect, useState } from "react"
+import { VSCodeButton, VSCodeLink } from "@vscode/webview-ui-toolkit/react"
 import { useEvent } from "react-use"
 import { ExtensionMessage } from "../../../../src/shared/ExtensionMessage"
-import { useExtensionState } from "../../context/ExtensionStateContext"
-import { validateApiConfiguration } from "../../utils/validate"
 import { vscode } from "../../utils/vscode"
-import ApiOptions from "../settings/ApiOptions"
 
 const WelcomeView = () => {
-	const { apiConfiguration } = useExtensionState()
-	const [apiErrorMessage, setApiErrorMessage] = useState<string | undefined>(undefined)
-	const [showApiOptions, setShowApiOptions] = useState(false)
-
-	const disableLetsGoButton = apiErrorMessage != null
-
 	const handleLogin = () => {
 		vscode.postMessage({ type: "accountLoginClicked" })
 	}
@@ -21,14 +11,6 @@ const WelcomeView = () => {
 	const handleSignUp = () => {
 		vscode.postMessage({ type: "accountSignUpClicked" })
 	}
-
-	const handleSubmit = () => {
-		vscode.postMessage({ type: "apiConfiguration", apiConfiguration })
-	}
-
-	useEffect(() => {
-		setApiErrorMessage(validateApiConfiguration(apiConfiguration))
-	}, [apiConfiguration])
 
 	return (
 		<div
@@ -72,25 +54,7 @@ const WelcomeView = () => {
 					サインアップ
 				</VSCodeButton>
 
-				{!showApiOptions && (
-					<VSCodeButton
-						appearance="secondary"
-						onClick={() => setShowApiOptions(!showApiOptions)}
-						style={{ marginTop: 10, width: "100%" }}>
-						自分のAPIキーを使用する
-					</VSCodeButton>
-				)}
-
-				<div style={{ marginTop: "18px" }}>
-					{showApiOptions && (
-						<div>
-							<ApiOptions showModelOptions={false} />
-							<VSCodeButton onClick={handleSubmit} disabled={disableLetsGoButton} style={{ marginTop: "3px" }}>
-								始めましょう！
-							</VSCodeButton>
-						</div>
-					)}
-				</div>
+				<div style={{ marginTop: "18px" }}></div>
 			</div>
 		</div>
 	)

@@ -30,12 +30,31 @@ import CreditLimitError from "./CreditLimitError"
 import { OptionsButtons } from "./OptionsButtons"
 import { highlightMentions } from "./TaskHeader"
 
-const ChatRowContainer = styled.div`
+const ChatRowContainer = styled.div<{ isToolMessage?: boolean; isCommandMessage?: boolean; isImportantMessage?: boolean }>`
 	padding: 10px 6px 10px 15px;
 	position: relative;
+	opacity: ${(props) => (props.isToolMessage || props.isCommandMessage || props.isImportantMessage ? 1 : 0.7)};
+	transition:
+		opacity 0.2s ease,
+		transform 0.2s ease; /* Smooth transition */
+
+	&:hover {
+		opacity: 1; /* Full visibility on hover */
+	}
 
 	&:hover ${CheckpointControls} {
 		opacity: 1;
+	}
+`
+
+const MessageContent = styled.div<{ isImportant?: boolean }>`
+	font-size: ${(props) => (props.isImportant ? "1em" : "0.95em")};
+	line-height: ${(props) => (props.isImportant ? "1.5" : "1.4")};
+	transition: all 0.2s ease;
+
+	${ChatRowContainer}:hover & {
+		font-size: 1em;
+		line-height: 1.5;
 	}
 `
 
@@ -103,8 +122,22 @@ const ChatRow = memo(
 				lastModifiedMessage?.ask === "resume_completed_task" || lastModifiedMessage?.ask === "resume_task"
 		}
 
+		// Determine if message is a tool message that should always be fully visible
+		const isToolMessage = message.say === "tool" || message.ask === "tool"
+		const isCommandMessage = message.say === "command" || message.ask === "command"
+		const isImportantMessage =
+			message.say === "completion_result" ||
+			message.ask === "completion_result" ||
+			message.say === "error" ||
+			message.ask === "followup" ||
+			message.say === "use_mcp_server" ||
+			message.ask === "use_mcp_server"
+
 		const [chatrow, { height }] = useSize(
-			<ChatRowContainer>
+			<ChatRowContainer
+				isToolMessage={isToolMessage}
+				isCommandMessage={isCommandMessage}
+				isImportantMessage={isImportantMessage}>
 				<ChatRowContent {...props} />
 				{shouldShowCheckpoints && <CheckpointOverlay messageTs={message.ts} />}
 			</ChatRowContainer>,
@@ -186,7 +219,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 							color: errorColor,
 							marginBottom: "-1.5px",
 						}}></span>,
-					<span style={{ color: errorColor, fontWeight: "bold" }}>Error</span>,
+					<span style={{ color: errorColor, fontWeight: "bold" }}>エラー</span>,
 				]
 			case "mistake_limit_reached":
 				return [
@@ -196,7 +229,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 							color: errorColor,
 							marginBottom: "-1.5px",
 						}}></span>,
-					<span style={{ color: errorColor, fontWeight: "bold" }}>Cline is having trouble...</span>,
+					<span style={{ color: errorColor, fontWeight: "bold" }}>AIがエラーが発生しました。</span>,
 				]
 			case "auto_approval_max_req_reached":
 				return [
@@ -206,7 +239,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 							color: errorColor,
 							marginBottom: "-1.5px",
 						}}></span>,
-					<span style={{ color: errorColor, fontWeight: "bold" }}>Maximum Requests Reached</span>,
+					<span style={{ color: errorColor, fontWeight: "bold" }}>最大リクエスト数に達しました</span>,
 				]
 			case "command":
 				return [
@@ -220,7 +253,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 								marginBottom: "-1.5px",
 							}}></span>
 					),
-					<span style={{ color: normalColor, fontWeight: "bold" }}>Cline wants to execute this command:</span>,
+					<span style={{ color: normalColor, fontWeight: "bold" }}>AIが以下のコマンドを実行します。</span>,
 				]
 			case "use_mcp_server":
 				const mcpServerUse = JSON.parse(message.text || "{}") as ClineAskUseMcpServer
@@ -236,11 +269,11 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 							}}></span>
 					),
 					<span style={{ color: normalColor, fontWeight: "bold", wordBreak: "break-word" }}>
-						Cline wants to {mcpServerUse.type === "use_mcp_tool" ? "use a tool" : "access a resource"} on the{" "}
+						AIが {mcpServerUse.type === "use_mcp_tool" ? "ツールを使用" : "リソースにアクセス"} しようとしています：{" "}
 						<code style={{ wordBreak: "break-all" }}>
 							{getMcpServerDisplayName(mcpServerUse.serverName, mcpMarketplaceCatalog)}
 						</code>{" "}
-						MCP server:
+						MCPサーバー
 					</span>,
 				]
 			case "completion_result":
@@ -251,7 +284,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 							color: successColor,
 							marginBottom: "-1.5px",
 						}}></span>,
-					<span style={{ color: successColor, fontWeight: "bold" }}>Task Completed</span>,
+					<span style={{ color: successColor, fontWeight: "bold" }}>学習が完了しました。</span>,
 				]
 			case "api_req_started":
 				const getIconSpan = (iconName: string, color: string) => (
@@ -289,21 +322,21 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 					(() => {
 						if (apiReqCancelReason != null) {
 							return apiReqCancelReason === "user_cancelled" ? (
-								<span style={{ color: normalColor, fontWeight: "bold" }}>API Request Cancelled</span>
+								<span style={{ color: normalColor, fontWeight: "bold" }}>処理が中止されました</span>
 							) : (
-								<span style={{ color: errorColor, fontWeight: "bold" }}>API Streaming Failed</span>
+								<span style={{ color: errorColor, fontWeight: "bold" }}>ストリーミング処理に失敗しました</span>
 							)
 						}
 
 						if (cost != null) {
-							return <span style={{ color: normalColor, fontWeight: "bold" }}>API Request</span>
+							return <span style={{ color: normalColor, fontWeight: "bold" }}>思考が完了しました</span>
 						}
 
 						if (apiRequestFailedMessage) {
-							return <span style={{ color: errorColor, fontWeight: "bold" }}>API Request Failed</span>
+							return <span style={{ color: errorColor, fontWeight: "bold" }}>処理に失敗しました</span>
 						}
 
-						return <span style={{ color: normalColor, fontWeight: "bold" }}>API Request...</span>
+						return <span style={{ color: normalColor, fontWeight: "bold" }}>思考中...</span>
 					})(),
 				]
 			case "followup":
@@ -314,7 +347,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 							color: normalColor,
 							marginBottom: "-1.5px",
 						}}></span>,
-					<span style={{ color: normalColor, fontWeight: "bold" }}>Cline has a question:</span>,
+					<span style={{ color: normalColor, fontWeight: "bold" }}>AIから質問があります。</span>,
 				]
 			default:
 				return [null, null]
@@ -358,7 +391,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 					<>
 						<div style={headerStyle}>
 							{toolIcon("edit")}
-							<span style={{ fontWeight: "bold" }}>Cline wants to edit this file:</span>
+							<span style={{ fontWeight: "bold" }}>AIが以下のファイルを編集します。</span>
 						</div>
 						<CodeAccordian
 							// isLoading={message.partial}
@@ -374,7 +407,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 					<>
 						<div style={headerStyle}>
 							{toolIcon("new-file")}
-							<span style={{ fontWeight: "bold" }}>Cline wants to create a new file:</span>
+							<span style={{ fontWeight: "bold" }}>AIが以下のファイルを作成します。</span>
 						</div>
 						<CodeAccordian
 							isLoading={message.partial}
@@ -392,7 +425,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 							{toolIcon("file-code")}
 							<span style={{ fontWeight: "bold" }}>
 								{/* {message.type === "ask" ? "" : "Cline read this file:"} */}
-								Cline wants to read this file:
+								AIが以下のファイルを読み込みます。
 							</span>
 						</div>
 						<div
@@ -450,8 +483,8 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 							{toolIcon("folder-opened")}
 							<span style={{ fontWeight: "bold" }}>
 								{message.type === "ask"
-									? "Cline wants to view the top level files in this directory:"
-									: "Cline viewed the top level files in this directory:"}
+									? "AIが以下のディレクトリのトップレベルファイルを表示します。"
+									: "AIが以下のディレクトリのトップレベルファイルを表示しました。"}
 							</span>
 						</div>
 						<CodeAccordian
@@ -470,8 +503,8 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 							{toolIcon("folder-opened")}
 							<span style={{ fontWeight: "bold" }}>
 								{message.type === "ask"
-									? "Cline wants to recursively view all files in this directory:"
-									: "Cline recursively viewed all files in this directory:"}
+									? "AIが以下のディレクトリの再帰的なファイルを表示します。"
+									: "AIが以下のディレクトリの再帰的なファイルを表示しました。"}
 							</span>
 						</div>
 						<CodeAccordian
@@ -490,8 +523,8 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 							{toolIcon("file-code")}
 							<span style={{ fontWeight: "bold" }}>
 								{message.type === "ask"
-									? "Cline wants to view source code definition names used in this directory:"
-									: "Cline viewed source code definition names used in this directory:"}
+									? "AIがこのディレクトリのソースコード定義名を表示します。"
+									: "AIがこのディレクトリのソースコード定義名を表示しました。"}
 							</span>
 						</div>
 						<CodeAccordian
@@ -508,7 +541,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 						<div style={headerStyle}>
 							{toolIcon("search")}
 							<span style={{ fontWeight: "bold" }}>
-								Cline wants to search this directory for <code>{tool.regex}</code>:
+								AIがこのディレクトリで <code>{tool.regex}</code> を検索します。
 							</span>
 						</div>
 						<CodeAccordian
@@ -588,7 +621,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 									padding: `2px 8px ${isExpanded ? 0 : 8}px 8px`,
 								}}>
 								<span className={`codicon codicon-chevron-${isExpanded ? "down" : "right"}`}></span>
-								<span style={{ fontSize: "0.8em" }}>Command Output</span>
+								<span style={{ fontSize: "0.8em" }}>コマンドの出力</span>
 							</div>
 							{isExpanded && <CodeBlock source={`${"```"}shell\n${output}\n${"```"}`} />}
 						</div>
@@ -605,7 +638,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 							color: "var(--vscode-editorWarning-foreground)",
 						}}>
 						<i className="codicon codicon-warning"></i>
-						<span>The model has determined this command requires explicit approval.</span>
+						<span>このコマンドは明示的な承認が必要です。</span>
 					</div>
 				)}
 			</>
@@ -670,7 +703,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 											fontSize: "12px",
 											textTransform: "uppercase",
 										}}>
-										Arguments
+										引数
 									</div>
 									<CodeAccordian
 										code={useMcpServer.arguments}
@@ -725,7 +758,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 								<span className={`codicon codicon-chevron-${isExpanded ? "up" : "down"}`}></span>
 							</div>
 							{((cost == null && apiRequestFailedMessage) || apiReqStreamingFailedMessage) && (
-								<>
+								<MessageContent isImportant>
 									{(() => {
 										// Try to parse the error message as JSON for credit limit error
 										const errorData = parseErrorText(apiRequestFailedMessage)
@@ -760,22 +793,22 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 													<>
 														<br />
 														<br />
-														It seems like you're having Windows PowerShell issues, please see this{" "}
+														WindowsのPowerShellに問題が発生しているようです。{" "}
 														<a
 															href="https://github.com/cline/cline/wiki/TroubleShooting-%E2%80%90-%22PowerShell-is-not-recognized-as-an-internal-or-external-command%22"
 															style={{
 																color: "inherit",
 																textDecoration: "underline",
 															}}>
-															troubleshooting guide
+															トラブルシューティングガイド
 														</a>
-														.
+														をご覧ください。
 													</>
 												)}
 											</p>
 										)
 									})()}
-								</>
+								</MessageContent>
 							)}
 
 							{isExpanded && (
@@ -805,7 +838,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 										fontSize: "12px",
 										textTransform: "uppercase",
 									}}>
-									Response
+									応答
 								</div>
 								<CodeAccordian
 									code={message.text}
@@ -819,7 +852,9 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 				case "text":
 					return (
 						<div>
-							<Markdown markdown={message.text} />
+							<MessageContent isImportant={false}>
+								<Markdown markdown={message.text} />
+							</MessageContent>
 						</div>
 					)
 				case "reasoning":
@@ -839,7 +874,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 									{isExpanded ? (
 										<div style={{ marginTop: -3 }}>
 											<span style={{ fontWeight: "bold", display: "block", marginBottom: "4px" }}>
-												Thinking
+												思考中
 												<span
 													className="codicon codicon-chevron-down"
 													style={{
@@ -853,7 +888,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 										</div>
 									) : (
 										<div style={{ display: "flex", alignItems: "center" }}>
-											<span style={{ fontWeight: "bold", marginRight: "4px" }}>Thinking:</span>
+											<span style={{ fontWeight: "bold", marginRight: "4px" }}>思考中:</span>
 											<span
 												style={{
 													whiteSpace: "nowrap",
@@ -956,9 +991,11 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 											fontSize: 14,
 											color: "var(--vscode-descriptionForeground)",
 										}}></i>
-									<span style={{ fontWeight: 500 }}>Diff Edit Mismatch</span>
+									<span style={{ fontWeight: 500 }}>差分の編集が一致しません</span>
 								</div>
-								<div>The model used search patterns that don't match anything in the file. Retrying...</div>
+								<div>
+									モデルはファイル内に一致するものが見つからない検索パターンを使用しました。再試行します...
+								</div>
 							</div>
 						</>
 					)
@@ -992,13 +1029,12 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 											fontWeight: 500,
 											color: "#FFA500",
 										}}>
-										Access Denied
+										アクセス拒否
 									</span>
 								</div>
 								<div>
-									Cline tried to access <code>{message.text}</code> which is blocked by the{" "}
-									<code>.clineignore</code>
-									file.
+									AIが <code>{message.text}</code> へのアクセスが <code>.clineignore</code>{" "}
+									ファイルによってブロックされました。
 								</div>
 							</div>
 						</>
@@ -1027,7 +1063,9 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 									color: "var(--vscode-charts-green)",
 									paddingTop: 10,
 								}}>
-								<Markdown markdown={text} />
+								<MessageContent isImportant>
+									<Markdown markdown={text} />
+								</MessageContent>
 							</div>
 							{message.partial !== true && hasChanges && (
 								<div style={{ paddingTop: 17 }}>
@@ -1045,7 +1083,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 											cursor: seeNewChangesDisabled ? "wait" : "pointer",
 										}}>
 										<i className="codicon codicon-new-file" style={{ marginRight: 6 }} />
-										See new changes
+										変更内容を確認する
 									</SuccessButton>
 								</div>
 							)}
@@ -1081,21 +1119,22 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 											fontWeight: 500,
 											color: "#FFA500",
 										}}>
-										Shell Integration Unavailable
+										シェル連携が利用できません
 									</span>
 								</div>
 								<div>
-									Cline won't be able to view the command's output. Please update VSCode (
-									<code>CMD/CTRL + Shift + P</code> → "Update") and make sure you're using a supported shell:
-									zsh, bash, fish, or PowerShell (<code>CMD/CTRL + Shift + P</code> → "Terminal: Select Default
-									Profile").{" "}
+									コマンドの出力を表示できません。VSCodeを更新し（
+									<code>CMD/CTRL + Shift + P</code> →
+									"Update"）、サポートされているシェルを使用していることを確認してください：
+									zsh、bash、fish、またはPowerShell（<code>CMD/CTRL + Shift + P</code> → "Terminal: Select
+									Default Profile"）。{" "}
 									<a
 										href="https://github.com/cline/cline/wiki/Troubleshooting-%E2%80%90-Shell-Integration-Unavailable"
 										style={{
 											color: "inherit",
 											textDecoration: "underline",
 										}}>
-										Still having trouble?
+										問題が解決しない場合
 									</a>
 								</div>
 							</div>
@@ -1111,7 +1150,9 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 								</div>
 							)}
 							<div style={{ paddingTop: 10 }}>
-								<Markdown markdown={message.text} />
+								<MessageContent isImportant={false}>
+									<Markdown markdown={message.text} />
+								</MessageContent>
 							</div>
 						</>
 					)
@@ -1125,13 +1166,15 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 								{icon}
 								{title}
 							</div>
-							<p
-								style={{
-									...pStyle,
-									color: "var(--vscode-errorForeground)",
-								}}>
-								{message.text}
-							</p>
+							<MessageContent isImportant>
+								<p
+									style={{
+										...pStyle,
+										color: "var(--vscode-errorForeground)",
+									}}>
+									{message.text}
+								</p>
+							</MessageContent>
 						</>
 					)
 				case "auto_approval_max_req_reached":
@@ -1141,13 +1184,15 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 								{icon}
 								{title}
 							</div>
-							<p
-								style={{
-									...pStyle,
-									color: "var(--vscode-errorForeground)",
-								}}>
-								{message.text}
-							</p>
+							<MessageContent isImportant>
+								<p
+									style={{
+										...pStyle,
+										color: "var(--vscode-errorForeground)",
+									}}>
+									{message.text}
+								</p>
+							</MessageContent>
 						</>
 					)
 				case "completion_result":
@@ -1169,7 +1214,9 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 										color: "var(--vscode-charts-green)",
 										paddingTop: 10,
 									}}>
-									<Markdown markdown={text} />
+									<MessageContent isImportant>
+										<Markdown markdown={text} />
+									</MessageContent>
 									{message.partial !== true && hasChanges && (
 										<div style={{ marginTop: 15 }}>
 											<SuccessButton
@@ -1189,7 +1236,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 														cursor: seeNewChangesDisabled ? "wait" : "pointer",
 													}}
 												/>
-												See new changes
+												変更内容を確認する
 											</SuccessButton>
 										</div>
 									)}
@@ -1222,7 +1269,9 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 								</div>
 							)}
 							<div style={{ paddingTop: 10 }}>
-								<Markdown markdown={question} />
+								<MessageContent isImportant>
+									<Markdown markdown={question} />
+								</MessageContent>
 								<OptionsButtons
 									options={options}
 									selected={selected}
@@ -1246,7 +1295,9 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 					}
 					return (
 						<div style={{}}>
-							<Markdown markdown={response} />
+							<MessageContent isImportant={false}>
+								<Markdown markdown={response} />
+							</MessageContent>
 							<OptionsButtons
 								options={options}
 								selected={selected}
@@ -1260,7 +1311,6 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 			}
 	}
 }
-
 function parseErrorText(text: string | undefined) {
 	if (!text) {
 		return undefined

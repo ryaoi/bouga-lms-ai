@@ -1253,6 +1253,8 @@ export class Cline {
 				case "access_mcp_resource":
 				case "use_mcp_tool":
 					return this.autoApprovalSettings.actions.useMcp
+				case "attempt_beginning":
+					return false // Always require approval for beginning a learning session
 			}
 		}
 		return false
@@ -2853,27 +2855,88 @@ export class Cline {
 							break
 						}
 					}
-					case "attempt_completion": {
-						/*
-						this.consecutiveMistakeCount = 0
-						let resultToSend = result
-						if (command) {
-							await this.say("completion_result", resultToSend)
-							// TODO: currently we don't handle if this command fails, it could be useful to let cline know and retry
-							const [didUserReject, commandResult] = await this.executeCommand(command, true)
-							// if we received non-empty string, the command was rejected or failed
-							if (commandResult) {
-								return [didUserReject, commandResult]
+					case "attempt_beginning": {
+						const objective: string | undefined = block.params.objective
+						const plan: string | undefined = block.params.plan
+						const evaluation: string | undefined = block.params.evaluation
+						const combinedContent = {
+							objective: removeClosingTag("objective", objective),
+							plan: removeClosingTag("plan", plan),
+							evaluation: removeClosingTag("evaluation", evaluation),
+						}
+
+						try {
+							if (block.partial) {
+								// For partial content, display everything exactly as provided
+								await this.say(
+									"beginning_objective",
+									`# 学習ガイド\n\n## 学習の目的\n\n${combinedContent.objective}\n\n## 学習の進め方\n\n${combinedContent.plan}\n\n## 評価方法\n\n${combinedContent.evaluation}`,
+									undefined,
+									block.partial,
+								).catch(() => {})
+								break
+							} else {
+								if (!objective) {
+									this.consecutiveMistakeCount++
+									pushToolResult(await this.sayAndCreateMissingParamError("attempt_beginning", "objective"))
+									break
+								}
+								if (!plan) {
+									this.consecutiveMistakeCount++
+									pushToolResult(await this.sayAndCreateMissingParamError("attempt_beginning", "plan"))
+									break
+								}
+
+								// Make evaluation a required parameter too, for consistency
+								if (!evaluation) {
+									this.consecutiveMistakeCount++
+									pushToolResult(await this.sayAndCreateMissingParamError("attempt_beginning", "evaluation"))
+									break
+								}
+
+								this.consecutiveMistakeCount = 0
+
+								// Display the complete learning guide with all sections in one message
+								await this.say(
+									"beginning_objective",
+									`# 学習ガイド\n\n## 学習の目的\n\n${combinedContent.objective}\n\n## 学習の進め方\n\n${combinedContent.plan}\n\n## 評価方法\n\n${combinedContent.evaluation}`,
+									undefined,
+									false, // Mark as complete
+								).catch(() => {})
+
+								// Get user feedback - using a simplified ask with a single "次に進む" button
+								const { response, text, images } = await this.ask(
+									"beginning_feedback",
+									"学習ガイドの内容はいかがですか？変更や追加したい内容があれば、お知らせください。",
+									false,
+								)
+
+								// Process user feedback - even if empty, we'll pass through as confirmation
+								const feedbackText = text
+									? text
+									: "User confirmed they understand the learning guide and is ready to proceed."
+
+								// If there was actual feedback text entered, display it
+								if (text) {
+									await this.say("user_feedback", text, images)
+								}
+
+								// Process user feedback and return it to the LLM
+								pushToolResult(
+									formatResponse.toolResult(
+										`The user has acknowledged the learning guide and is ready to begin the first exercise.\n<feedback>\n${feedbackText}\n</feedback>`,
+										images,
+									),
+								)
+
+								break
 							}
-							resultToSend = ""
+						} catch (error) {
+							await handleError("setting up learning session", error)
+							break
 						}
-						const { response, text, images } = await this.ask("completion_result", resultToSend) // this prompts webview to show 'new task' button, and enable text input (which would be the 'text' here)
-						if (response === "yesButtonClicked") {
-							return [false, ""] // signals to recursive loop to stop (for now this never happens since yesButtonClicked will trigger a new task)
-						}
-						await this.say("user_feedback", text ?? "", images)
-						return [
-						*/
+					}
+					case "attempt_completion": {
 						const result: string | undefined = block.params.result
 						const command: string | undefined = block.params.command
 
@@ -2912,6 +2975,7 @@ export class Cline {
 										await this.say("completion_result", removeClosingTag("result", result), undefined, false)
 										await this.saveCheckpoint(true)
 										await addNewChangesFlagToLastCompletionResultMessage()
+
 										await this.ask("command", removeClosingTag("command", command), block.partial).catch(
 											() => {},
 										)

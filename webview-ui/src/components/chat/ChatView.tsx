@@ -153,6 +153,13 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 							setPrimaryButtonText("Approve")
 							setSecondaryButtonText("Reject")
 							break
+						case "beginning_feedback":
+							setTextAreaDisabled(isPartial)
+							setClineAsk("beginning_feedback")
+							setEnableButtons(!isPartial)
+							setPrimaryButtonText("次に進む")
+							setSecondaryButtonText(undefined)
+							break
 						case "command":
 							setTextAreaDisabled(isPartial)
 							setClineAsk("command")
@@ -341,6 +348,7 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 				case "resume_task":
 				case "mistake_limit_reached":
 				case "auto_approval_max_req_reached":
+				case "beginning_feedback":
 					if (trimmedInput || (images && images.length > 0)) {
 						vscode.postMessage({
 							type: "askResponse",

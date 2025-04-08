@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.0
+
+### Minor Changes
+
+-   Enhance the attempt_beginning tool to display learning guides as a cohesive unit with proper formatting for objectives, plans, and evaluation methods in Japanese."
+
 ## 0.10.0
 
 ### Minor Changes

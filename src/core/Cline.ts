@@ -1550,6 +1550,10 @@ export class Cline {
 							return `[${block.name}]`
 						case "attempt_completion":
 							return `[${block.name}]`
+						case "attempt_beginning":
+							return `[${block.name}]`
+						default:
+							return `[${block.name}]`
 					}
 				}
 

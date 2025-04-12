@@ -195,7 +195,6 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 	async setUserInfo(info?: { displayName: string | null; email: string | null; photoURL: string | null }) {
 		await this.updateGlobalState("userInfo", info)
 		if (info?.displayName) {
-			console.log(`Current user: ${info.displayName}`)
 			vscode.window.showInformationMessage(`Welcome, ${info.displayName}!`)
 		}
 	}
@@ -208,7 +207,6 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 			photoURL: photoURL || null,
 		}
 		await this.updateGlobalState("userInfo", userInfo)
-		console.log("Manually set userInfo:", userInfo)
 		await this.postStateToWebview()
 		return userInfo
 	}
@@ -515,8 +513,7 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 							await this.setUserInfo(message.user)
 						} else if (hasApiKey && !existingUserInfo) {
 							// Special case: we have an API key but no user info, create default user info
-							await this.setManualUserInfo("Bouga User", "user@example.com")
-							console.log("Created default userInfo due to having API key but no user profile")
+							await this.setManualUserInfo("Bouga User", "support@bouga.jp")
 						} else if (!hasApiKey) {
 							// Clear user info when logging out
 							await this.setUserInfo(undefined)

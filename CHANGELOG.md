@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.2
+
+### Patch Changes
+
+-   Removed useless console logs from the codebase
+
 ## 0.12.1
 
 ### Patch Changes

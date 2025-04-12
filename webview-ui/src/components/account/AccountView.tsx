@@ -31,13 +31,10 @@ export const ClineAccountView = () => {
 	const [fetchError, setFetchError] = useState<string | null>(null)
 
 	const apiKey = apiConfiguration?.bougaLmsApiKey || ""
-	console.log("userInfo", userInfo)
-
 	// Listen for balance and transaction data updates from the extension
 	useEffect(() => {
 		const handleMessage = (event: MessageEvent) => {
 			const message = event.data
-			console.log("handleMessage for AccountView", message)
 
 			if (message.type === "userCreditsBalance" && message.userCreditsBalance) {
 				setBalance(message.userCreditsBalance.data?.limit_remaining || 0)

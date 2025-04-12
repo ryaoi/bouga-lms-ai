@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.1
+
+### Patch Changes
+
+-   Fixed userInfo undefined issue in AccountView by improving authentication state handling and explicitly managing user profile data during login/logout flows.
+
 ## 0.12.0
 
 ### Minor Changes

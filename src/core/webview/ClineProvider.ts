@@ -184,6 +184,7 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 			await this.storeSecret("openRouterApiKey", undefined)
 			await this.storeSecret("bougaLmsApiKey", undefined)
 			await this.updateGlobalState("apiProvider", undefined)
+			await this.updateGlobalState("userInfo", undefined) // Explicitly clear userInfo
 			await this.postStateToWebview()
 			vscode.window.showInformationMessage("Successfully logged out of Cline")
 		} catch (error) {
@@ -197,6 +198,19 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 			console.log(`Current user: ${info.displayName}`)
 			vscode.window.showInformationMessage(`Welcome, ${info.displayName}!`)
 		}
+	}
+
+	// Manual set userInfo helper method
+	async setManualUserInfo(displayName: string, email: string, photoURL?: string) {
+		const userInfo = {
+			displayName: displayName || null,
+			email: email || null,
+			photoURL: photoURL || null,
+		}
+		await this.updateGlobalState("userInfo", userInfo)
+		console.log("Manually set userInfo:", userInfo)
+		await this.postStateToWebview()
+		return userInfo
 	}
 
 	public static getVisibleInstance(): ClineProvider | undefined {
@@ -491,7 +505,25 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 			async (message: WebviewMessage) => {
 				switch (message.type) {
 					case "authStateChanged":
-						await this.setUserInfo(message.user || undefined)
+						// Check if we're about to clear the userInfo but have a valid API key
+						const currentState = await this.getState()
+						const hasApiKey = !!currentState.apiConfiguration?.bougaLmsApiKey
+						const existingUserInfo = await this.getGlobalState("userInfo")
+
+						if (message.user) {
+							// Normal case: user info is provided in the message
+							await this.setUserInfo(message.user)
+						} else if (hasApiKey && !existingUserInfo) {
+							// Special case: we have an API key but no user info, create default user info
+							await this.setManualUserInfo("Bouga User", "user@example.com")
+							console.log("Created default userInfo due to having API key but no user profile")
+						} else if (!hasApiKey) {
+							// Clear user info when logging out
+							await this.setUserInfo(undefined)
+						} else {
+							console.log("Preserving existing userInfo due to active API key")
+						}
+
 						await this.postStateToWebview()
 						break
 					case "webviewDidLaunch":

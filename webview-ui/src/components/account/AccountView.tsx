@@ -2,9 +2,6 @@ import { VSCodeButton, VSCodeDivider, VSCodeLink, VSCodeTextField } from "@vscod
 import { memo, useEffect, useState } from "react"
 import { vscode } from "../../utils/vscode"
 import VSCodeButtonLink from "../common/VSCodeButtonLink"
-import CountUp from "react-countup"
-import CreditsHistoryTable from "./CreditsHistoryTable"
-import { UsageTransaction, PaymentTransaction } from "../../../../src/shared/ClineAccount"
 import { useExtensionState } from "../../context/ExtensionStateContext"
 
 type AccountViewProps = {
@@ -34,6 +31,7 @@ export const ClineAccountView = () => {
 	const [fetchError, setFetchError] = useState<string | null>(null)
 
 	const apiKey = apiConfiguration?.bougaLmsApiKey || ""
+	console.log("userInfo", userInfo)
 
 	// Listen for balance and transaction data updates from the extension
 	useEffect(() => {
@@ -52,7 +50,6 @@ export const ClineAccountView = () => {
 
 		// Only fetch data if we're in loading state to prevent duplicate fetches
 		if (isLoading && apiKey) {
-			console.log("Fetching user credits data with API key")
 			vscode.postMessage({ type: "fetchUserCreditsData" })
 
 			return () => {
@@ -146,7 +143,7 @@ export const ClineAccountView = () => {
 								<>
 									<span>$</span>
 									{balance === null ? (
-										"Unlimited"
+										"ロード中..."
 									) : balance > 0 ? (
 										<>{parseFloat(balance.toString()).toFixed(2)}</>
 									) : (

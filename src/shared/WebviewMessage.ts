@@ -64,6 +64,7 @@ export interface WebviewMessage {
 		| "updateSettings"
 		| "clearAllTaskHistory"
 		| "fetchUserCreditsData"
+		| "setManualUserInfo"
 		| "optionsResponse"
 	// | "relaunchChromeDebugMode"
 	text?: string
@@ -87,6 +88,10 @@ export interface WebviewMessage {
 	// For auth
 	user?: UserInfo | null
 	customToken?: string
+	// For manual user info
+	displayName?: string
+	email?: string
+	photoURL?: string
 	// For openInBrowser
 	url?: string
 	planActSeparateModelsSetting?: boolean

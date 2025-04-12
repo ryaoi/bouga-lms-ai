@@ -3,6 +3,8 @@ export interface BalanceResponse {
 		label: string
 		usage: number // Number of credits used
 		limit: number | null // Credit limit for the key, or null if unlimited
+		is_provisioning_key: boolean
+		limit_remaining: number
 		is_free_tier: boolean // Whether the user has paid for credits before
 		rate_limit: {
 			requests: number // Number of requests allowed...

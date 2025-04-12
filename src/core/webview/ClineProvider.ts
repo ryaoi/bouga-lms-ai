@@ -139,6 +139,10 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 		ClineProvider.activeInstances.add(this)
 		this.workspaceTracker = new WorkspaceTracker(this)
 		this.mcpHub = new McpHub(this)
+		this.accountService = new ClineAccountService(this.postMessageToWebview.bind(this), async () => {
+			const { apiConfiguration } = await this.getStateToPostToWebview()
+			return apiConfiguration?.bougaLmsApiKey
+		})
 
 		// Clean up legacy checkpoints
 		cleanupLegacyCheckpoints(this.context.globalStorageUri.fsPath, this.outputChannel).catch((error) => {
@@ -741,6 +745,10 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 					}
 					case "showAccountViewClicked": {
 						await this.postMessageToWebview({ type: "action", action: "accountButtonClicked" })
+						break
+					}
+					case "fetchUserCreditsData": {
+						await this.fetchUserCreditsData()
 						break
 					}
 					case "showMcpView": {

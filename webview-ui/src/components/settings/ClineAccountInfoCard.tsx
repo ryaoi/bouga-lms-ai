@@ -1,9 +1,16 @@
-import { VSCodeButton } from "@vscode/webview-ui-toolkit/react"
+import { VSCodeButton, VSCodeTextField } from "@vscode/webview-ui-toolkit/react"
 import { useSupabaseAuth } from "../../context/SupabaseAuthContext"
 import { vscode } from "../../utils/vscode"
+import { useState } from "react"
+import { useExtensionState } from "../../context/ExtensionStateContext"
 
 export const ClineAccountInfoCard = () => {
 	const { user, handleSignOut } = useSupabaseAuth()
+	const { apiConfiguration } = useExtensionState()
+	const [showApiKey, setShowApiKey] = useState(false)
+
+	const apiKey = apiConfiguration?.bougaLmsApiKey || ""
+	const isLoggedIn = !!user || !!apiKey
 
 	const handleLogin = () => {
 		vscode.postMessage({ type: "accountLoginClicked" })
@@ -20,12 +27,44 @@ export const ClineAccountInfoCard = () => {
 		vscode.postMessage({ type: "showAccountViewClicked" })
 	}
 
+	const toggleApiKeyVisibility = () => {
+		setShowApiKey(!showApiKey)
+	}
+
 	return (
 		<div className="max-w-[600px]">
-			{user ? (
-				<VSCodeButton appearance="secondary" onClick={handleShowAccount}>
-					View Billing & Usage
-				</VSCodeButton>
+			{isLoggedIn ? (
+				<div className="flex flex-col gap-4">
+					<VSCodeButton appearance="secondary" onClick={handleShowAccount}>
+						View Billing & Usage
+					</VSCodeButton>
+
+					{apiKey && (
+						<div className="flex flex-col gap-2">
+							<div className="flex flex-row gap-2 items-center">
+								<span className="font-medium">API Key:</span>
+								<VSCodeButton
+									appearance="icon"
+									onClick={toggleApiKeyVisibility}
+									title={showApiKey ? "Hide API Key" : "Show API Key"}>
+									<span className={`codicon codicon-${showApiKey ? "eye-closed" : "eye"}`}></span>
+								</VSCodeButton>
+							</div>
+							{showApiKey ? (
+								<VSCodeTextField readOnly value={apiKey} style={{ width: "100%" }} />
+							) : (
+								<VSCodeTextField readOnly value={"•".repeat(20)} style={{ width: "100%" }} />
+							)}
+							<p className="text-[12px] text-[var(--vscode-descriptionForeground)] mt-1 mb-0">
+								This API key is used for making requests to the Bouga LMS API.
+							</p>
+						</div>
+					)}
+
+					<VSCodeButton appearance="secondary" onClick={handleLogout} className="mt-2">
+						Log out
+					</VSCodeButton>
+				</div>
 			) : (
 				// <div className="p-2 rounded-[2px] bg-[var(--vscode-dropdown-background)]">
 				// 	<div className="flex items-center gap-3">

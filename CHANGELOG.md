@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.0
+
+### Minor Changes
+
+-   Added Account button in sidebar with Japanese UI
+
 ## 0.11.0
 
 ### Minor Changes

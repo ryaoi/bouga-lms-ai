@@ -15,6 +15,7 @@ import { selectImages } from "../../integrations/misc/process-images"
 import { getTheme } from "../../integrations/theme/getTheme"
 import WorkspaceTracker from "../../integrations/workspace/WorkspaceTracker"
 import { ClineAccountService } from "../../services/account/ClineAccountService"
+import { BougaLMSApiService } from "../../services/account/BougaLMSApiService"
 import { McpHub } from "../../services/mcp/McpHub"
 import { UserInfo } from "../../shared/UserInfo"
 import { ApiConfiguration, ApiProvider, ModelInfo } from "../../shared/api"
@@ -129,6 +130,7 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 	workspaceTracker?: WorkspaceTracker
 	mcpHub?: McpHub
 	accountService?: ClineAccountService
+	bougaLMSApiService?: BougaLMSApiService
 	private latestAnnouncementId = "feb-19-2025" // update to some unique identifier when we add a new announcement
 
 	constructor(
@@ -140,6 +142,10 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 		this.workspaceTracker = new WorkspaceTracker(this)
 		this.mcpHub = new McpHub(this)
 		this.accountService = new ClineAccountService(this.postMessageToWebview.bind(this), async () => {
+			const { apiConfiguration } = await this.getStateToPostToWebview()
+			return apiConfiguration?.bougaLmsApiKey
+		})
+		this.bougaLMSApiService = new BougaLMSApiService(this.postMessageToWebview.bind(this), async () => {
 			const { apiConfiguration } = await this.getStateToPostToWebview()
 			return apiConfiguration?.bougaLmsApiKey
 		})
@@ -634,6 +640,20 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 					case "clearTask":
 						// newTask will start a new task with a given task text, while clear task resets the current session and allows for a new task to be started
 						await this.clearTask()
+						await this.postStateToWebview()
+						break
+					case "validateTask":
+						// Handle the validation of learning task based on nodeId
+						if (message.text) {
+							try {
+								const nodeId = message.text
+								await this.bougaLMSApiService?.validateLearningCompletion(nodeId)
+							} catch (error) {
+								console.error("Error processing validateTask message:", error)
+								vscode.window.showErrorMessage("検証処理中にエラーが発生しました。")
+							}
+						}
+						await this.clearTask() // Clear the task after validation
 						await this.postStateToWebview()
 						break
 					case "didShowAnnouncement":

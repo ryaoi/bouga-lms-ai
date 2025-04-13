@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.13.0
+
+### Minor Changes
+
+-   Added learning completion validation feature with a UI button and backend API integration to validate learning tasks.
+
 ## 0.12.2
 
 ### Patch Changes

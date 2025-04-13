@@ -1,4 +1,4 @@
-import { VSCodeBadge, VSCodeProgressRing } from "@vscode/webview-ui-toolkit/react"
+import { VSCodeBadge, VSCodeProgressRing, VSCodeButton } from "@vscode/webview-ui-toolkit/react"
 import deepEqual from "fast-deep-equal"
 import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useEvent, useSize } from "react-use"
@@ -1048,6 +1048,14 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 				case "completion_result":
 					const hasChanges = message.text?.endsWith(COMPLETION_RESULT_CHANGES_FLAG) ?? false
 					const text = hasChanges ? message.text?.slice(0, -COMPLETION_RESULT_CHANGES_FLAG.length) : message.text
+
+					// Extract nodeId if present in the message
+					const nodeIdMatch = text?.match(/node_id[:=]\s*["']?([^"',\s]+)["']?/i)
+					const nodeId = nodeIdMatch ? nodeIdMatch[1] : null
+
+					// Check if this is from an attempt_completion tool call
+					const isAttemptCompletion = nodeId !== null
+
 					return (
 						<>
 							<div
@@ -1067,24 +1075,42 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 									<Markdown markdown={text} />
 								</MessageContent>
 							</div>
-							{message.partial !== true && hasChanges && (
+							{message.partial !== true && (
 								<div style={{ paddingTop: 17 }}>
-									<SuccessButton
-										disabled={seeNewChangesDisabled}
-										onClick={() => {
-											setSeeNewChangesDisabled(true)
-											vscode.postMessage({
-												type: "taskCompletionViewChanges",
-												number: message.ts,
-											})
-										}}
-										style={{
-											width: "100%",
-											cursor: seeNewChangesDisabled ? "wait" : "pointer",
-										}}>
-										<i className="codicon codicon-new-file" style={{ marginRight: 6 }} />
-										変更内容を確認する
-									</SuccessButton>
+									{isAttemptCompletion ? (
+										<SuccessButton
+											onClick={() => {
+												vscode.postMessage({
+													type: "validateTask",
+													text: `${nodeId}`,
+												})
+											}}
+											style={{
+												width: "100%",
+											}}>
+											<i className="codicon codicon-check" style={{ marginRight: 6 }} />
+											学習を完了にする
+										</SuccessButton>
+									) : (
+										hasChanges && (
+											<SuccessButton
+												disabled={seeNewChangesDisabled}
+												onClick={() => {
+													setSeeNewChangesDisabled(true)
+													vscode.postMessage({
+														type: "taskCompletionViewChanges",
+														number: message.ts,
+													})
+												}}
+												style={{
+													width: "100%",
+													cursor: seeNewChangesDisabled ? "wait" : "pointer",
+												}}>
+												<i className="codicon codicon-new-file" style={{ marginRight: 6 }} />
+												変更内容を確認する
+											</SuccessButton>
+										)
+									)}
 								</div>
 							)}
 						</>
@@ -1199,6 +1225,14 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 					if (message.text) {
 						const hasChanges = message.text.endsWith(COMPLETION_RESULT_CHANGES_FLAG) ?? false
 						const text = hasChanges ? message.text.slice(0, -COMPLETION_RESULT_CHANGES_FLAG.length) : message.text
+
+						// Extract nodeId if present in the message
+						const nodeIdMatch = text?.match(/node_id[:=]\s*["']?([^"',\s]+)["']?/i)
+						const nodeId = nodeIdMatch ? nodeIdMatch[1] : null
+
+						// Check if this is from an attempt_completion tool call
+						const isAttemptCompletion = nodeId !== null
+
 						return (
 							<div>
 								<div
@@ -1217,27 +1251,42 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 									<MessageContent isImportant>
 										<Markdown markdown={text} />
 									</MessageContent>
-									{message.partial !== true && hasChanges && (
+									{message.partial !== true && (
 										<div style={{ marginTop: 15 }}>
-											<SuccessButton
-												appearance="secondary"
-												disabled={seeNewChangesDisabled}
-												onClick={() => {
-													setSeeNewChangesDisabled(true)
-													vscode.postMessage({
-														type: "taskCompletionViewChanges",
-														number: message.ts,
-													})
-												}}>
-												<i
-													className="codicon codicon-new-file"
-													style={{
-														marginRight: 6,
-														cursor: seeNewChangesDisabled ? "wait" : "pointer",
+											{isAttemptCompletion ? (
+												<SuccessButton
+													onClick={() => {
+														vscode.postMessage({
+															type: "validateTask",
+															text: `${nodeId}`,
+														})
 													}}
-												/>
-												変更内容を確認する
-											</SuccessButton>
+													style={{
+														width: "100%",
+													}}>
+													<i className="codicon codicon-check" style={{ marginRight: 6 }} />
+													学習を完了にする
+												</SuccessButton>
+											) : (
+												hasChanges && (
+													<SuccessButton
+														disabled={seeNewChangesDisabled}
+														onClick={() => {
+															setSeeNewChangesDisabled(true)
+															vscode.postMessage({
+																type: "taskCompletionViewChanges",
+																number: message.ts,
+															})
+														}}
+														style={{
+															width: "100%",
+															cursor: seeNewChangesDisabled ? "wait" : "pointer",
+														}}>
+														<i className="codicon codicon-new-file" style={{ marginRight: 6 }} />
+														変更内容を確認する
+													</SuccessButton>
+												)
+											)}
 										</div>
 									)}
 								</div>

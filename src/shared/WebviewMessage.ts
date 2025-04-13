@@ -66,6 +66,7 @@ export interface WebviewMessage {
 		| "fetchUserCreditsData"
 		| "setManualUserInfo"
 		| "optionsResponse"
+		| "validateTask"
 	// | "relaunchChromeDebugMode"
 	text?: string
 	disabled?: boolean

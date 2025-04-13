@@ -84,7 +84,7 @@ export class BougaLMSApiService {
 			return true
 		} catch (error) {
 			console.error("Failed to validate learning completion:", error)
-			vscode.window.showErrorMessage("学習タスクの完了に失敗しました。")
+			vscode.window.showErrorMessage("学習タスクの完了に失敗しました。", error.message)
 			return false
 		}
 	}

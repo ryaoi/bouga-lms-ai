@@ -136,9 +136,14 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 							const tool = JSON.parse(lastMessage.text || "{}") as ClineSayTool
 							switch (tool.tool) {
 								case "editedExistingFile":
+									// setPrimaryButtonText("Save")
+									// setSecondaryButtonText("Reject")
+									setPrimaryButtonText("変更を理解したので次に進む")
+									setSecondaryButtonText(undefined)
+									break
 								case "newFileCreated":
-									setPrimaryButtonText("Save")
-									setSecondaryButtonText("Reject")
+									setPrimaryButtonText("読んで理解したので次に進む")
+									setSecondaryButtonText(undefined)
 									break
 								default:
 									setPrimaryButtonText("Approve")
@@ -942,7 +947,9 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 																	? "続行"
 																	: primaryButtonText === "Proceed Anyways"
 																		? "それでも続行"
-																		: primaryButtonText}
+																		: primaryButtonText === "読んで理解したので次に進む"
+																			? "読んで理解したので次に進む"
+																			: primaryButtonText}
 								</VSCodeButton>
 							)}
 							{(secondaryButtonText || isStreaming) && (

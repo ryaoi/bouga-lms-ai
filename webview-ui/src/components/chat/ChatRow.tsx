@@ -33,14 +33,10 @@ import { highlightMentions } from "./TaskHeader"
 const ChatRowContainer = styled.div<{ isToolMessage?: boolean; isCommandMessage?: boolean; isImportantMessage?: boolean }>`
 	padding: 10px 6px 10px 15px;
 	position: relative;
-	opacity: ${(props) => (props.isToolMessage || props.isCommandMessage || props.isImportantMessage ? 1 : 0.7)};
+	opacity: 1; /* すべてのメッセージを完全に不透明に設定 */
 	transition:
 		opacity 0.2s ease,
 		transform 0.2s ease; /* Smooth transition */
-
-	&:hover {
-		opacity: 1; /* Full visibility on hover */
-	}
 
 	&:hover ${CheckpointControls} {
 		opacity: 1;
@@ -1049,8 +1045,10 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 					const hasChanges = message.text?.endsWith(COMPLETION_RESULT_CHANGES_FLAG) ?? false
 					const text = hasChanges ? message.text?.slice(0, -COMPLETION_RESULT_CHANGES_FLAG.length) : message.text
 
-					// Extract nodeId if present in the message
-					const nodeIdMatch = text?.match(/node_id[:=]\s*["']?([^"',\s]+)["']?/i)
+					// Extract nodeId if present in the message - use UUID pattern for accurate extraction
+					const nodeIdMatch = text?.match(
+						/node_id[:=]\s*["']?([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})["']?/i,
+					)
 					const nodeId = nodeIdMatch ? nodeIdMatch[1] : null
 
 					// Check if this is from an attempt_completion tool call
@@ -1226,8 +1224,10 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 						const hasChanges = message.text.endsWith(COMPLETION_RESULT_CHANGES_FLAG) ?? false
 						const text = hasChanges ? message.text.slice(0, -COMPLETION_RESULT_CHANGES_FLAG.length) : message.text
 
-						// Extract nodeId if present in the message
-						const nodeIdMatch = text?.match(/node_id[:=]\s*["']?([^"',\s]+)["']?/i)
+						// Extract nodeId if present in the message - use UUID pattern for accurate extraction
+						const nodeIdMatch = text?.match(
+							/node_id[:=]\s*["']?([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})["']?/i,
+						)
 						const nodeId = nodeIdMatch ? nodeIdMatch[1] : null
 
 						// Check if this is from an attempt_completion tool call
@@ -1264,7 +1264,6 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 													style={{
 														width: "100%",
 													}}>
-													<i className="codicon codicon-check" style={{ marginRight: 6 }} />
 													学習を完了にする
 												</SuccessButton>
 											) : (
@@ -1282,7 +1281,6 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 															width: "100%",
 															cursor: seeNewChangesDisabled ? "wait" : "pointer",
 														}}>
-														<i className="codicon codicon-new-file" style={{ marginRight: 6 }} />
 														変更内容を確認する
 													</SuccessButton>
 												)

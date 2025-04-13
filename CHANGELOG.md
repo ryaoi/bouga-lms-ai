@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.0
+
+### Minor Changes
+
+-   Added Japanese language support and improved UI/UX with better node_id extraction, error message display, and chat interface enhancements.
+
 ## 0.13.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.16.0
+
+### Minor Changes
+
+-   Japanese localization for AutoApproveMenu component and removal of Plan/Act toggle from ChatTextArea
+
 ## 0.15.1
 
 ### Patch Changes

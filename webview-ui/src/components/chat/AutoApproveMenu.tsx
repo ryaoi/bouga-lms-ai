@@ -18,34 +18,34 @@ const ACTION_METADATA: {
 }[] = [
 	{
 		id: "readFiles",
-		label: "Read files and directories",
-		shortName: "Read",
-		description: "Allows access to read any file on your computer.",
+		label: "ファイルやディレクトリを読み込む",
+		shortName: "読み込み",
+		description: "コンピュータ上の任意のファイルやディレクトリにアクセスできるようにします。",
 	},
 	{
 		id: "editFiles",
-		label: "Edit files",
-		shortName: "Edit",
-		description: "Allows modification of any files on your computer.",
+		label: "ファイルを編集する",
+		shortName: "編集",
+		description: "コンピュータ上の任意のファイルを編集できるようにします。",
 	},
 	{
 		id: "executeCommands",
-		label: "Execute safe commands",
-		shortName: "Commands",
+		label: "安全なコマンドを実行する",
+		shortName: "コマンド",
 		description:
-			"Allows execution of safe terminal commands. If the model determines a command is potentially destructive, it will still require approval.",
+			"安全なターミナルコマンドを実行できるようにします。モデルがコマンドが破壊的であると判断した場合、依然として承認が必要です。",
 	},
 	{
 		id: "useBrowser",
-		label: "Use the browser",
-		shortName: "Browser",
-		description: "Allows ability to launch and interact with any website in a headless browser.",
+		label: "ブラウザを使用する",
+		shortName: "ブラウザ",
+		description: "ヘッドレスブラウザを起動して、任意のウェブサイトと対話できるようにします。",
 	},
 	{
 		id: "useMcp",
-		label: "Use MCP servers",
+		label: "MCPサーバーを使用する",
 		shortName: "MCP",
-		description: "Allows use of configured MCP servers which may modify filesystem or interact with APIs.",
+		description: "設定されたMCPサーバーを使用できるようにします。ファイルシステムを変更したり、APIと対話することができます。",
 	},
 ]
 
@@ -190,7 +190,7 @@ const AutoApproveMenu = ({ style }: AutoApproveMenuProps) => {
 							color: getAsVar(VSC_FOREGROUND),
 							whiteSpace: "nowrap",
 						}}>
-						Auto-approve:
+						自動承認:
 					</span>
 					<span
 						style={{
@@ -217,8 +217,8 @@ const AutoApproveMenu = ({ style }: AutoApproveMenuProps) => {
 							color: getAsVar(VSC_DESCRIPTION_FOREGROUND),
 							fontSize: "12px",
 						}}>
-						Auto-approve allows Cline to perform the following actions without asking for permission. Please use with
-						caution and only enable if you understand the risks.
+						自動承認は、Bouga LMS
+						AIが承認を求めずに以下のアクションを実行できるようにします。注意して使用してください。
 					</div>
 					{ACTION_METADATA.map((action) => (
 						<div key={action.id} style={{ margin: "6px 0" }}>
@@ -257,7 +257,7 @@ const AutoApproveMenu = ({ style }: AutoApproveMenuProps) => {
 							marginBottom: "8px",
 							color: getAsVar(VSC_FOREGROUND),
 						}}>
-						<span style={{ flexShrink: 1, minWidth: 0 }}>Max Requests:</span>
+						<span style={{ flexShrink: 1, minWidth: 0 }}>最大リクエスト数:</span>
 						<VSCodeTextField
 							// placeholder={DEFAULT_AUTO_APPROVAL_SETTINGS.maxRequests.toString()}
 							value={autoApprovalSettings.maxRequests.toString()}
@@ -285,7 +285,7 @@ const AutoApproveMenu = ({ style }: AutoApproveMenuProps) => {
 							fontSize: "12px",
 							marginBottom: "10px",
 						}}>
-						Cline will automatically make this many API requests before asking for approval to proceed with the task.
+						Bouga LMS AIは、この数のAPIリクエストを自動的に実行します。
 					</div>
 					<div style={{ margin: "6px 0" }}>
 						<VSCodeCheckbox
@@ -294,7 +294,7 @@ const AutoApproveMenu = ({ style }: AutoApproveMenuProps) => {
 								const checked = (e.target as HTMLInputElement).checked
 								updateNotifications(checked)
 							}}>
-							Enable Notifications
+							システム通知を受け取る
 						</VSCodeCheckbox>
 						<div
 							style={{
@@ -302,7 +302,7 @@ const AutoApproveMenu = ({ style }: AutoApproveMenuProps) => {
 								color: getAsVar(VSC_DESCRIPTION_FOREGROUND),
 								fontSize: "12px",
 							}}>
-							Receive system notifications when Cline requires approval to proceed or when a task is completed.
+							承認が必要な場合やタスクが完了した場合にシステム通知を受け取ります。
 						</div>
 					</div>
 				</div>

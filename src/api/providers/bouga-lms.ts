@@ -17,7 +17,8 @@ export class BougaLmsHandler implements ApiHandler {
 	constructor(options: ApiHandlerOptions) {
 		this.options = options
 		this.client = new OpenAI({
-			baseURL: "https://openrouter.ai/api/v1", // TODO: Update with actual Bouga LMS API endpoint
+			// baseURL: "https://openrouter.ai/api/v1",
+			baseURL: "https://lms.bouga.jp/api/openrouter",
 			apiKey: this.options.bougaLmsApiKey,
 			defaultHeaders: {
 				"HTTP-Referer": "https://lms.bouga.jp",
@@ -100,8 +101,8 @@ export class BougaLmsHandler implements ApiHandler {
 	@withRetry({ maxRetries: 4, baseDelay: 250, maxDelay: 1000, retryAllErrors: true })
 	async *fetchGenerationDetails(genId: string) {
 		try {
-			const response = await axios.get(`https://openrouter.ai/api/v1/generation?id=${genId}`, {
-				// TODO: Update with actual Bouga LMS API endpoint
+			const response = await axios.get(`https://lms.bouga.jp/api/openrouter/generation?id=${genId}`, {
+				// const response = await axios.get(`https://openrouter.ai/api/v1/generation?id=${genId}`, {
 				headers: {
 					Authorization: `Bearer ${this.options.bougaLmsApiKey}`,
 				},

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.15.0
+
+### Minor Changes
+
+-   Update Bouga LMS API endpoints and add Japanese task ID pattern recognition
+
 ## 0.14.1
 
 ### Patch Changes

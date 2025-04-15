@@ -1047,7 +1047,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 
 					// Extract nodeId if present in the message - use UUID pattern for accurate extraction
 					const nodeIdMatch = text?.match(
-						/node_id[:=]\s*["']?([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})["']?/i,
+						/(?:node_id[:=]|学習タスクID[:：])\s*["']?([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})["']?/i,
 					)
 					const nodeId = nodeIdMatch ? nodeIdMatch[1] : null
 
@@ -1226,7 +1226,7 @@ export const ChatRowContent = ({ message, isExpanded, onToggleExpand, lastModifi
 
 						// Extract nodeId if present in the message - use UUID pattern for accurate extraction
 						const nodeIdMatch = text?.match(
-							/node_id[:=]\s*["']?([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})["']?/i,
+							/(?:node_id[:=]|学習タスクID[:：])\s*["']?([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})["']?/i,
 						)
 						const nodeId = nodeIdMatch ? nodeIdMatch[1] : null
 

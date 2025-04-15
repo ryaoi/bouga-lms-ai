@@ -104,7 +104,17 @@ const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, is
 	}
 
 	const { selectedProvider, selectedModelId, selectedModelInfo } = useMemo(() => {
-		return normalizeApiConfiguration(apiConfiguration)
+		const result = normalizeApiConfiguration(apiConfiguration)
+
+		// Set default thinkingBudgetTokens for bouga-lms provider if not already set
+		if (result.selectedProvider === "bouga-lms" && !apiConfiguration?.thinkingBudgetTokens) {
+			setApiConfiguration({
+				...apiConfiguration,
+				thinkingBudgetTokens: anthropicModels["claude-3-7-sonnet-20250219"].maxTokens,
+			})
+		}
+
+		return result
 	}, [apiConfiguration])
 
 	// Poll ollama/lmstudio models
@@ -1413,6 +1423,7 @@ const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, is
 									...apiConfiguration,
 									bougaLmsModelId: modelId,
 									bougaLmsModelInfo: modelInfo,
+									thinkingBudgetTokens: anthropicModels["claude-3-7-sonnet-20250219"].maxTokens,
 								})
 							} else {
 								setApiConfiguration({

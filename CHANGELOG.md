@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.15.1
+
+### Patch Changes
+
+-   Translated UI elements to Japanese for better localization support
+
 ## 0.15.0
 
 ### Minor Changes

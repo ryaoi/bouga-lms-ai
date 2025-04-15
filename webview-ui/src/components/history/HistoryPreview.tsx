@@ -69,7 +69,7 @@ const HistoryPreview = ({ showHistoryView }: HistoryPreviewProps) => {
 						fontSize: "0.85em",
 						textTransform: "uppercase",
 					}}>
-					Recent Tasks
+					最近の学習タスク
 				</span>
 			</div>
 
@@ -126,7 +126,7 @@ const HistoryPreview = ({ showHistoryView }: HistoryPreviewProps) => {
 									{!!item.totalCost && (
 										<>
 											{" • "}
-											<span>API Cost: ${item.totalCost?.toFixed(4)}</span>
+											<span>API コスト: ${item.totalCost?.toFixed(4)}</span>
 										</>
 									)}
 								</div>
@@ -150,7 +150,7 @@ const HistoryPreview = ({ showHistoryView }: HistoryPreviewProps) => {
 								fontSize: "var(--vscode-font-size)",
 								color: "var(--vscode-descriptionForeground)",
 							}}>
-							View all history
+							全ての履歴を見る
 						</div>
 					</VSCodeButton>
 				</div>

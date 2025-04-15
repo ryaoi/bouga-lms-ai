@@ -154,9 +154,9 @@ const HistoryView = ({ onDone }: HistoryViewProps) => {
 							color: "var(--vscode-foreground)",
 							margin: 0,
 						}}>
-						History
+						履歴
 					</h3>
-					<VSCodeButton onClick={onDone}>Done</VSCodeButton>
+					<VSCodeButton onClick={onDone}>閉じる</VSCodeButton>
 				</div>
 				<div style={{ padding: "5px 17px 6px 17px" }}>
 					<div
@@ -167,7 +167,7 @@ const HistoryView = ({ onDone }: HistoryViewProps) => {
 						}}>
 						<VSCodeTextField
 							style={{ width: "100%" }}
-							placeholder="Fuzzy search history..."
+							placeholder="履歴を検索..."
 							value={searchQuery}
 							onInput={(e) => {
 								const newValue = (e.target as HTMLInputElement)?.value
@@ -331,7 +331,7 @@ const HistoryView = ({ onDone }: HistoryViewProps) => {
 														fontWeight: 500,
 														color: "var(--vscode-descriptionForeground)",
 													}}>
-													Tokens:
+													トークン:
 												</span>
 												<span
 													style={{
@@ -441,7 +441,7 @@ const HistoryView = ({ onDone }: HistoryViewProps) => {
 															fontWeight: 500,
 															color: "var(--vscode-descriptionForeground)",
 														}}>
-														API Cost:
+														API コスト:
 													</span>
 													<span
 														style={{
@@ -471,7 +471,7 @@ const HistoryView = ({ onDone }: HistoryViewProps) => {
 							setDeleteAllDisabled(true)
 							vscode.postMessage({ type: "clearAllTaskHistory" })
 						}}>
-						Delete All History
+						全ての履歴を削除
 					</DangerButton>
 				</div>
 			</div>

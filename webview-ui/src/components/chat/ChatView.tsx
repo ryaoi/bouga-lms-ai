@@ -726,7 +726,7 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 	useEvent("wheel", handleWheel, window, { passive: true }) // passive improves scrolling performance
 
 	const placeholderText = useMemo(() => {
-		const text = task ? "メッセージを入力..." : "タスクを入力してください..."
+		const text = task ? "質問やメッセージを入力..." : "学習タスクを入力してください..."
 		return text
 	}, [task])
 

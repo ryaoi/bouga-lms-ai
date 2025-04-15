@@ -62,8 +62,8 @@ const McpView = ({ onDone }: McpViewProps) => {
 					alignItems: "center",
 					padding: "10px 17px 5px 20px",
 				}}>
-				<h3 style={{ color: "var(--vscode-foreground)", margin: 0 }}>MCP Servers</h3>
-				<VSCodeButton onClick={onDone}>Done</VSCodeButton>
+				<h3 style={{ color: "var(--vscode-foreground)", margin: 0 }}>MCPサーバー</h3>
+				<VSCodeButton onClick={onDone}>閉じる</VSCodeButton>
 			</div>
 
 			<div style={{ flex: 1, overflow: "auto" }}>

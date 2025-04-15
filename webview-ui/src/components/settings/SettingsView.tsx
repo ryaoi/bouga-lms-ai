@@ -153,8 +153,8 @@ const SettingsView = ({ onDone }: SettingsViewProps) => {
 					marginBottom: "13px",
 					paddingRight: 17,
 				}}>
-				<h3 style={{ color: "var(--vscode-foreground)", margin: 0 }}>Settings</h3>
-				<VSCodeButton onClick={() => handleSubmit(false)}>Done</VSCodeButton>
+				<h3 style={{ color: "var(--vscode-foreground)", margin: 0 }}>設定</h3>
+				<VSCodeButton onClick={() => handleSubmit(false)}>閉じる</VSCodeButton>
 			</div>
 			<div
 				style={{
@@ -215,9 +215,9 @@ const SettingsView = ({ onDone }: SettingsViewProps) => {
 						style={{ width: "100%" }}
 						resize="vertical"
 						rows={4}
-						placeholder={'e.g. "Run unit tests at the end", "Use TypeScript with async/await", "Speak in Spanish"'}
+						placeholder={'例）"テストを実行する", "TypeScriptでasync/awaitを使用する", "スペイン語で話す"'}
 						onInput={(e: any) => setCustomInstructions(e.target?.value ?? "")}>
-						<span style={{ fontWeight: "500" }}>Custom Instructions</span>
+						<span style={{ fontWeight: "500" }}>カスタム指示</span>
 					</VSCodeTextArea>
 					<p
 						style={{
@@ -225,11 +225,11 @@ const SettingsView = ({ onDone }: SettingsViewProps) => {
 							marginTop: "5px",
 							color: "var(--vscode-descriptionForeground)",
 						}}>
-						These instructions are added to the end of the system prompt sent with every request.
+						これらの指示は、すべてのリクエストで送信されるシステムプロンプトの末尾に追加されます。
 					</p>
 				</div>
 
-				<div style={{ marginBottom: 5 }}>
+				{/* <div style={{ marginBottom: 5 }}>
 					<VSCodeCheckbox
 						style={{ marginBottom: "5px" }}
 						checked={planActSeparateModelsSetting}
@@ -277,7 +277,7 @@ const SettingsView = ({ onDone }: SettingsViewProps) => {
 						</VSCodeLink>{" "}
 						for more details.
 					</p>
-				</div>
+				</div> */}
 
 				{IS_DEV && (
 					<>
@@ -309,7 +309,7 @@ const SettingsView = ({ onDone }: SettingsViewProps) => {
 							margin: "0 0 16px 0",
 						}}>
 						<i className="codicon codicon-settings-gear" />
-						Advanced Settings
+						詳細な設定
 					</SettingsButton>
 				</div>
 				<div
@@ -320,17 +320,6 @@ const SettingsView = ({ onDone }: SettingsViewProps) => {
 						lineHeight: "1.2",
 						padding: "0 8px 15px 0",
 					}}>
-					<p
-						style={{
-							wordWrap: "break-word",
-							margin: 0,
-							padding: 0,
-						}}>
-						If you have any questions or feedback, feel free to open an issue at{" "}
-						<VSCodeLink href="https://github.com/cline/cline" style={{ display: "inline" }}>
-							https://github.com/cline/cline
-						</VSCodeLink>
-					</p>
 					<p
 						style={{
 							fontStyle: "italic",

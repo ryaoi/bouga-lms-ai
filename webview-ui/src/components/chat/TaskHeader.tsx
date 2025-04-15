@@ -149,7 +149,7 @@ const TaskHeader: React.FC<TaskHeaderProps> = ({
 						}}>
 						<span style={{ fontWeight: "bold" }}>
 							{/* {windowWidth > 280 && windowWidth < 310 ? "Context:" : "Context Window:"} */}
-							Context Window:
+							コンテキストウィンドウ:
 						</span>
 					</div>
 					<div
@@ -245,7 +245,7 @@ const TaskHeader: React.FC<TaskHeaderProps> = ({
 								minWidth: 0, // This allows the div to shrink below its content size
 							}}>
 							<span style={{ fontWeight: "bold" }}>
-								Task
+								学習タスク
 								{!isTaskExpanded && ":"}
 							</span>
 							{!isTaskExpanded && <span style={{ marginLeft: 4 }}>{highlightMentions(task.text, false)}</span>}
@@ -321,7 +321,7 @@ const TaskHeader: React.FC<TaskHeaderProps> = ({
 											backgroundColor: "var(--vscode-badge-background)",
 										}}
 										onClick={() => setIsTextExpanded(!isTextExpanded)}>
-										See more
+										もっと表示する
 									</div>
 								</div>
 							)}
@@ -336,7 +336,7 @@ const TaskHeader: React.FC<TaskHeaderProps> = ({
 									paddingRight: 2,
 								}}
 								onClick={() => setIsTextExpanded(!isTextExpanded)}>
-								See less
+								折りたたむ
 							</div>
 						)}
 						{task.images && task.images.length > 0 && <Thumbnails images={task.images} />}
@@ -360,7 +360,7 @@ const TaskHeader: React.FC<TaskHeaderProps> = ({
 										gap: "4px",
 										flexWrap: "wrap",
 									}}>
-									<span style={{ fontWeight: "bold" }}>Tokens:</span>
+									<span style={{ fontWeight: "bold" }}>トークン:</span>
 									<span
 										style={{
 											display: "flex",
@@ -460,7 +460,7 @@ const TaskHeader: React.FC<TaskHeaderProps> = ({
 											alignItems: "center",
 											gap: "4px",
 										}}>
-										<span style={{ fontWeight: "bold" }}>API Cost:</span>
+										<span style={{ fontWeight: "bold" }}>APIコスト:</span>
 										<span>${totalCost?.toFixed(4)}</span>
 									</div>
 									<DeleteButton taskSize={formatSize(currentTaskItem?.size)} taskId={currentTaskItem?.id} />

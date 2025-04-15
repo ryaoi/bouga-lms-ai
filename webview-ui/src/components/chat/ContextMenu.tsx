@@ -47,13 +47,13 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
 	const renderOptionContent = (option: ContextMenuQueryItem) => {
 		switch (option.type) {
 			case ContextMenuOptionType.Problems:
-				return <span>Problems</span>
+				return <span>問題</span>
 			case ContextMenuOptionType.Terminal:
-				return <span>Terminal</span>
+				return <span>ターミナル</span>
 			case ContextMenuOptionType.URL:
-				return <span>Paste URL to fetch contents</span>
+				return <span>URLを貼り付けて内容を取得</span>
 			case ContextMenuOptionType.NoResults:
-				return <span>No results found</span>
+				return <span>結果が見つかりません</span>
 			case ContextMenuOptionType.Git:
 				if (option.value) {
 					return (
@@ -95,7 +95,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
 						</>
 					)
 				} else {
-					return <span>Add {option.type === ContextMenuOptionType.File ? "File" : "Folder"}</span>
+					return <span>{option.type === ContextMenuOptionType.File ? "ファイル" : "フォルダ"}を追加</span>
 				}
 		}
 	}

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.16.1
+
+### Patch Changes
+
+-   Translated ContextMenu and TaskHeader UI elements from English to Japanes
+
 ## 0.16.0
 
 ### Minor Changes

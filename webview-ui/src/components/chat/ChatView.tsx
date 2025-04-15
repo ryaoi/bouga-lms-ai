@@ -36,10 +36,6 @@ interface ChatViewProps {
 
 export const MAX_IMAGES_PER_MESSAGE = 20 // Anthropic limits to 20 images
 
-const LogoutButton = styled(VSCodeButton)`
-	margin-left: 8px;
-`
-
 const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryView }: ChatViewProps) => {
 	const { version, clineMessages: messages, taskHistory, apiConfiguration, telemetrySetting } = useExtensionState()
 
@@ -772,10 +768,6 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 		[expandedRows, modifiedMessages, groupedMessages.length, toggleRowExpansion, handleRowHeightChange],
 	)
 
-	const handleLogout = useCallback(() => {
-		vscode.postMessage({ type: "accountLogoutClicked" })
-	}, [])
-
 	return (
 		<div
 			style={{
@@ -821,9 +813,6 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 								marginBottom: "10px",
 							}}>
 							<h2 style={{ margin: 0 }}>何を学習しますか？</h2>
-							<VSCodeButton appearance="secondary" onClick={handleLogout}>
-								ログアウト
-							</VSCodeButton>
 						</div>
 						<p>
 							<VSCodeLink href="https://www.anthropic.com/claude/sonnet" style={{ display: "inline" }}>

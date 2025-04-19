@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.1
+
+### Patch Changes
+
+-   fix exteniblethinking error which cause model error
+
 ## 0.17.0
 
 ### Minor Changes

@@ -19,7 +19,9 @@ export interface OpenRouterModelPickerProps {
 
 const OpenRouterModelPicker: React.FC<OpenRouterModelPickerProps> = ({ isPopup, onModelSelect }) => {
 	const { apiConfiguration, setApiConfiguration, openRouterModels } = useExtensionState()
-	const [searchTerm, setSearchTerm] = useState(apiConfiguration?.openRouterModelId || openRouterDefaultModelId)
+	const [searchTerm, setSearchTerm] = useState(
+		apiConfiguration?.bougaLmsModelId || apiConfiguration?.openRouterModelId || openRouterDefaultModelId,
+	)
 	const [isDropdownVisible, setIsDropdownVisible] = useState(false)
 	const [selectedIndex, setSelectedIndex] = useState(-1)
 	const dropdownRef = useRef<HTMLDivElement>(null)

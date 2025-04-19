@@ -104,17 +104,7 @@ const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, is
 	}
 
 	const { selectedProvider, selectedModelId, selectedModelInfo } = useMemo(() => {
-		const result = normalizeApiConfiguration(apiConfiguration)
-
-		// Set default thinkingBudgetTokens for bouga-lms provider if not already set
-		if (result.selectedProvider === "bouga-lms" && !apiConfiguration?.thinkingBudgetTokens) {
-			setApiConfiguration({
-				...apiConfiguration,
-				thinkingBudgetTokens: anthropicModels["claude-3-7-sonnet-20250219"].maxTokens,
-			})
-		}
-
-		return result
+		return normalizeApiConfiguration(apiConfiguration)
 	}, [apiConfiguration])
 
 	// Poll ollama/lmstudio models
@@ -1422,7 +1412,9 @@ const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, is
 								setApiConfiguration({
 									...apiConfiguration,
 									bougaLmsModelId: modelId,
+									openRouterModelId: modelId,
 									bougaLmsModelInfo: modelInfo,
+									openRouterModelInfo: modelInfo,
 									thinkingBudgetTokens: anthropicModels["claude-3-7-sonnet-20250219"].maxTokens,
 								})
 							} else {
@@ -1691,8 +1683,9 @@ export function normalizeApiConfiguration(apiConfiguration?: ApiConfiguration): 
 		case "bouga-lms":
 			return {
 				selectedProvider: provider,
-				selectedModelId: apiConfiguration?.bougaLmsModelId || openRouterDefaultModelId,
-				selectedModelInfo: apiConfiguration?.bougaLmsModelInfo || openRouterDefaultModelInfo,
+				selectedModelId: apiConfiguration?.bougaLmsModelId || apiConfiguration?.openRouterModelId || "no-model",
+				selectedModelInfo:
+					apiConfiguration?.bougaLmsModelInfo || apiConfiguration?.openRouterModelInfo || openRouterDefaultModelInfo,
 			}
 		default:
 			return getProviderData(anthropicModels, anthropicDefaultModelId)

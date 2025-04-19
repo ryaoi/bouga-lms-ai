@@ -88,4 +88,25 @@ export class BougaLMSApiService {
 			return false
 		}
 	}
+
+	/**
+	 * Fetches the user's current balance
+	 * @returns The balance data or undefined if the request fails
+	 */
+	async fetchBalance(): Promise<any | undefined> {
+		try {
+			const data = await this.authenticatedRequest<any>("/user/balance")
+
+			// Post to webview
+			await this.postMessageToWebview({
+				type: "userCreditsBalance",
+				userCreditsBalance: data,
+			})
+
+			return data
+		} catch (error) {
+			console.error("Failed to fetch balance:", error)
+			return undefined
+		}
+	}
 }

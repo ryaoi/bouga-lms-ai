@@ -37,7 +37,7 @@ export const ClineAccountView = () => {
 			const message = event.data
 
 			if (message.type === "userCreditsBalance" && message.userCreditsBalance) {
-				setBalance(message.userCreditsBalance.data?.limit_remaining || 0)
+				setBalance(message.userCreditsBalance.currentBalance || 0)
 			}
 			// Always set loading to false when we get a response
 			setIsLoading(false)

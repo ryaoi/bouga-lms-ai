@@ -1389,7 +1389,8 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 	async fetchUserCreditsData() {
 		try {
 			await Promise.all([
-				this.accountService?.fetchBalance(),
+				// this.accountService?.fetchBalance(),
+				this.bougaLMSApiService?.fetchBalance(),
 				//this.accountService?.fetchUsageTransactions(),
 				// this.accountService?.fetchPaymentTransactions(),
 			])

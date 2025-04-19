@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.0
+
+### Minor Changes
+
+-   use bouga LMS API fetchBalance
+
 ## 0.16.1
 
 ### Patch Changes

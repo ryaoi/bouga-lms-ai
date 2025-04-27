@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.3
+
+### Patch Changes
+
+-   fix url for bouga-lms
+
 ## 0.17.2
 
 ### Patch Changes

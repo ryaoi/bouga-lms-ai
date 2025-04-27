@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.5
+
+### Patch Changes
+
+-   Updated system prompt to specify creating directories in English and streamlined assessment instructions.
+
 ## 0.17.4
 
 ### Patch Changes

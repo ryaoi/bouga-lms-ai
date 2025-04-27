@@ -2,7 +2,7 @@
 	"name": "bouga-lms-ai",
 	"displayName": "Bouga LMS AI",
 	"description": "Autonomous education agent right in your IDE, capable of creating/editing files, running commands, using the browser, and more with your permission every step of the way.",
-	"version": "0.17.7",
+	"version": "0.17.8",
 	"icon": "assets/icons/icon.png",
 	"galleryBanner": {
 		"color": "#617A91",

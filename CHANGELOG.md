@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.8
+
+### Patch Changes
+
+-   Improved clarity of instructions for learning materials creation by referencing learning process and evaluation methods.
+
 ## 0.17.7
 
 ### Patch Changes

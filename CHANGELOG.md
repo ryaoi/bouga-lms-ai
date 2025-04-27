@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.6
+
+### Patch Changes
+
+-   attempt_completionツールでユーザータスクからnode_idを検索して提供するよう指示を更新
+
 ## 0.17.5
 
 ### Patch Changes

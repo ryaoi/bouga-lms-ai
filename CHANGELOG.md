@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.4
+
+### Patch Changes
+
+-   improve system prompt for ai
+
 ## 0.17.3
 
 ### Patch Changes

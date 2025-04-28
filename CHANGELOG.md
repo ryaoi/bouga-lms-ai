@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.9
+
+### Patch Changes
+
+-   change readme.md to japanese and clear explanation of tool
+
 ## 0.17.8
 
 ### Patch Changes

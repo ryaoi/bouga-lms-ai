@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.10
+
+### Patch Changes
+
+-   fix package.json description to japanese
+
 ## 0.17.9
 
 ### Patch Changes

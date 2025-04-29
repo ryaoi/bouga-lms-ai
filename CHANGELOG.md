@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.11
+
+### Patch Changes
+
+-   Enhanced learning methodology to maximize student code writing opportunities and implemented a minimum of 2 attempt tries before providing solutions.
+
 ## 0.17.10
 
 ### Patch Changes

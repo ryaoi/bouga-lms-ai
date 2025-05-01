@@ -45,6 +45,8 @@ import {
 	xaiModels,
 	sambanovaModels,
 	sambanovaDefaultModelId,
+	bougaLmsDefaultModelId,
+	bougaLmsDefaultModelInfo,
 } from "../../../../src/shared/api"
 import { ExtensionMessage } from "../../../../src/shared/ExtensionMessage"
 import { useExtensionState } from "../../context/ExtensionStateContext"
@@ -1683,9 +1685,10 @@ export function normalizeApiConfiguration(apiConfiguration?: ApiConfiguration): 
 		case "bouga-lms":
 			return {
 				selectedProvider: provider,
-				selectedModelId: apiConfiguration?.bougaLmsModelId || apiConfiguration?.openRouterModelId || "no-model",
+				selectedModelId:
+					apiConfiguration?.bougaLmsModelId || apiConfiguration?.openRouterModelId || bougaLmsDefaultModelId,
 				selectedModelInfo:
-					apiConfiguration?.bougaLmsModelInfo || apiConfiguration?.openRouterModelInfo || openRouterDefaultModelInfo,
+					apiConfiguration?.bougaLmsModelInfo || apiConfiguration?.openRouterModelInfo || bougaLmsDefaultModelInfo,
 			}
 		default:
 			return getProviderData(anthropicModels, anthropicDefaultModelId)

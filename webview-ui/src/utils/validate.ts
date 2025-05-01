@@ -1,4 +1,4 @@
-import { ApiConfiguration, openRouterDefaultModelId } from "../../../src/shared/api"
+import { ApiConfiguration, openRouterDefaultModelId, bougaLmsDefaultModelId } from "../../../src/shared/api"
 import { ModelInfo } from "../../../src/shared/api"
 export function validateApiConfiguration(apiConfiguration?: ApiConfiguration): string | undefined {
 	if (apiConfiguration) {
@@ -127,7 +127,7 @@ export function validateModelId(
 				break
 			case "bouga-lms":
 				const bougaModelId =
-					apiConfiguration.bougaLmsModelId || apiConfiguration.openRouterModelId || openRouterDefaultModelId
+					apiConfiguration.bougaLmsModelId || apiConfiguration.openRouterModelId || bougaLmsDefaultModelId
 				if (!bougaModelId) {
 					return "You must provide a model ID."
 				}

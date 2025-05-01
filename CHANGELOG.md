@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.13
+
+### Patch Changes
+
+-   Fixed the bouga-lms:no-model display issue by replacing the hardcoded no-model string with the proper default model ID when a user first opens the extension.
+
 ## 0.17.12
 
 ### Patch Changes

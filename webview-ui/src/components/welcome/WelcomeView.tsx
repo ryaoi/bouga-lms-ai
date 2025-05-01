@@ -35,12 +35,8 @@ const WelcomeView = () => {
 					<ClineLogo />
 				</div>
 				<p>
-					<VSCodeLink href="https://www.anthropic.com/claude/sonnet" style={{ display: "inline" }}>
-						Claude 3.7 Sonnet
-					</VSCodeLink>
-					のエージェント機能の革新と、ファイルの作成・編集、複雑なプロジェクトの探索、ブラウザの使用、ターミナルコマンドの実行（
-					<i>もちろん、あなたの許可を得た上で</i>
-					）を可能にするツールへのアクセスにより、あなたの学習をサポートする忘我LMSAIです。MCPを使用して新しいツールを作成し、自身の機能を拡張することも可能です。
+					Bouga LMS
+					AIは、インタラクティブなレッスン、リアルタイムのコードフィードバック、実践的なコーディング演習を通じて、プログラミング学習をサポートします。初心者から経験者まで、あなたのレベルや目標に合わせて、分かりやすく丁寧にプログラミングを教えます。
 				</p>
 
 				<p style={{ color: "var(--vscode-descriptionForeground)" }}>

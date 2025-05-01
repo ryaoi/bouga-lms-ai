@@ -815,10 +815,13 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 							<h2 style={{ margin: 0 }}>何を学習しますか？</h2>
 						</div>
 						<p>
-							<VSCodeLink href="https://www.anthropic.com/claude/sonnet" style={{ display: "inline" }}>
-								Claude 3.7 Sonnet
+							Bouga LMS
+							AIは、インタラクティブなレッスン、リアルタイムのコードフィードバック、実践的なコーディング演習を通じて、プログラミング学習をサポートします。初心者から経験者まで、あなたのレベルや目標に合わせて、分かりやすく丁寧にプログラミングを教えます。
+							まずは、
+							<VSCodeLink href="https://lms.bouga.jp/explore" style={{ display: "inline" }}>
+								忘我LMS
 							</VSCodeLink>
-							のエージェント機能により、複雑なソフトウェア開発タスクをステップバイステップで学習できます。ファイルの作成・編集、複雑なプロジェクトの探索、ブラウザの使用、ターミナルコマンドの実行（許可を得た上で）を可能にするツールを使用して、コード補完や技術サポートを超えた方法であなたをサポートできます。MCPを使用して新しいツールを作成し、自身の機能を拡張することも可能です。
+							から学習プランを一緒に考えましょう！
 						</p>
 					</div>
 					{taskHistory.length > 0 && <HistoryPreview showHistoryView={showHistoryView} />}

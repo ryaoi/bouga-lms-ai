@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.12
+
+### Patch Changes
+
+-   Updated product descriptions in ChatView and WelcomeView to focus on Bouga LMS AI's personalized learning features and add integration with the Bouga LMS website
+
 ## 0.17.11
 
 ### Patch Changes

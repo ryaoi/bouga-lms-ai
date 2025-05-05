@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.14
+
+### Patch Changes
+
+-   Translated error messages from English to Japanese to improve user experience for Japanese-speaking users
+
 ## 0.17.13
 
 ### Patch Changes

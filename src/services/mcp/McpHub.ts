@@ -109,7 +109,7 @@ export class McpHub {
 				if (arePathsEqual(document.uri.fsPath, settingsPath)) {
 					const content = await fs.readFile(settingsPath, "utf-8")
 					const errorMessage =
-						"Invalid MCP settings format. Please ensure your settings follow the correct JSON format."
+						"MCPの設定フォーマットが無効です。設定が正しいJSON形式に従っていることを確認してください。"
 					let config: any
 					try {
 						config = JSON.parse(content)
@@ -123,9 +123,9 @@ export class McpHub {
 						return
 					}
 					try {
-						vscode.window.showInformationMessage("Updating MCP servers...")
+						vscode.window.showInformationMessage("MCPサーバーを更新中...")
 						await this.updateServerConnections(result.data.mcpServers || {})
-						vscode.window.showInformationMessage("MCP servers updated")
+						vscode.window.showInformationMessage("MCPサーバーが更新されました")
 					} catch (error) {
 						console.error("Failed to process MCP settings change:", error)
 					}
@@ -410,7 +410,7 @@ export class McpHub {
 		const connection = this.connections.find((conn) => conn.server.name === serverName)
 		const config = connection?.server.config
 		if (config) {
-			vscode.window.showInformationMessage(`Restarting ${serverName} MCP server...`)
+			vscode.window.showInformationMessage(`${serverName} MCPサーバーを再起動中...`)
 			connection.server.status = "connecting"
 			connection.server.error = ""
 			await this.notifyWebviewOfServerChanges()
@@ -419,10 +419,10 @@ export class McpHub {
 				await this.deleteConnection(serverName)
 				// Try to connect again using existing config
 				await this.connectToServer(serverName, JSON.parse(config))
-				vscode.window.showInformationMessage(`${serverName} MCP server connected`)
+				vscode.window.showInformationMessage(`${serverName} MCPサーバーに接続しました`)
 			} catch (error) {
 				console.error(`Failed to restart connection for ${serverName}:`, error)
-				vscode.window.showErrorMessage(`Failed to connect to ${serverName} MCP server`)
+				vscode.window.showErrorMessage(`${serverName} MCPサーバーへの接続に失敗しました`)
 			}
 		}
 
@@ -525,7 +525,7 @@ export class McpHub {
 				console.error("Error details:", error.message, error.stack)
 			}
 			vscode.window.showErrorMessage(
-				`Failed to update server state: ${error instanceof Error ? error.message : String(error)}`,
+				`サーバーの状態の更新に失敗しました: ${error instanceof Error ? error.message : String(error)}`,
 			)
 			throw error
 		}
@@ -620,7 +620,7 @@ export class McpHub {
 			}
 		} catch (error) {
 			console.error("Failed to update autoApprove settings:", error)
-			vscode.window.showErrorMessage("Failed to update autoApprove settings")
+			vscode.window.showErrorMessage("自動承認設定の更新に失敗しました")
 			throw error // Re-throw to ensure the error is properly handled
 		}
 	}
@@ -640,13 +640,13 @@ export class McpHub {
 				}
 				await fs.writeFile(settingsPath, JSON.stringify(updatedConfig, null, 2))
 				await this.updateServerConnections(config.mcpServers)
-				vscode.window.showInformationMessage(`Deleted ${serverName} MCP server`)
+				vscode.window.showInformationMessage(`${serverName} MCPサーバーを削除しました`)
 			} else {
 				vscode.window.showWarningMessage(`${serverName} not found in MCP configuration`)
 			}
 		} catch (error) {
 			vscode.window.showErrorMessage(
-				`Failed to delete MCP server: ${error instanceof Error ? error.message : String(error)}`,
+				`MCPサーバーの削除に失敗しました: ${error instanceof Error ? error.message : String(error)}`,
 			)
 			throw error
 		}
@@ -682,7 +682,7 @@ export class McpHub {
 				console.error("Error details:", error.message, error.stack)
 			}
 			vscode.window.showErrorMessage(
-				`Failed to update server timeout: ${error instanceof Error ? error.message : String(error)}`,
+				`サーバーのタイムアウト更新に失敗しました: ${error instanceof Error ? error.message : String(error)}`,
 			)
 			throw error
 		}

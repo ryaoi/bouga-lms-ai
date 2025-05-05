@@ -189,7 +189,7 @@ export function activate(context: vscode.ExtensionContext) {
 				if (taskText) {
 					await visibleProvider.handleTaskCallback(taskText)
 				} else {
-					vscode.window.showErrorMessage("No task text provided in the URL")
+					vscode.window.showErrorMessage("URLにタスクテキストが提供されていません")
 				}
 				break
 			}
@@ -203,7 +203,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 				// Validate state parameter
 				if (!(await visibleProvider.validateAuthState(state))) {
-					vscode.window.showErrorMessage("Invalid auth state")
+					vscode.window.showErrorMessage("認証状態が無効です")
 					return
 				}
 

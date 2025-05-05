@@ -317,7 +317,7 @@ export class Cline {
 						await this.checkpointTracker.resetHead(message.lastCheckpointHash)
 					} catch (error) {
 						const errorMessage = error instanceof Error ? error.message : "Unknown error"
-						vscode.window.showErrorMessage("Failed to restore checkpoint: " + errorMessage)
+						vscode.window.showErrorMessage("予期せぬエラー: チェックポイントのハッシュが見つかりません")
 						didWorkspaceRestoreFail = true
 					}
 				}
@@ -359,13 +359,13 @@ export class Cline {
 
 			switch (restoreType) {
 				case "task":
-					vscode.window.showInformationMessage("Task messages have been restored to the checkpoint")
+					vscode.window.showInformationMessage("タスクメッセージがチェックポイントに復元されました")
 					break
 				case "workspace":
-					vscode.window.showInformationMessage("Workspace files have been restored to the checkpoint")
+					vscode.window.showInformationMessage("ワークスペースファイルがチェックポイントに復元されました")
 					break
 				case "taskAndWorkspace":
-					vscode.window.showInformationMessage("Task and workspace have been restored to the checkpoint")
+					vscode.window.showInformationMessage("タスクとワークスペースがチェックポイントに復元されました")
 					break
 			}
 
@@ -458,7 +458,7 @@ export class Cline {
 				const previousCheckpointHash = lastTaskCompletedMessageCheckpointHash || firstCheckpointMessageCheckpointHash // either use the diff between the first checkpoint and the task completion, or the diff between the latest two task completions
 
 				if (!previousCheckpointHash) {
-					vscode.window.showErrorMessage("Unexpected error: No checkpoint hash found")
+					vscode.window.showErrorMessage("予期せぬエラー: チェックポイントのハッシュが見つかりません")
 					relinquishButton()
 					return
 				}
@@ -466,7 +466,7 @@ export class Cline {
 				// Get changed files between current state and commit
 				changedFiles = await this.checkpointTracker?.getDiffSet(previousCheckpointHash, hash)
 				if (!changedFiles?.length) {
-					vscode.window.showInformationMessage("No changes found")
+					vscode.window.showInformationMessage("変更はありませんでした")
 					relinquishButton()
 					return
 				}
@@ -474,14 +474,14 @@ export class Cline {
 				// Get changed files between current state and commit
 				changedFiles = await this.checkpointTracker?.getDiffSet(hash)
 				if (!changedFiles?.length) {
-					vscode.window.showInformationMessage("No changes found")
+					vscode.window.showInformationMessage("変更はありませんでした")
 					relinquishButton()
 					return
 				}
 			}
 		} catch (error) {
 			const errorMessage = error instanceof Error ? error.message : "Unknown error"
-			vscode.window.showErrorMessage("Failed to retrieve diff set: " + errorMessage)
+			vscode.window.showErrorMessage("差分を取得できませんでした: " + errorMessage)
 			relinquishButton()
 			return
 		}

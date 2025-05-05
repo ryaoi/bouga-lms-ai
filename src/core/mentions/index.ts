@@ -68,7 +68,7 @@ export async function parseMentions(text: string, cwd: string, urlContentFetcher
 			await urlContentFetcher.launchBrowser()
 		} catch (error) {
 			launchBrowserError = error
-			vscode.window.showErrorMessage(`Error fetching content for ${urlMention}: ${error.message}`)
+			vscode.window.showErrorMessage(`コンテンツを取得できませんでした: ${urlMention}: ${error.message}`)
 		}
 	}
 
@@ -82,8 +82,8 @@ export async function parseMentions(text: string, cwd: string, urlContentFetcher
 					const markdown = await urlContentFetcher.urlToMarkdown(mention)
 					result = markdown
 				} catch (error) {
-					vscode.window.showErrorMessage(`Error fetching content for ${mention}: ${error.message}`)
-					result = `Error fetching content: ${error.message}`
+					vscode.window.showErrorMessage(`コンテンツを取得できませんでした: ${mention}: ${error.message}`)
+					result = `コンテンツを取得できませんでした: ${error.message}`
 				}
 			}
 			parsedText += `\n\n<url_content url="${mention}">\n${result}\n</url_content>`

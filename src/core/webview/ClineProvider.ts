@@ -192,16 +192,16 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 			await this.updateGlobalState("apiProvider", undefined)
 			await this.updateGlobalState("userInfo", undefined) // Explicitly clear userInfo
 			await this.postStateToWebview()
-			vscode.window.showInformationMessage("Successfully logged out of Cline")
+			vscode.window.showInformationMessage("正常にログアウトしました")
 		} catch (error) {
-			vscode.window.showErrorMessage("Logout failed")
+			vscode.window.showErrorMessage("ログアウトに失敗しました")
 		}
 	}
 
 	async setUserInfo(info?: { displayName: string | null; email: string | null; photoURL: string | null }) {
 		await this.updateGlobalState("userInfo", info)
 		if (info?.displayName) {
-			vscode.window.showInformationMessage(`Welcome, ${info.displayName}!`)
+			vscode.window.showInformationMessage(`ようこそ、${info.displayName}さん！`)
 		}
 	}
 
@@ -1444,10 +1444,10 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 			}
 
 			await this.postStateToWebview()
-			vscode.window.showInformationMessage("Successfully logged in to Bouga LMS")
+			vscode.window.showInformationMessage("Bouga LMSにログインしました")
 		} catch (error) {
 			console.error("Failed to handle auth callback:", error)
-			vscode.window.showErrorMessage("Failed to log in to Bouga LMS")
+			vscode.window.showErrorMessage("Bouga LMSのログインに失敗しました")
 			// Even on login failure, we preserve any existing tokens
 			// Only clear tokens on explicit logout
 		}
@@ -2377,7 +2377,7 @@ Here is the project's README to help you get started:\n\n${mcpDetails.readmeCont
 	// dev
 
 	async resetState() {
-		vscode.window.showInformationMessage("Resetting state...")
+		vscode.window.showInformationMessage("状態をリセットしています...")
 		for (const key of this.context.globalState.keys()) {
 			await this.context.globalState.update(key, undefined)
 		}
@@ -2408,7 +2408,7 @@ Here is the project's README to help you get started:\n\n${mcpDetails.readmeCont
 			this.cline.abortTask()
 			this.cline = undefined
 		}
-		vscode.window.showInformationMessage("State reset")
+		vscode.window.showInformationMessage("状態がリセットされました")
 		await this.postStateToWebview()
 		await this.postMessageToWebview({
 			type: "action",
@@ -2433,10 +2433,10 @@ Here is the project's README to help you get started:\n\n${mcpDetails.readmeCont
 				action: "chatButtonClicked",
 			})
 
-			vscode.window.showInformationMessage("Successfully initialized new task")
+			vscode.window.showInformationMessage("新しいタスクが初期化されました")
 		} catch (error) {
 			console.error("Failed to handle task callback:", error)
-			vscode.window.showErrorMessage("Failed to initialize task")
+			vscode.window.showErrorMessage("タスクの初期化に失敗しました")
 		}
 	}
 }

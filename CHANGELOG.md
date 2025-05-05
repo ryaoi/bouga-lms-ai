@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.16
+
+### Patch Changes
+
+-   Updated terminal and browser UI text from 'Cline' to '忘我LMS AI' and translated several UI elements to Japanese.
+
 ## 0.17.15
 
 ### Patch Changes

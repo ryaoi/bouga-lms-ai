@@ -263,7 +263,11 @@ const BrowserSessionRow = memo((props: BrowserSessionRowProps) => {
 						}}></span>
 				)}
 				<span style={{ fontWeight: "bold" }}>
-					<>{isAutoApproved ? "Cline is using the browser:" : "Cline wants to use the browser:"}</>
+					<>
+						{isAutoApproved
+							? "忘我LMS AIはブラウザを使用しています:"
+							: "忘我LMS AIはブラウザを使用したいと考えています:"}
+					</>
 				</span>
 			</div>
 			<div
@@ -382,7 +386,7 @@ const BrowserSessionRow = memo((props: BrowserSessionRowProps) => {
 							padding: `9px 8px ${consoleLogsExpanded ? 0 : 8}px 8px`,
 						}}>
 						<span className={`codicon codicon-chevron-${consoleLogsExpanded ? "down" : "right"}`}></span>
-						<span style={{ fontSize: "0.8em" }}>Console Logs</span>
+						<span style={{ fontSize: "0.8em" }}>コンソールログ</span>
 					</div>
 					{consoleLogsExpanded && (
 						<CodeBlock source={`${"```"}shell\n${displayState.consoleLogs || "(No new logs)"}\n${"```"}`} />
@@ -464,7 +468,7 @@ const BrowserSessionRowContent = ({
 		return (
 			<>
 				<div style={headerStyle}>
-					<span style={{ fontWeight: "bold" }}>Browser Session Started</span>
+					<span style={{ fontWeight: "bold" }}>ブラウザセッション開始</span>
 				</div>
 				<div
 					style={{
@@ -562,7 +566,7 @@ const BrowserActionBox = ({ action, coordinate, text }: { action: BrowserAction;
 							whiteSpace: "normal",
 							wordBreak: "break-word",
 						}}>
-						<span style={{ fontWeight: 500 }}>Browse Action: </span>
+						<span style={{ fontWeight: 500 }}>ブラウザアクション: </span>
 						{getBrowserActionText(action, coordinate, text)}
 					</span>
 				</div>

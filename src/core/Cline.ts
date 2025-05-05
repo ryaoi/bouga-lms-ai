@@ -2746,7 +2746,7 @@ export class Cline {
 
 								if (this.autoApprovalSettings.enabled && this.autoApprovalSettings.enableNotifications) {
 									showSystemNotification({
-										subtitle: "Cline has a question...",
+										subtitle: "忘我LMS AIは質問があります...",
 										message: question.replace(/\n/g, " "),
 									})
 								}
@@ -3128,8 +3128,8 @@ export class Cline {
 		if (this.consecutiveMistakeCount >= 3) {
 			if (this.autoApprovalSettings.enabled && this.autoApprovalSettings.enableNotifications) {
 				showSystemNotification({
-					subtitle: "Error",
-					message: "Cline is having trouble. Would you like to continue the task?",
+					subtitle: "エラー",
+					message: "忘我LMS AIはトラブルに遭遇しています。学習タスクを続けますか？",
 				})
 			}
 			const { response, text, images } = await this.ask(
@@ -3158,13 +3158,13 @@ export class Cline {
 		) {
 			if (this.autoApprovalSettings.enableNotifications) {
 				showSystemNotification({
-					subtitle: "Max Requests Reached",
-					message: `Cline has auto-approved ${this.autoApprovalSettings.maxRequests.toString()} API requests.`,
+					subtitle: "最大リクエスト数に達しました",
+					message: `忘我LMS AIは ${this.autoApprovalSettings.maxRequests.toString()} APIリクエストを自動承認しました。`,
 				})
 			}
 			await this.ask(
 				"auto_approval_max_req_reached",
-				`Cline has auto-approved ${this.autoApprovalSettings.maxRequests.toString()} API requests. Would you like to reset the count and proceed with the task?`,
+				`忘我LMS AIは ${this.autoApprovalSettings.maxRequests.toString()} APIリクエストを自動承認しました。カウンターをリセットしてタスクを続けますか？`,
 			)
 			// if we get past the promise it means the user approved and did not start a new task
 			this.consecutiveAutoApprovedRequestsCount = 0

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.15
+
+### Patch Changes
+
+-   Localized system notifications to Japanese and rebranded as '忘我LMS AI'
+
 ## 0.17.14
 
 ### Patch Changes

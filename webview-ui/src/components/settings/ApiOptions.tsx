@@ -1417,7 +1417,6 @@ const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, is
 									openRouterModelId: modelId,
 									bougaLmsModelInfo: modelInfo,
 									openRouterModelInfo: modelInfo,
-									thinkingBudgetTokens: anthropicModels["claude-3-7-sonnet-20250219"].maxTokens,
 								})
 							} else {
 								setApiConfiguration({

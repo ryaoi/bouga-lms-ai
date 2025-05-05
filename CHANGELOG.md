@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.17
+
+### Patch Changes
+
+-   Set fixed thinking budget tokens to 1024 and ensure configuration updates are properly persisted.
+
 ## 0.17.16
 
 ### Patch Changes

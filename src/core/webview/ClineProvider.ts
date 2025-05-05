@@ -1437,7 +1437,10 @@ export class ClineProvider implements vscode.WebviewViewProvider {
 				...apiConfiguration,
 				apiProvider: bougaLmsProvider,
 				bougaLmsApiKey: apiKey,
+				thinkingBudgetTokens: 1024,
 			}
+
+			await this.updateApiConfiguration(updatedConfig)
 
 			if (this.cline) {
 				this.cline.api = buildApiHandler(updatedConfig)

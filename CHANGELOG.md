@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.18
+
+### Patch Changes
+
+-   improve system prompt to enforce the pragmatic exercises
+
 ## 0.17.17
 
 ### Patch Changes

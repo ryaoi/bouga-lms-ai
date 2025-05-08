@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.18.0
+
+### Minor Changes
+
+-   Added support for displaying '無制限' (unlimited) balance values in the account view
+
 ## 0.17.18
 
 ### Patch Changes

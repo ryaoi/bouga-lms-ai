@@ -26,7 +26,7 @@ const AccountView = ({ onDone }: AccountViewProps) => {
 
 export const ClineAccountView = () => {
 	const { apiConfiguration, userInfo } = useExtensionState()
-	const [balance, setBalance] = useState<number | null>(null)
+	const [balance, setBalance] = useState<number | string | null>(null)
 	const [isLoading, setIsLoading] = useState(true)
 	const [fetchError, setFetchError] = useState<string | null>(null)
 
@@ -138,13 +138,19 @@ export const ClineAccountView = () => {
 								</div>
 							) : (
 								<>
-									<span>$</span>
-									{balance === null ? (
-										"ロード中..."
-									) : balance > 0 ? (
-										<>{parseFloat(balance.toString()).toFixed(2)}</>
+									{balance === "無制限" ? (
+										<span className="text-4xl">無制限</span>
 									) : (
-										"0.00"
+										<>
+											<span>$</span>
+											{balance === null ? (
+												"ロード中..."
+											) : typeof balance === "number" && balance > 0 ? (
+												<>{parseFloat(balance.toString()).toFixed(2)}</>
+											) : (
+												"0.00"
+											)}
+										</>
 									)}
 									<VSCodeButton appearance="icon" className="mt-1" onClick={refreshBalance}>
 										<span className="codicon codicon-refresh"></span>

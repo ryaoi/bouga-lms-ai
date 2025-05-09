@@ -200,6 +200,7 @@ export function activate(context: vscode.ExtensionContext) {
 				const displayName = query.get("displayName")
 				const email = query.get("email")
 				const photoURL = query.get("photoURL")
+				const isSubscribed = query.get("isSubscribed") === "true"
 
 				// Validate state parameter
 				if (!(await visibleProvider.validateAuthState(state))) {
@@ -212,6 +213,7 @@ export function activate(context: vscode.ExtensionContext) {
 						displayName: displayName,
 						email: email,
 						photoURL: photoURL,
+						isSubscribed: isSubscribed,
 					}
 					await visibleProvider.handleAuthCallback(token, apiKey, userInfo)
 				}

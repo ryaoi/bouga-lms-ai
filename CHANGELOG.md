@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.19.0
+
+### Minor Changes
+
+-   Add subscription status badge to display user subscription information from auth callback
+
 ## 0.18.0
 
 ### Minor Changes

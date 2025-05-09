@@ -107,6 +107,7 @@ export interface ExtensionState {
 		displayName: string | null
 		email: string | null
 		photoURL: string | null
+		isSubscribed?: boolean
 	}
 	mcpMarketplaceEnabled?: boolean
 	telemetrySetting: TelemetrySetting

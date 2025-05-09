@@ -104,6 +104,14 @@ export const ClineAccountView = () => {
 								{userInfo?.email && (
 									<div className="text-sm text-[var(--vscode-descriptionForeground)]">{userInfo.email}</div>
 								)}
+
+								{userInfo?.isSubscribed !== undefined && userInfo.isSubscribed && (
+									<div className="text-sm mt-1">
+										<span className={`px-2 py-0.5 rounded-full text-white bg-green-600`}>
+											サブスクリプション中
+										</span>
+									</div>
+								)}
 							</div>
 						</div>
 					</div>

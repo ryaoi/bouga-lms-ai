@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.20.0
+
+### Minor Changes
+
+-   Automatically sets Claude 3.7 Sonnet as the exclusive model for subscribed users while disabling model selection in the UI.
+
 ## 0.19.0
 
 ### Minor Changes

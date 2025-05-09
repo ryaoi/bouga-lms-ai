@@ -88,7 +88,7 @@ declare module "vscode" {
 }
 
 const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, isPopup }: ApiOptionsProps) => {
-	const { apiConfiguration, setApiConfiguration, uriScheme } = useExtensionState()
+	const { apiConfiguration, setApiConfiguration, uriScheme, userInfo } = useExtensionState()
 	const [ollamaModels, setOllamaModels] = useState<string[]>([])
 	const [lmStudioModels, setLmStudioModels] = useState<string[]>([])
 	const [vsCodeLmModels, setVsCodeLmModels] = useState<vscodemodels.LanguageModelChatSelector[]>([])
@@ -98,6 +98,9 @@ const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, is
 	const [modelConfigurationSelected, setModelConfigurationSelected] = useState(false)
 	const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false)
 
+	// Check if user is subscribed
+	const isSubscribed = userInfo?.isSubscribed === true
+
 	const handleInputChange = (field: keyof ApiConfiguration) => (event: any) => {
 		setApiConfiguration({
 			...apiConfiguration,
@@ -106,8 +109,30 @@ const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, is
 	}
 
 	const { selectedProvider, selectedModelId, selectedModelInfo } = useMemo(() => {
-		return normalizeApiConfiguration(apiConfiguration)
-	}, [apiConfiguration])
+		return normalizeApiConfiguration(apiConfiguration, isSubscribed)
+	}, [apiConfiguration, userInfo?.isSubscribed])
+
+	// If user is subscribed, ensure model is Claude 3.7 Sonnet
+	useEffect(() => {
+		// Only run this effect when subscription status or provider changes
+		if (
+			isSubscribed &&
+			(selectedProvider === "openrouter" || selectedProvider === "cline" || selectedProvider === "bouga-lms")
+		) {
+			// Check if we need to update - prevents infinite loops
+			const needsUpdate =
+				apiConfiguration?.openRouterModelId !== "anthropic/claude-3.7-sonnet" ||
+				apiConfiguration?.bougaLmsModelId !== "anthropic/claude-3.7-sonnet"
+
+			if (needsUpdate) {
+				setApiConfiguration({
+					...apiConfiguration,
+					openRouterModelId: "anthropic/claude-3.7-sonnet",
+					bougaLmsModelId: "anthropic/claude-3.7-sonnet",
+				})
+			}
+		}
+	}, [isSubscribed, selectedProvider]) // Deliberately omit apiConfiguration to prevent loops
 
 	// Poll ollama/lmstudio models
 	const requestLocalModels = useCallback(() => {
@@ -1407,26 +1432,59 @@ const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, is
 
 			{(selectedProvider === "openrouter" || selectedProvider === "cline" || selectedProvider === "bouga-lms") &&
 				showModelOptions && (
-					<OpenRouterModelPicker
-						isPopup={isPopup}
-						onModelSelect={(modelId, modelInfo) => {
-							if (selectedProvider === "bouga-lms") {
-								setApiConfiguration({
-									...apiConfiguration,
-									bougaLmsModelId: modelId,
-									openRouterModelId: modelId,
-									bougaLmsModelInfo: modelInfo,
-									openRouterModelInfo: modelInfo,
-								})
-							} else {
-								setApiConfiguration({
-									...apiConfiguration,
-									openRouterModelId: modelId,
-									openRouterModelInfo: modelInfo,
-								})
-							}
-						}}
-					/>
+					<>
+						{isSubscribed ? (
+							<>
+								<div
+									style={{
+										marginBottom: "8px",
+										padding: "8px",
+										backgroundColor: "var(--vscode-editorInfo-background)",
+										borderRadius: "4px",
+									}}>
+									<p style={{ margin: 0, fontSize: "14px" }}>
+										<i className="codicon codicon-verified" style={{ marginRight: "4px" }}></i>
+										サブスクリプション会員は自動的に最高性能モデル（Claude 3.7 Sonnet）を使用します。
+									</p>
+								</div>
+								{/* Display fixed model info for subscribers */}
+								<ModelInfoView
+									selectedModelId="anthropic/claude-3.7-sonnet"
+									modelInfo={{
+										supportsImages: true,
+										supportsComputerUse: true,
+										supportsPromptCache: true,
+										description:
+											"Claude 3.7 Sonnetは、推論、コーディング、問題解決能力が向上した高度な大規模言語モデルです。ハイブリッド推論アプローチを導入し、ユーザーが迅速な応答と、複雑なタスクのためのステップバイステップの詳細な処理を選択できるようになりました。このモデルは、特にフロントエンド開発やフルスタックの更新などのコーディングにおいて顕著な改善を示し、複数のステップを自律的にナビゲートできるエージェント型ワークフローにおいて優れています。\n\nClaude 3.7 Sonnetは標準モードでは前モデルと同等のパフォーマンスを維持しながら、数学、コーディング、指示に従うタスクにおいて精度を高めるための拡張推論モードを提供します。\n\n詳細は[ブログ記事](https://www.anthropic.com/news/claude-3-7-sonnet)をご覧ください。",
+									}}
+									isDescriptionExpanded={isDescriptionExpanded}
+									setIsDescriptionExpanded={setIsDescriptionExpanded}
+									isPopup={isPopup}
+								/>
+							</>
+						) : (
+							<OpenRouterModelPicker
+								isPopup={isPopup}
+								onModelSelect={(modelId, modelInfo) => {
+									if (selectedProvider === "bouga-lms") {
+										setApiConfiguration({
+											...apiConfiguration,
+											bougaLmsModelId: modelId,
+											openRouterModelId: modelId,
+											bougaLmsModelInfo: modelInfo,
+											openRouterModelInfo: modelInfo,
+										})
+									} else {
+										setApiConfiguration({
+											...apiConfiguration,
+											openRouterModelId: modelId,
+											openRouterModelInfo: modelInfo,
+										})
+									}
+								}}
+							/>
+						)}
+					</>
 				)}
 
 			{modelIdErrorMessage && (
@@ -1584,13 +1642,32 @@ const ModelInfoSupportsItem = ({
 	</span>
 )
 
-export function normalizeApiConfiguration(apiConfiguration?: ApiConfiguration): {
+export function normalizeApiConfiguration(
+	apiConfiguration?: ApiConfiguration,
+	isSubscribed?: boolean,
+): {
 	selectedProvider: ApiProvider
 	selectedModelId: string
 	selectedModelInfo: ModelInfo
 } {
 	const provider = apiConfiguration?.apiProvider || "anthropic"
 	const modelId = apiConfiguration?.apiModelId
+
+	// If user is subscribed and using one of these providers, always use Claude 3.7 Sonnet
+	if (isSubscribed && (provider === "openrouter" || provider === "cline" || provider === "bouga-lms")) {
+		const claudeModelId = "anthropic/claude-3.7-sonnet"
+		return {
+			selectedProvider: provider,
+			selectedModelId: claudeModelId,
+			selectedModelInfo: {
+				supportsImages: true,
+				supportsComputerUse: true,
+				supportsPromptCache: true,
+				description:
+					"Claude 3.7 Sonnetは、推論、コーディング、問題解決能力が向上した高度な大規模言語モデルです。ハイブリッド推論アプローチを導入し、ユーザーが迅速な応答と、複雑なタスクのためのステップバイステップの詳細な処理を選択できるようになりました。このモデルは、特にフロントエンド開発やフルスタックの更新などのコーディングにおいて顕著な改善を示し、複数のステップを自律的にナビゲートできるエージェント型ワークフローにおいて優れています。\n\nClaude 3.7 Sonnetは標準モードでは前モデルと同等のパフォーマンスを維持しながら、数学、コーディング、指示に従うタスクにおいて精度を高めるための拡張推論モードを提供します。\n\n詳細は[ブログ記事](https://www.anthropic.com/news/claude-3-7-sonnet)をご覧ください。",
+			},
+		}
+	}
 
 	const getProviderData = (models: Record<string, ModelInfo>, defaultId: string) => {
 		let selectedModelId: string

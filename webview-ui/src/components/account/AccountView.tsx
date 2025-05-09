@@ -153,7 +153,9 @@ export const ClineAccountView = () => {
 											<span>$</span>
 											{balance === null ? (
 												"ロード中..."
-											) : typeof balance === "number" && balance > 0 ? (
+											) : typeof balance === "string" ? (
+												<>{parseFloat(balance).toFixed(2)}</>
+											) : typeof balance === "number" ? (
 												<>{parseFloat(balance.toString()).toFixed(2)}</>
 											) : (
 												"0.00"

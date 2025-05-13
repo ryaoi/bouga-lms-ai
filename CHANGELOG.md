@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.20.1
+
+### Patch Changes
+
+-   Added a rule to prohibit using image tags with URLs when creating or editing markdown files
+
 ## 0.20.0
 
 ### Minor Changes

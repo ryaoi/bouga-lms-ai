@@ -161,12 +161,6 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// URI Handler
 	const handleUri = async (uri: vscode.Uri) => {
-		console.log("URI Handler called with:", {
-			path: uri.path,
-			query: uri.query,
-			scheme: uri.scheme,
-		})
-
 		const path = uri.path
 		const query = new URLSearchParams(uri.query.replace(/\+/g, "%2B"))
 		const visibleProvider = ClineProvider.getVisibleInstance()
@@ -185,7 +179,6 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 			case "/task": {
 				const taskText = query.get("task")
-				console.log("Task text:", taskText)
 				if (taskText) {
 					await visibleProvider.handleTaskCallback(taskText)
 				} else {

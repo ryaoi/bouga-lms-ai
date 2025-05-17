@@ -80,14 +80,12 @@ export const SupabaseAuthProvider: React.FC<{ children: React.ReactNode }> = ({ 
 	useEffect(() => {
 		const handleMessage = (event: MessageEvent) => {
 			const message = event.data
-			console.log("handleMessage", message)
 
 			if (message.type === "authCallback" && message.token) {
 				// Handle Supabase session token
 				try {
 					// Set user if available in the authCallback message
 					if (message.user) {
-						console.log("authCallback user", message.user)
 						setUser(message.user)
 					}
 					setIsInitialized(true)
@@ -95,7 +93,6 @@ export const SupabaseAuthProvider: React.FC<{ children: React.ReactNode }> = ({ 
 					console.error("Error handling auth callback:", error)
 				}
 			} else if (message.type === "authStateChanged" && "user" in message) {
-				console.log("authStateChanged", message.user)
 				setUser(message.user)
 				setIsInitialized(true)
 			}
@@ -113,7 +110,6 @@ export const SupabaseAuthProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
 			vscode.postMessage({ type: "accountLogoutClicked" })
 			setUser(null)
-			console.log("Successfully signed out of Supabase")
 		} catch (error) {
 			console.error("Error signing out:", error)
 			throw error

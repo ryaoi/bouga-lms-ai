@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.20.2
+
+### Patch Changes
+
+-   chore: remove debug console.log statements
+
 ## 0.20.1
 
 ### Patch Changes

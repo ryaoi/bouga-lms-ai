@@ -2,7 +2,7 @@
 	"name": "bouga-lms-ai",
 	"displayName": "Bouga LMS AI",
 	"description": "あなたのIDEで動作するAIプログラミング学習アシスタント。リアルタイムで学習をサポートし、公式LMS(https://lms.bouga.jp/)と連携して最適な学びを実現します。",
-	"version": "0.21.0",
+	"version": "0.22.0",
 	"icon": "assets/icons/icon.png",
 	"galleryBanner": {
 		"color": "#617A91",
@@ -71,11 +71,6 @@
 				"icon": "$(add)"
 			},
 			{
-				"command": "bouga-lms-ai.mcpButtonClicked",
-				"title": "MCPサーバー",
-				"icon": "$(extensions)"
-			},
-			{
 				"command": "bouga-lms-ai.historyButtonClicked",
 				"title": "履歴",
 				"icon": "$(history)"
@@ -114,23 +109,18 @@
 					"when": "view == bouga-lms-ai.SidebarProvider"
 				},
 				{
-					"command": "bouga-lms-ai.mcpButtonClicked",
+					"command": "bouga-lms-ai.historyButtonClicked",
 					"group": "navigation@3",
 					"when": "view == bouga-lms-ai.SidebarProvider"
 				},
 				{
-					"command": "bouga-lms-ai.historyButtonClicked",
+					"command": "bouga-lms-ai.popoutButtonClicked",
 					"group": "navigation@4",
 					"when": "view == bouga-lms-ai.SidebarProvider"
 				},
 				{
-					"command": "bouga-lms-ai.popoutButtonClicked",
-					"group": "navigation@5",
-					"when": "view == bouga-lms-ai.SidebarProvider"
-				},
-				{
 					"command": "bouga-lms-ai.settingsButtonClicked",
-					"group": "navigation@6",
+					"group": "navigation@5",
 					"when": "view == bouga-lms-ai.SidebarProvider"
 				}
 			]
@@ -219,7 +209,7 @@
 				},
 				"cline.mcpMarketplace.enabled": {
 					"type": "boolean",
-					"default": true,
+					"default": false,
 					"description": "Controls whether the MCP Marketplace is enabled."
 				}
 			}

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.22.0
+
+### Minor Changes
+
+-   Removed MCP button from sidebar and disabled MCP marketplace by default
+
 ## 0.21.0
 
 ### Minor Changes

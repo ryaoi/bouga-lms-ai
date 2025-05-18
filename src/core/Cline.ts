@@ -589,7 +589,7 @@ export class Cline {
 	}> {
 		// If this Cline instance was aborted by the provider, then the only thing keeping us alive is a promise still running in the background, in which case we don't want to send its result to the webview as it is attached to a new instance of Cline now. So we can safely ignore the result of any active promises, and this class will be deallocated. (Although we set Cline = undefined in provider, that simply removes the reference to this instance, but the instance is still alive until this promise resolves or rejects.)
 		if (this.abort) {
-			throw new Error("Cline instance aborted")
+			throw new Error("忘我LMS AIの処理が中断されました")
 		}
 		let askTs: number
 		if (partial !== undefined) {
@@ -707,7 +707,7 @@ export class Cline {
 
 	async say(type: ClineSay, text?: string, images?: string[], partial?: boolean): Promise<undefined> {
 		if (this.abort) {
-			throw new Error("Cline instance aborted")
+			throw new Error("忘我LMS AIの処理が中断されました")
 		}
 
 		if (partial !== undefined) {
@@ -1440,7 +1440,7 @@ export class Cline {
 
 	async presentAssistantMessage() {
 		if (this.abort) {
-			throw new Error("Cline instance aborted")
+			throw new Error("忘我LMS AIの処理が中断されました")
 		}
 
 		if (this.presentAssistantMessageLocked) {
@@ -3122,7 +3122,7 @@ export class Cline {
 		isNewTask: boolean = false,
 	): Promise<boolean> {
 		if (this.abort) {
-			throw new Error("Cline instance aborted")
+			throw new Error("忘我LMS AIの処理が中断されました")
 		}
 
 		if (this.consecutiveMistakeCount >= 3) {
@@ -3425,7 +3425,7 @@ export class Cline {
 
 			// need to call here in case the stream was aborted
 			if (this.abort) {
-				throw new Error("Cline instance aborted")
+				throw new Error("忘我LMS AIの処理が中断されました")
 			}
 
 			this.didCompleteReadingStream = true

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.20.3
+
+### Patch Changes
+
+-   Updated error messages to replace 'Cline' with '忘我LMS AI' in Japanese for better brand alignment
+
 ## 0.20.2
 
 ### Patch Changes

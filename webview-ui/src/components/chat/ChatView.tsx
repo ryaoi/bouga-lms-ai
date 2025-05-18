@@ -21,7 +21,7 @@ import { vscode } from "../../utils/vscode"
 import HistoryPreview from "../history/HistoryPreview"
 import { normalizeApiConfiguration } from "../settings/ApiOptions"
 import Announcement from "./Announcement"
-import AutoApproveMenu from "./AutoApproveMenu"
+// import AutoApproveMenu from "./AutoApproveMenu"
 import BrowserSessionRow from "./BrowserSessionRow"
 import ChatRow from "./ChatRow"
 import ChatTextArea from "./ChatTextArea"
@@ -843,7 +843,7 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 			//    This ensures it takes its natural height when there's space
 			//    but becomes scrollable when the viewport is too small
 			*/}
-			{!task && (
+			{/* {!task && (
 				<AutoApproveMenu
 					style={{
 						marginBottom: -2,
@@ -851,7 +851,7 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 						minHeight: 0,
 					}}
 				/>
-			)}
+			)} */}
 
 			{task && (
 				<>
@@ -885,7 +885,7 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 							initialTopMostItemIndex={groupedMessages.length - 1}
 						/>
 					</div>
-					<AutoApproveMenu />
+					{/* <AutoApproveMenu /> */}
 					{showScrollToBottom ? (
 						<div
 							style={{

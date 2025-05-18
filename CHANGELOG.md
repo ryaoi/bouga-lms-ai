@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.21.0
+
+### Minor Changes
+
+-   Removed AutoApproveMenu component from ChatView to simplify the interface
+
 ## 0.20.3
 
 ### Patch Changes

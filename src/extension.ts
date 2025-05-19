@@ -180,7 +180,9 @@ export function activate(context: vscode.ExtensionContext) {
 			case "/task": {
 				const taskText = query.get("task")
 				if (taskText) {
-					await visibleProvider.handleTaskCallback(taskText)
+					// Decode from base64
+					const decodedTaskText = Buffer.from(taskText, "base64").toString("utf-8")
+					await visibleProvider.handleTaskCallback(decodedTaskText)
 				} else {
 					vscode.window.showErrorMessage("URLにタスクテキストが提供されていません")
 				}

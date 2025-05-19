@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.22.1
+
+### Patch Changes
+
+-   Fix task URL handling to properly decode special characters like ampersands.
+
 ## 0.22.0
 
 ### Minor Changes

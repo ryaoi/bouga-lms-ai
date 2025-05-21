@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.22.2
+
+### Patch Changes
+
+-   Clarified wording of image tag restriction in Markdown files in system prompt.
+
 ## 0.22.1
 
 ### Patch Changes

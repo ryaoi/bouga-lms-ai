@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.22.3
+
+### Patch Changes
+
+-   Added thinking tag usage instruction to the prompt and clarified directions for better learning experience
+
 ## 0.22.2
 
 ### Patch Changes

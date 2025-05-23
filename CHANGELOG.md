@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.23.0
+
+### Minor Changes
+
+-   Updated Claude 3.7 Sonnet references to Claude 4 Sonnet with Japanese translations and fixed syntax errors in ApiOptions.tsx
+
 ## 0.22.3
 
 ### Patch Changes

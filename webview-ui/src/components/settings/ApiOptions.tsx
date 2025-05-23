@@ -1444,18 +1444,18 @@ const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, is
 									}}>
 									<p style={{ margin: 0, fontSize: "14px" }}>
 										<i className="codicon codicon-verified" style={{ marginRight: "4px" }}></i>
-										サブスクリプション会員は自動的に最高性能モデル（Claude 3.7 Sonnet）を使用します。
+										サブスクリプション会員は自動的に最高性能モデル（Claude 4 Sonnet）を使用します。
 									</p>
 								</div>
 								{/* Display fixed model info for subscribers */}
 								<ModelInfoView
-									selectedModelId="anthropic/claude-3.7-sonnet"
+									selectedModelId="anthropic/claude-4-sonnet"
 									modelInfo={{
 										supportsImages: true,
 										supportsComputerUse: true,
 										supportsPromptCache: true,
 										description:
-											"Claude 3.7 Sonnetは、推論、コーディング、問題解決能力が向上した高度な大規模言語モデルです。ハイブリッド推論アプローチを導入し、ユーザーが迅速な応答と、複雑なタスクのためのステップバイステップの詳細な処理を選択できるようになりました。このモデルは、特にフロントエンド開発やフルスタックの更新などのコーディングにおいて顕著な改善を示し、複数のステップを自律的にナビゲートできるエージェント型ワークフローにおいて優れています。\n\nClaude 3.7 Sonnetは標準モードでは前モデルと同等のパフォーマンスを維持しながら、数学、コーディング、指示に従うタスクにおいて精度を高めるための拡張推論モードを提供します。\n\n詳細は[ブログ記事](https://www.anthropic.com/news/claude-3-7-sonnet)をご覧ください。",
+											"Claude 4 Sonnetは、推論、コーディング、問題解決能力が向上した高度な大規模言語モデルです。ハイブリッド推論アプローチを導入し、ユーザーが迅速な応答と、複雑なタスクのためのステップバイステップの詳細な処理を選択できるようになりました。このモデルは、特にフロントエンド開発やフルスタックの更新などのコーディングにおいて顕著な改善を示し、複数のステップを自律的にナビゲートできるエージェント型ワークフローにおいて優れています。\n\nClaude 4 Sonnetは標準モードでは前モデルと同等のパフォーマンスを維持しながら、数学、コーディング、指示に従うタスクにおいて精度を高めるための拡張推論モードを提供します。\n\n詳細は[ブログ記事](https://www.anthropic.com/news/claude-4)をご覧ください。",
 									}}
 									isDescriptionExpanded={isDescriptionExpanded}
 									setIsDescriptionExpanded={setIsDescriptionExpanded}
@@ -1653,9 +1653,9 @@ export function normalizeApiConfiguration(
 	const provider = apiConfiguration?.apiProvider || "anthropic"
 	const modelId = apiConfiguration?.apiModelId
 
-	// If user is subscribed and using one of these providers, always use Claude 3.7 Sonnet
+	// If user is subscribed and using one of these providers, always use Claude 4 Sonnet
 	if (isSubscribed && (provider === "openrouter" || provider === "cline" || provider === "bouga-lms")) {
-		const claudeModelId = "anthropic/claude-3.7-sonnet"
+		const claudeModelId = "anthropic/claude-4-sonnet"
 		return {
 			selectedProvider: provider,
 			selectedModelId: claudeModelId,
@@ -1664,7 +1664,7 @@ export function normalizeApiConfiguration(
 				supportsComputerUse: true,
 				supportsPromptCache: true,
 				description:
-					"Claude 3.7 Sonnetは、推論、コーディング、問題解決能力が向上した高度な大規模言語モデルです。ハイブリッド推論アプローチを導入し、ユーザーが迅速な応答と、複雑なタスクのためのステップバイステップの詳細な処理を選択できるようになりました。このモデルは、特にフロントエンド開発やフルスタックの更新などのコーディングにおいて顕著な改善を示し、複数のステップを自律的にナビゲートできるエージェント型ワークフローにおいて優れています。\n\nClaude 3.7 Sonnetは標準モードでは前モデルと同等のパフォーマンスを維持しながら、数学、コーディング、指示に従うタスクにおいて精度を高めるための拡張推論モードを提供します。\n\n詳細は[ブログ記事](https://www.anthropic.com/news/claude-3-7-sonnet)をご覧ください。",
+					"Claude 4 Sonnetは、推論、コーディング、問題解決能力が向上した高度な大規模言語モデルです。ハイブリッド推論アプローチを導入し、ユーザーが迅速な応答と、複雑なタスクのためのステップバイステップの詳細な処理を選択できるようになりました。このモデルは、特にフロントエンド開発やフルスタックの更新などのコーディングにおいて顕著な改善を示し、複数のステップを自律的にナビゲートできるエージェント型ワークフローにおいて優れています。\n\nClaude 4 Sonnetは標準モードでは前モデルと同等のパフォーマンスを維持しながら、数学、コーディング、指示に従うタスクにおいて精度を高めるための拡張推論モードを提供します。\n\n詳細は[ブログ記事](https://www.anthropic.com/news/claude-4)をご覧ください。",
 			},
 		}
 	}

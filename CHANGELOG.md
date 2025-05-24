@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.24.0
+
+### Minor Changes
+
+-   Updated default model from Claude 3.7 Sonnet to Claude Sonnet 4 and added support for new Claude 4 models (Sonnet 4 and Opus 4) with updated pricing and configuration.
+
 ## 0.23.0
 
 ### Minor Changes

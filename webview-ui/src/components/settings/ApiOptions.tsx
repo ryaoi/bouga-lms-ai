@@ -112,7 +112,7 @@ const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, is
 		return normalizeApiConfiguration(apiConfiguration, isSubscribed)
 	}, [apiConfiguration, userInfo?.isSubscribed])
 
-	// If user is subscribed, ensure model is Claude 3.7 Sonnet
+	// If user is subscribed, ensure model is Claude 4 Sonnet
 	useEffect(() => {
 		// Only run this effect when subscription status or provider changes
 		if (
@@ -121,14 +121,14 @@ const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, is
 		) {
 			// Check if we need to update - prevents infinite loops
 			const needsUpdate =
-				apiConfiguration?.openRouterModelId !== "anthropic/claude-3.7-sonnet" ||
-				apiConfiguration?.bougaLmsModelId !== "anthropic/claude-3.7-sonnet"
+				apiConfiguration?.openRouterModelId !== "anthropic/claude-sonnet-4" ||
+				apiConfiguration?.bougaLmsModelId !== "anthropic/claude-sonnet-4"
 
 			if (needsUpdate) {
 				setApiConfiguration({
 					...apiConfiguration,
-					openRouterModelId: "anthropic/claude-3.7-sonnet",
-					bougaLmsModelId: "anthropic/claude-3.7-sonnet",
+					openRouterModelId: "anthropic/claude-sonnet-4",
+					bougaLmsModelId: "anthropic/claude-sonnet-4",
 				})
 			}
 		}
@@ -1444,12 +1444,12 @@ const ApiOptions = ({ showModelOptions, apiErrorMessage, modelIdErrorMessage, is
 									}}>
 									<p style={{ margin: 0, fontSize: "14px" }}>
 										<i className="codicon codicon-verified" style={{ marginRight: "4px" }}></i>
-										サブスクリプション会員は自動的に最高性能モデル（Claude 4 Sonnet）を使用します。
+										サブスクリプション会員は自動的に最高性能モデル（Claude Sonnet 4）を使用します。
 									</p>
 								</div>
 								{/* Display fixed model info for subscribers */}
 								<ModelInfoView
-									selectedModelId="anthropic/claude-4-sonnet"
+									selectedModelId="anthropic/claude-sonnet-4"
 									modelInfo={{
 										supportsImages: true,
 										supportsComputerUse: true,
@@ -1655,7 +1655,7 @@ export function normalizeApiConfiguration(
 
 	// If user is subscribed and using one of these providers, always use Claude 4 Sonnet
 	if (isSubscribed && (provider === "openrouter" || provider === "cline" || provider === "bouga-lms")) {
-		const claudeModelId = "anthropic/claude-4-sonnet"
+		const claudeModelId = "anthropic/claude-sonnet-4"
 		return {
 			selectedProvider: provider,
 			selectedModelId: claudeModelId,

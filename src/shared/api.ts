@@ -101,13 +101,45 @@ export interface OpenAiCompatibleModelInfo extends ModelInfo {
 // Anthropic
 // https://docs.anthropic.com/en/docs/about-claude/models // prices updated 2025-01-02
 export type AnthropicModelId = keyof typeof anthropicModels
-export const anthropicDefaultModelId: AnthropicModelId = "claude-3-7-sonnet-20250219"
+export const anthropicDefaultModelId: AnthropicModelId = "claude-sonnet-4-20250514"
 export const anthropicModels = {
+	"claude-sonnet-4": {
+		maxTokens: 8192,
+		contextWindow: 200_000,
+		supportsImages: true,
+
+		supportsPromptCache: true,
+		inputPrice: 3.0,
+		outputPrice: 15.0,
+		cacheWritesPrice: 3.75,
+		cacheReadsPrice: 0.3,
+	},
+	"claude-sonnet-4-20250514": {
+		maxTokens: 8192,
+		contextWindow: 200_000,
+		supportsImages: true,
+
+		supportsPromptCache: true,
+		inputPrice: 3.0,
+		outputPrice: 15.0,
+		cacheWritesPrice: 3.75,
+		cacheReadsPrice: 0.3,
+	},
+	"claude-opus-4-20250514": {
+		maxTokens: 8192,
+		contextWindow: 200_000,
+		supportsImages: true,
+		supportsPromptCache: true,
+		inputPrice: 15.0,
+		outputPrice: 75.0,
+		cacheWritesPrice: 18.75,
+		cacheReadsPrice: 1.5,
+	},
 	"claude-3-7-sonnet-20250219": {
 		maxTokens: 8192,
 		contextWindow: 200_000,
 		supportsImages: true,
-		supportsComputerUse: true,
+
 		supportsPromptCache: true,
 		inputPrice: 3.0,
 		outputPrice: 15.0,
@@ -118,7 +150,7 @@ export const anthropicModels = {
 		maxTokens: 8192,
 		contextWindow: 200_000,
 		supportsImages: true,
-		supportsComputerUse: true,
+
 		supportsPromptCache: true,
 		inputPrice: 3.0, // $3 per million input tokens
 		outputPrice: 15.0, // $15 per million output tokens
@@ -265,7 +297,7 @@ export const bedrockModels = {
 
 // OpenRouter
 // https://openrouter.ai/models?order=newest&supported_parameters=tools
-export const openRouterDefaultModelId = "anthropic/claude-3.7-sonnet" // will always exist in openRouterModels
+export const openRouterDefaultModelId = "anthropic/claude-sonnet-4" // will always exist in openRouterModels
 export const openRouterDefaultModelInfo: ModelInfo = {
 	maxTokens: 8192,
 	contextWindow: 200_000,
@@ -277,7 +309,7 @@ export const openRouterDefaultModelInfo: ModelInfo = {
 	cacheWritesPrice: 3.75,
 	cacheReadsPrice: 0.3,
 	description:
-		"Claude 3.7 Sonnetは、推論、コーディング、問題解決能力が向上した高度な大規模言語モデルです。ハイブリッド推論アプローチを導入し、ユーザーが迅速な応答と、複雑なタスクのためのステップバイステップの詳細な処理を選択できるようになりました。このモデルは、特にフロントエンド開発やフルスタックの更新などのコーディングにおいて顕著な改善を示し、複数のステップを自律的にナビゲートできるエージェント型ワークフローにおいて優れています。\n\nClaude 3.7 Sonnetは標準モードでは前モデルと同等のパフォーマンスを維持しながら、数学、コーディング、指示に従うタスクにおいて精度を高めるための拡張推論モードを提供します。\n\n詳細は[ブログ記事](https://www.anthropic.com/news/claude-3-7-sonnet)をご覧ください。",
+		"Claude Sonnet 4は、推論、コーディング、問題解決能力が向上した高度な大規模言語モデルです。ハイブリッド推論アプローチを導入し、ユーザーが迅速な応答と、複雑なタスクのためのステップバイステップの詳細な処理を選択できるようになりました。このモデルは、特にフロントエンド開発やフルスタックの更新などのコーディングにおいて顕著な改善を示し、複数のステップを自律的にナビゲートできるエージェント型ワークフローにおいて優れています。\n\nClaude 4 Sonnetは標準モードでは前モデルと同等のパフォーマンスを維持しながら、数学、コーディング、指示に従うタスクにおいて精度を高めるための拡張推論モードを提供します。\n\n詳細は[ブログ記事](https://www.anthropic.com/news/claude-4)をご覧ください。",
 }
 // Vertex AI
 // https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/use-claude
@@ -1429,7 +1461,7 @@ export const sambanovaModels = {
 } as const satisfies Record<string, ModelInfo>
 
 // Bouga LMS
-export const bougaLmsDefaultModelId = "anthropic/claude-3.7-sonnet" // same as openRouterDefaultModelId
+export const bougaLmsDefaultModelId = "anthropic/claude-sonnet-4" // same as openRouterDefaultModelId
 export const bougaLmsDefaultModelInfo: ModelInfo = {
 	maxTokens: 8192,
 	contextWindow: 200_000,
@@ -1441,7 +1473,7 @@ export const bougaLmsDefaultModelInfo: ModelInfo = {
 	cacheWritesPrice: 3.75,
 	cacheReadsPrice: 0.3,
 	description:
-		"Claude 3.7 Sonnetは、推論、コーディング、問題解決能力が向上した高度な大規模言語モデルです。ハイブリッド推論アプローチを導入し、ユーザーが迅速な応答と、複雑なタスクのためのステップバイステップの詳細な処理を選択できるようになりました。このモデルは、特にフロントエンド開発やフルスタックの更新などのコーディングにおいて顕著な改善を示し、複数のステップを自律的にナビゲートできるエージェント型ワークフローにおいて優れています。\n\nClaude 3.7 Sonnetは標準モードでは前モデルと同等のパフォーマンスを維持しながら、数学、コーディング、指示に従うタスクにおいて精度を高めるための拡張推論モードを提供します。\n\n詳細は[ブログ記事](https://www.anthropic.com/news/claude-3-7-sonnet)をご覧ください。",
+		"Claude Sonnet 4は、推論、コーディング、問題解決能力が向上した高度な大規模言語モデルです。ハイブリッド推論アプローチを導入し、ユーザーが迅速な応答と、複雑なタスクのためのステップバイステップの詳細な処理を選択できるようになりました。このモデルは、特にフロントエンド開発やフルスタックの更新などのコーディングにおいて顕著な改善を示し、複数のステップを自律的にナビゲートできるエージェント型ワークフローにおいて優れています。\n\nClaude 4 Sonnetは標準モードでは前モデルと同等のパフォーマンスを維持しながら、数学、コーディング、指示に従うタスクにおいて精度を高めるための拡張推論モードを提供します。\n\n詳細は[ブログ記事](https://www.anthropic.com/news/claude-4)をご覧ください。",
 }
 
 export const bougaLmsModels = {
